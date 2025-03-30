@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
+        lowercase: true,
         unique: true,
         trim: true,
     },
@@ -24,6 +25,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+        select: false,
     },
     degree: {
         type: String,
@@ -36,6 +38,9 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
+        required: true,
+        trim: true,
+        lowercase: true,
         enum: ['user', 'moderator', 'admin'],
         default: 'user',
     },
