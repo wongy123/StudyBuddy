@@ -59,4 +59,21 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 });
 
 exports.deleteUser = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    if (req.user.id !== id && req.user.role !== 'admin') {
+        return res.status(403).json({
+            success: false,
+            message: 'You are not authorised to delete this user',
+        });
+    }
+
+    const user = await User.findByIdAndDelete(id);
+    if (!user) {
+        return res.status(404).json({
+            success: false,
+            message: 'User not found',
+        });
+    }
+
+    res.status(204).send();
 });
