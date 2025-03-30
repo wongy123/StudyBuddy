@@ -25,9 +25,6 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
     });
 });
 
-exports.createUser = asyncHandler(async (req, res, next) => {
-});
-
 exports.updateUser = asyncHandler(async (req, res, next) => {
 });
 
