@@ -6,12 +6,12 @@ validateJSON = require('../middleware/validateJSON');
 
 
 router.route('/')
-    .get(controller.getAllStudySessions)
-    .post(validateJSON, controller.createStudySession);
+    .get(controller.getAllSessions)
+    .post(validateJSON, controller.createSession);
 router.route('/:id')
-    .get(controller.getStudySessionById)
-    .put(validateJSON, controller.updateStudySession)
-    .delete(controller.deleteStudySession);
+    .get(controller.getSessionById)
+    .put(validateJSON, controller.updateSession)
+    .delete(controller.deleteSession);
 
 
 

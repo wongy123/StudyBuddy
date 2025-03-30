@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/User');
 const asyncHandler = require('express-async-handler');
 
 const checkUserExists = asyncHandler(async (req, res, next) => {
@@ -25,3 +25,5 @@ const checkUserExists = asyncHandler(async (req, res, next) => {
     }
     next();
 });
+
+module.exports = checkUserExists;

@@ -6,6 +6,14 @@ const indexRouter = require("./src/routes/index");
 const app = express();
 const port = process.env.PORT || 4000;
 
+const mongoDB = process.env.MONGODB_URI || "mongodb://localhost:27017/studybuddy";
+
+main().catch((err) => console.log(err));
+
+async function main() {
+    await mongoose.connect(mongoDB);
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());

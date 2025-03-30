@@ -1,4 +1,4 @@
-const Comment = require('../models/comment');
+const Comment = require('../models/Comment');
 const asyncHandler = require('express-async-handler');
 
 exports.getAllComments = asyncHandler(async (req, res, next) => {
