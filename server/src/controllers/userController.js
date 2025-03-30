@@ -1,16 +1,23 @@
 const User = require('../models/user');
+const asyncHandler = require('express-async-handler');
 
-exports.getAllUsers = async (req, res) => {
-};
+exports.getAllUsers = asyncHandler(async (req, res, next) => {
+    const users = await User.find().select('-password');
+    return res.status(200).json({
+        success: true,
+        count: users.length,
+        data: users,
+    });
+});
 
-exports.getUserById = async (req, res) => {
-};
+exports.getUserById = asyncHandler(async (req, res, next) => {
+});
 
-exports.createUser = async (req, res) => {
-};
+exports.createUser = asyncHandler(async (req, res, next) => {
+});
 
-exports.updateUser = async (req, res) => {
-};
+exports.updateUser = asyncHandler(async (req, res, next) => {
+});
 
-exports.deleteUser = async (req, res) => {
-};
+exports.deleteUser = asyncHandler(async (req, res, next) => {
+});

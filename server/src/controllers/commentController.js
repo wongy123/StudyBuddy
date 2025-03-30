@@ -1,16 +1,17 @@
 const Comment = require('../models/comment');
+const asyncHandler = require('express-async-handler');
 
-exports.getAllComments = async (req, res) => {
-};
+exports.getAllComments = asyncHandler(async (req, res, next) => {
+});
 
-exports.getCommentById = async (req, res) => {
-};
+exports.getCommentById = asyncHandler(async (req, res, next) => {
+});
 
-exports.createComment = async (req, res) => {
-};
+exports.createComment = asyncHandler(async (req, res, next) => {
+});
 
-exports.updateComment = async (req, res) => {
-};
+exports.updateComment = asyncHandler(async (req, res, next) => {
+});
 
-exports.deleteComment = async (req, res) => {
-};
+exports.deleteComment = asyncHandler(async (req, res, next) => {
+});

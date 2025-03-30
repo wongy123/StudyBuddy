@@ -1,16 +1,17 @@
 const StudySession = require('../models/StudySession');
+const asyncHandler = require('express-async-handler');
 
-exports.getAllSessions = async (req, res) => {
-};
+exports.getAllSessions = asyncHandler(async (req, res, next) => {
+});
 
-exports.getSessionById = async (req, res) => {
-};
+exports.getSessionById = asyncHandler(async (req, res, next) => {
+});
 
-exports.createSession = async (req, res) => {
-};
+exports.createSession = asyncHandler(async (req, res, next) => {
+});
 
-exports.updateSession = async (req, res) => {
-};
+exports.updateSession = asyncHandler(async (req, res, next) => {
+});
 
-exports.deleteSession = async (req, res) => {
-};
+exports.deleteSession = asyncHandler(async (req, res, next) => {
+});
