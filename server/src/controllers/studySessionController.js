@@ -2,6 +2,14 @@ const StudySession = require('../models/StudySession');
 const asyncHandler = require('express-async-handler');
 
 exports.getAllSessions = asyncHandler(async (req, res, next) => {
+    const sessions = await StudySession.find();
+    res.status(200).json({
+        status: 'success',
+        results: sessions.length,
+        data: {
+            sessions,
+        },
+    });
 });
 
 exports.getSessionById = asyncHandler(async (req, res, next) => {
