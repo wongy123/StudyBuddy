@@ -44,7 +44,52 @@ exports.createSession = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateSession = asyncHandler(async (req, res, next) => {
+    const session = await StudySession.findById(req.params.id);
+
+    if (!session) {
+        return res.status(404).json({
+            success: false,
+            message: "Study session not found",
+        });
+    }
+
+    const isCreator = session.createdBy.equals(req.user._id);
+
+    if (!isCreator && !isModmin(req.user)) {
+        return res.status(403).json({
+            success: false,
+            message: "You are not authorised to update this session",
+        });
+    }
+
+    const allowedFields = [
+        "title",
+        "description",
+        "courseCode",
+        "date",
+        "startTime",
+        "endTime",
+        "location"
+    ];
+
+    allowedFields.forEach((field) => {
+        if (req.body[field] !== undefined) {
+            session[field] = req.body[field];
+        }
+    });
+
+    const updatedSession = await session.save();
+
+    res.status(200).json({
+        success: true,
+        data: updatedSession,
+    });
 });
 
 exports.deleteSession = asyncHandler(async (req, res, next) => {
 });
+
+
+const isModmin = (user) => {
+    return user.role === 'admin' || user.role === 'moderator';
+};

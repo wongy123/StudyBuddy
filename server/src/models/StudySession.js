@@ -13,7 +13,7 @@ const studySessionSchema = new mongoose.Schema({
     },
     courseCode: {
         type: String,
-        required: true,
+        required: false,
         trim: true,
     },
     date: {
