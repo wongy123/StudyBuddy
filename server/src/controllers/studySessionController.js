@@ -24,6 +24,23 @@ exports.getSessionById = asyncHandler(async (req, res, next) => {
 });
 
 exports.createSession = asyncHandler(async (req, res, next) => {
+    const { title, description, courseCode = "", date, startTime, endTime, location } = req.body;
+
+    const session = new StudySession({
+        title,
+        description,
+        courseCode,
+        date,
+        startTime,
+        endTime,
+        location,
+        createdBy: req.user._id,
+        participants: [req.user._id], // auto-join the creator
+    });
+
+    const savedSession = await session.save();
+    res.status(201).json(savedSession);
+
 });
 
 exports.updateSession = asyncHandler(async (req, res, next) => {
