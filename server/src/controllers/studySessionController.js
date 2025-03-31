@@ -88,8 +88,3 @@ exports.updateSession = asyncHandler(async (req, res, next) => {
 
 exports.deleteSession = asyncHandler(async (req, res, next) => {
 });
-
-
-const isModmin = (user) => {
-    return user.role === 'admin' || user.role === 'moderator';
-};
