@@ -13,6 +13,14 @@ exports.getAllSessions = asyncHandler(async (req, res, next) => {
 });
 
 exports.getSessionById = asyncHandler(async (req, res, next) => {
+    const session = await StudySession.findById(req.params.id);
+
+    if (!session) {
+        res.status(404);
+        throw new Error('Study session not found');
+    }
+
+    res.status(200).json(session);
 });
 
 exports.createSession = asyncHandler(async (req, res, next) => {
