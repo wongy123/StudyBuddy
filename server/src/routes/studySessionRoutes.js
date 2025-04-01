@@ -15,6 +15,7 @@ router.route('/:id')
     .put(validateJSON, authenticateWithJwt, ownerOrModmin(StudySession), controller.updateSession)
     .delete(authenticateWithJwt, ownerOrModmin(StudySession), controller.deleteSession);
 
-
+router.route('/:id/join')
+    .post(authenticateWithJwt, controller.joinSession);
 
 module.exports = router;

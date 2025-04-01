@@ -78,3 +78,35 @@ exports.deleteSession = asyncHandler(async (req, res, next) => {
 
     res.status(204).send();
 });
+
+exports.joinSession = asyncHandler(async (req, res) => {
+    const sessionId = req.params.id;
+
+    const session = await StudySession.findById(sessionId);
+    if (!session) {
+        return res.status(404).json({
+            success: false,
+            message: "Study session not found",
+        });
+    }
+
+    const alreadyJoined = session.participants.some(participantId =>
+        participantId.equals(req.user._id)
+    );
+
+    if (alreadyJoined) {
+        return res.status(400).json({
+            success: false,
+            message: "You have already joined this session",
+        });
+    }
+
+    session.participants.push(req.user._id);
+    await session.save();
+
+    res.status(200).json({
+        success: true,
+        message: "Successfully joined the session",
+        data: session,
+    });
+});
