@@ -40,15 +40,12 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     delete updates.email;
     delete updates.userName;
 
-    const updatedUser = await User.findByIdAndUpdate(id, updates, {
-        new: true,
-        runValidators: true,
-    });
-
+    Object.assign(req.resource, updates);
+    const updatedUser = await req.resource.save();
     if (!updatedUser) {
-        return res.status(404).json({
+        return res.status(400).json({
             success: false,
-            message: 'User not found',
+            message: 'Error updating user',
         });
     }
 
@@ -59,21 +56,6 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 });
 
 exports.deleteUser = asyncHandler(async (req, res, next) => {
-    const { id } = req.params;
-    // if (req.user.id !== id && req.user.role !== 'admin') {
-    //     return res.status(403).json({
-    //         success: false,
-    //         message: 'You are not authorised to delete this user',
-    //     });
-    // }
-
-    const user = await User.findByIdAndDelete(id);
-    if (!user) {
-        return res.status(404).json({
-            success: false,
-            message: 'User not found',
-        });
-    }
-
+    await req.resource.deleteOne();
     res.status(204).send();
 });
