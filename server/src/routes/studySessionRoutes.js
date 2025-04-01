@@ -6,6 +6,7 @@ const validateJSON = require('../middleware/validateJSON');
 const authenticateWithJwt = require('../middleware/authenticateWithJwt');
 const ownerOrModmin = require('../middleware/ownerOrModmin');
 const StudySession = require('../models/StudySession');
+const commentRouter = require('./commentRoutes');
 
 router.route('/')
     .get(authenticateWithJwt, controller.getAllSessions)
@@ -18,6 +19,9 @@ router.route('/:id')
 router.post('/:id/join', authenticateWithJwt, controller.joinSession);
 
 router.post('/:id/leave', authenticateWithJwt, controller.leaveSession);
+
+
+router.use('/:sessionId/comments', commentRouter);
 
 
 module.exports = router;

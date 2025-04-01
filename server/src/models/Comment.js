@@ -5,12 +5,12 @@ const commentSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    sessionId: {
+    session: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Session",
+        ref: "StudySession",
         required: true,
     },
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
