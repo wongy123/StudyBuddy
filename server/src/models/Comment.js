@@ -21,4 +21,9 @@ const commentSchema = new mongoose.Schema({
     }
 });
 
+commentSchema.pre(/^find/, function (next) {
+    this.populate("user", "userName displayName");
+    next();
+});
+
 module.exports = mongoose.model("Comment", commentSchema);

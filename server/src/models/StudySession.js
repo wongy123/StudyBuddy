@@ -48,4 +48,10 @@ const studySessionSchema = new mongoose.Schema({
     ]
 });
 
+studySessionSchema.pre(/^find/, function (next) {
+    this.populate("createdBy", "userName displayName")
+        .populate("participants", "userName displayName");
+    next();
+});
+
 module.exports = mongoose.model("StudySession", studySessionSchema);
