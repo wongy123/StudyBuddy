@@ -2,16 +2,18 @@ const express = require('express');
 const router = express.Router();
 
 const controller = require('../controllers/studySessionController');
-validateJSON = require('../middleware/validateJSON');
-
+const validateJSON = require('../middleware/validateJSON');
+const authenticateWithJwt = require('../middleware/authenticateWithJwt');
+const ownerOrModmin = require('../middleware/ownerOrModmin');
+const StudySession = require('../models/StudySession');
 
 router.route('/')
-    .get(controller.getAllSessions)
-    .post(validateJSON, controller.createSession);
+    .get(authenticateWithJwt, controller.getAllSessions)
+    .post(validateJSON, authenticateWithJwt, controller.createSession);
 router.route('/:id')
     .get(controller.getSessionById)
-    .put(validateJSON, controller.updateSession)
-    .delete(controller.deleteSession);
+    .put(validateJSON, authenticateWithJwt, ownerOrModmin(StudySession), controller.updateSession)
+    .delete(authenticateWithJwt, ownerOrModmin(StudySession), controller.deleteSession);
 
 
 

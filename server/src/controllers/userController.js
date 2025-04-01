@@ -26,14 +26,6 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateUser = asyncHandler(async (req, res, next) => {
-    const { id } = req.params;
-    // if (req.user.id !== id && req.user.role !== 'admin') {
-    //     return res.status(403).json({
-    //         success: false,
-    //         message: 'You are not authorised to update this user',
-    //     });
-    // }
-
     const updates = { ...req.body };
     delete updates.role;
     delete updates.password;
