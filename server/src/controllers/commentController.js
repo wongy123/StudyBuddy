@@ -14,6 +14,24 @@ exports.getAllComments = asyncHandler(async (req, res, next) => {
 });
 
 exports.getCommentById = asyncHandler(async (req, res, next) => {
+    const { sessionId, id } = req.params;
+
+    const comment = await Comment.findOne({
+        _id: id,
+        session: sessionId,
+    }).populate("user", "userName displayName");
+
+    if (!comment) {
+        return res.status(404).json({
+            success: false,
+            message: "Comment not found for this session",
+        });
+    }
+
+    res.status(200).json({
+        success: true,
+        data: comment,
+    });
 });
 
 exports.createComment = asyncHandler(async (req, res, next) => {
