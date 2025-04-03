@@ -18,10 +18,12 @@ const checkUserExists = asyncHandler(async (req, res, next) => {
         if (user.userName === userName) conflictFields.push("Username");
         if (user.email === email) conflictFields.push("Email");
 
-        return res.status(409).json({
-            success: false,
-            message: `${conflictFields.join(" and ")} already exist${conflictFields.length > 1 ? '' : 's'}`,
-        });
+        if (conflictFields.length > 0) {
+            return res.status(409).json({
+                success: false,
+                message: `${conflictFields.join(" and ")} already exist${conflictFields.length > 1 ? '' : 's'}`,
+            });
+        }
     }
     next();
 });
