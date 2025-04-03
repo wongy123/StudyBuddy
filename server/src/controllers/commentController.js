@@ -2,7 +2,7 @@ const Comment = require('../models/Comment');
 const asyncHandler = require('express-async-handler');
 
 exports.getAllComments = asyncHandler(async (req, res, next) => {
-    const sessionId = req.params.sessionId;
+    const { sessionId } = req.params;
     const comments = await Comment.find({ session: sessionId });
     res.status(200).json({
         status: 'success',
@@ -35,6 +35,28 @@ exports.getCommentById = asyncHandler(async (req, res, next) => {
 });
 
 exports.createComment = asyncHandler(async (req, res, next) => {
+    const content = req.body.content?.trim();
+    const { sessionId } = req.params;
+    const { _id: userId } = req.user;
+
+    if (!content) {
+        return res.status(400).json({
+            success: false,
+            message: "Comment cannot be empty",
+        });
+    }
+
+    const comment = new Comment({
+        content,
+        session: sessionId,
+        user: userId,
+    });
+    const savedComment = await comment.save();
+    await savedComment.populate("user", "userName displayName");
+    res.status(201).json({
+        success: true,
+        data: savedComment,
+    });
 });
 
 exports.updateComment = asyncHandler(async (req, res, next) => {

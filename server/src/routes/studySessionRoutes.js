@@ -21,7 +21,7 @@ router.post('/:id/join', authenticateWithJwt, controller.joinSession);
 router.post('/:id/leave', authenticateWithJwt, controller.leaveSession);
 
 
-router.use('/:sessionId/comments', commentRouter);
+router.use('/:sessionId/comments', authenticateWithJwt, commentRouter);
 
 
 module.exports = router;
