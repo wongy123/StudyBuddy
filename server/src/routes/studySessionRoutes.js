@@ -7,13 +7,14 @@ const authenticateWithJwt = require('../middleware/authenticateWithJwt');
 const ownerOrModmin = require('../middleware/ownerOrModmin');
 const StudySession = require('../models/StudySession');
 const commentRouter = require('./commentRoutes');
+const { validateSession, validateSessionUpdate } = require('../validators/validateSession');
 
 router.route('/')
     .get(authenticateWithJwt, controller.getAllSessions)
-    .post(validateJSON, authenticateWithJwt, controller.createSession);
+    .post(authenticateWithJwt, validateJSON, validateSession, controller.createSession);
 router.route('/:id')
     .get(controller.getSessionById)
-    .put(validateJSON, authenticateWithJwt, ownerOrModmin(StudySession), controller.updateSession)
+    .put(authenticateWithJwt, validateJSON, validateSessionUpdate, ownerOrModmin(StudySession), controller.updateSession)
     .delete(authenticateWithJwt, ownerOrModmin(StudySession), controller.deleteSession);
 
 router.post('/:id/join', authenticateWithJwt, controller.joinSession);
