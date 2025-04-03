@@ -7,13 +7,14 @@ const authenticateWithJwt = require('../middleware/authenticateWithJwt');
 const ownerOrAdmin = require('../middleware/ownerOrAdmin');
 const User = require('../models/User');
 const adminAccess = require('../middleware/adminAccess');
+const { validateUserUpdate } = require('../validators/validateUser');
 
 
 router.route('/')
     .get(authenticateWithJwt, adminAccess, controller.getAllUsers)
 router.route('/:id')
     .get(controller.getUserById)
-    .put(validateJSON, authenticateWithJwt, ownerOrAdmin(User, "_id"), controller.updateUser)
+    .put(authenticateWithJwt, validateJSON, ownerOrAdmin(User, "_id"), validateUserUpdate, controller.updateUser)
     .delete(authenticateWithJwt, ownerOrAdmin(User, "_id"), controller.deleteUser);
 
 module.exports = router;
