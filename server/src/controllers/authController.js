@@ -59,3 +59,10 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
         user: userObj,
     });
 });
+
+exports.logoutUser = (req, res, next) => {
+    res.status(200).json({
+        success: true,
+        message: "Logged out successfully",
+    });
+};
