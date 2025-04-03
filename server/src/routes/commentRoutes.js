@@ -4,13 +4,14 @@ const router = express.Router({ mergeParams: true });
 const controller = require('../controllers/commentController');
 const validateJSON = require('../middleware/validateJSON');
 const Comment = require('../models/Comment');
+const { validateComment } = require('../validators/validateComment');
 
 router.route('/')
     .get(controller.getAllComments)
-    .post(validateJSON, controller.createComment);
+    .post(validateJSON, validateComment, controller.createComment);
 router.route('/:id')
     .get(controller.getCommentById)
-    .put(validateJSON, ownerOrModmin(Comment, "user"), controller.updateComment)
+    .put(validateJSON, validateComment, ownerOrModmin(Comment, "user"), controller.updateComment)
     .delete(ownerOrModmin(Comment, "user"), controller.deleteComment);
 
 

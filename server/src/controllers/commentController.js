@@ -35,22 +35,16 @@ exports.getCommentById = asyncHandler(async (req, res, next) => {
 });
 
 exports.createComment = asyncHandler(async (req, res, next) => {
-    const content = req.body.content?.trim();
+    const { content } = req.body;
     const { sessionId } = req.params;
     const { _id: userId } = req.user;
-
-    if (!content) {
-        return res.status(400).json({
-            success: false,
-            message: "Comment cannot be empty",
-        });
-    }
 
     const comment = new Comment({
         content,
         session: sessionId,
         user: userId,
     });
+
     const savedComment = await comment.save();
     await savedComment.populate("user", "userName displayName");
     res.status(201).json({
@@ -60,7 +54,7 @@ exports.createComment = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateComment = asyncHandler(async (req, res, next) => {
-    const content = req.body.content?.trim();
+    const { content } = req.body;
 
     if (!content) {
         return res.status(400).json({
