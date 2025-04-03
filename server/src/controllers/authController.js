@@ -2,7 +2,7 @@ const User = require('../models/User');
 const asyncHandler = require('express-async-handler');
 
 exports.registerUser = asyncHandler(async (req, res, next) => {
-    let { userName, displayName = userName, email, password, degree, profileBio = '' } = req.body;
+    let { userName, displayName, email, password, degree, profileBio = '' } = req.body;
 
     if (!userName || !email || !password || !degree) {
         return res.status(400).json({
@@ -10,6 +10,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
             message: 'Please provide a username and email',
         });
     }
+    displayName = displayName || userName;
 
     const user = await User.create({
         userName,
