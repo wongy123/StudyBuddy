@@ -9,8 +9,8 @@ router.route('/')
     .post(validateJSON, controller.createComment);
 router.route('/:id')
     .get(controller.getCommentById)
-    .put(validateJSON, controller.updateComment)
-    .delete(controller.deleteComment);
+    .put(validateJSON, ownerOrModmin(Comment, "user"), controller.updateComment)
+    .delete(ownerOrModmin(Comment, "user"), controller.deleteComment);
 
 
 

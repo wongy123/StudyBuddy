@@ -60,6 +60,27 @@ exports.createComment = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateComment = asyncHandler(async (req, res, next) => {
+    exports.updateComment = asyncHandler(async (req, res) => {
+        const content = req.body.content?.trim();
+
+        if (!content) {
+            return res.status(400).json({
+                success: false,
+                message: "Comment cannot be empty.",
+            });
+        }
+
+        const comment = req.resource;
+        comment.content = content;
+
+        const updatedComment = await comment.save();
+        await updatedComment.populate("user", "userName displayName");
+
+        res.status(200).json({
+            success: true,
+            data: updatedComment,
+        });
+    });
 });
 
 exports.deleteComment = asyncHandler(async (req, res, next) => {
