@@ -5,6 +5,7 @@ const controller = require('../controllers/commentController');
 const validateJSON = require('../middleware/validateJSON');
 const Comment = require('../models/Comment');
 const { validateComment } = require('../validators/validateComment');
+const ownerOrModmin = require('../middleware/ownerOrModmin');
 
 router.route('/')
     .get(controller.getAllComments)
