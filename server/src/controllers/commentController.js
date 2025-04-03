@@ -84,4 +84,9 @@ exports.updateComment = asyncHandler(async (req, res, next) => {
 });
 
 exports.deleteComment = asyncHandler(async (req, res, next) => {
+    const comment = req.resource;
+
+    await comment.deleteOne();
+
+    res.status(204).send();
 });
