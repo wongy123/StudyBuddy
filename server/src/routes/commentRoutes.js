@@ -3,6 +3,7 @@ const router = express.Router({ mergeParams: true });
 
 const controller = require('../controllers/commentController');
 const validateJSON = require('../middleware/validateJSON');
+const Comment = require('../models/Comment');
 
 router.route('/')
     .get(controller.getAllComments)
