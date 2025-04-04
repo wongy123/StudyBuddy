@@ -1,17 +1,11 @@
 {
   "v": 6,
   "name": "StudyBuddy API",
-  "requests": [],
-  "auth": {
-    "authType": "inherit",
-    "authActive": true
-  },
-  "headers": [],
-  "_ref_id": "coll_m92w117i_1416438d-a55d-4c34-8e7b-975f55d307e6",
   "folders": [
     {
       "v": 6,
       "name": "User 1 Create Session and Comment",
+      "folders": [],
       "requests": [
         {
           "v": "11",
@@ -243,12 +237,12 @@
         "authActive": true
       },
       "headers": [],
-      "_ref_id": "coll_m92w117i_73c02dba-dd9e-400b-9d23-036084b901dd",
-      "folders": []
+      "_ref_id": "coll_m92w117i_73c02dba-dd9e-400b-9d23-036084b901dd"
     },
     {
       "v": 6,
       "name": "User 2 Join Session 1 and Try Unauth, Make Session 2 and Comment",
+      "folders": [],
       "requests": [
         {
           "v": "11",
@@ -620,12 +614,12 @@
         "authActive": true
       },
       "headers": [],
-      "_ref_id": "coll_m92w117i_59e27973-e0f7-4b45-b7aa-ea9f7076d8f7",
-      "folders": []
+      "_ref_id": "coll_m92w117i_59e27973-e0f7-4b45-b7aa-ea9f7076d8f7"
     },
     {
       "v": 6,
       "name": "User 1 - Delete Session 1 and Comment 1",
+      "folders": [],
       "requests": [
         {
           "v": "11",
@@ -863,12 +857,12 @@
         "authActive": true
       },
       "headers": [],
-      "_ref_id": "coll_m92w117i_f92aba53-ea4a-4516-a575-cf4f3023add0",
-      "folders": []
+      "_ref_id": "coll_m92w117i_f92aba53-ea4a-4516-a575-cf4f3023add0"
     },
     {
       "v": 6,
       "name": "Unauth - Try Get All Users and Sessions",
+      "folders": [],
       "requests": [
         {
           "v": "11",
@@ -976,12 +970,12 @@
         "authActive": true
       },
       "headers": [],
-      "_ref_id": "coll_m92w117i_ac7d448b-1170-4e95-9e2b-019e8a171899",
-      "folders": []
+      "_ref_id": "coll_m92w117i_ac7d448b-1170-4e95-9e2b-019e8a171899"
     },
     {
       "v": 6,
       "name": "Admin - Update and Delete Session 2 and Comment 2, then Delete User 1",
+      "folders": [],
       "requests": [
         {
           "v": "11",
@@ -998,7 +992,7 @@
           },
           "body": {
             "contentType": "application/json",
-            "body": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"password\"\r\n}"
+            "body": "{\r\n    \"email\": \"n11941073@qut.edu.au\",\r\n    \"password\": \"password\"\r\n}"
           },
           "requestVariables": [],
           "responses": {}
@@ -1254,6 +1248,33 @@
           },
           "requestVariables": [],
           "responses": {}
+        },
+        {
+          "v": "11",
+          "endpoint": "<<base_url>>/api/users/<<admin_id>>",
+          "name": "Admin - Delete Admin",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<jwt_admin>>",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "method": "DELETE",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
         }
       ],
       "auth": {
@@ -1261,8 +1282,14 @@
         "authActive": true
       },
       "headers": [],
-      "_ref_id": "coll_m92w117i_c05949e9-bffb-493b-a273-90de3f224de2",
-      "folders": []
+      "_ref_id": "coll_m92w117i_c05949e9-bffb-493b-a273-90de3f224de2"
     }
-  ]
+  ],
+  "requests": [],
+  "auth": {
+    "authType": "inherit",
+    "authActive": true
+  },
+  "headers": [],
+  "_ref_id": "coll_m92w117i_1416438d-a55d-4c34-8e7b-975f55d307e6"
 }
