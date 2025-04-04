@@ -1,0 +1,62 @@
+{
+  "id": "uhqkje5n0x",
+  "v": 1,
+  "name": "StudyBuddy",
+  "variables": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:4000",
+      "secret": false
+    },
+    {
+      "key": "jwt_user1",
+      "value": "",
+      "secret": false
+    },
+    {
+      "key": "jwt_user2",
+      "value": "",
+      "secret": false
+    },
+    {
+      "key": "user1_id",
+      "value": "",
+      "secret": false
+    },
+    {
+      "key": "user2_id",
+      "value": "",
+      "secret": false
+    },
+    {
+      "key": "session_id_1",
+      "value": "",
+      "secret": false
+    },
+    {
+      "key": "session_id_2",
+      "value": "",
+      "secret": false
+    },
+    {
+      "key": "comment_id_1",
+      "value": "",
+      "secret": false
+    },
+    {
+      "key": "comment_id_2",
+      "value": "",
+      "secret": false
+    },
+    {
+      "key": "jwt_admin",
+      "value": "",
+      "secret": false
+    },
+    {
+      "key": "admin_id",
+      "value": "",
+      "secret": false
+    }
+  ]
+}
