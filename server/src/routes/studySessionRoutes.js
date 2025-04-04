@@ -13,7 +13,7 @@ router.route('/')
     .get(authenticateWithJwt, controller.getAllSessions)
     .post(authenticateWithJwt, validateJSON, validateSession, controller.createSession);
 router.route('/:id')
-    .get(controller.getSessionById)
+    .get(authenticateWithJwt, controller.getSessionById)
     .put(authenticateWithJwt, validateJSON, validateSessionUpdate, ownerOrModmin(StudySession), controller.updateSession)
     .delete(authenticateWithJwt, ownerOrModmin(StudySession), controller.deleteSession);
 

@@ -11,7 +11,7 @@ const ownerOrModmin = (model, ownerField = "createdBy") =>
             });
         }
 
-        const ownerId = resource[ownerField];
+        const ownerId = resource[ownerField]?._id || resource[ownerField];
         const isOwner = ownerId && req.user._id.equals(ownerId);
         const isModmin = ["admin", "moderator"].includes(req.user.role);
 

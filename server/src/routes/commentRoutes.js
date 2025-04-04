@@ -6,6 +6,9 @@ const validateJSON = require('../middleware/validateJSON');
 const Comment = require('../models/Comment');
 const { validateComment } = require('../validators/validateComment');
 const ownerOrModmin = require('../middleware/ownerOrModmin');
+const authenticateWithJwt = require('../middleware/authenticateWithJwt');
+
+router.use(authenticateWithJwt);
 
 router.route('/')
     .get(controller.getAllComments)
