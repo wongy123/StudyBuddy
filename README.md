@@ -35,7 +35,7 @@ Install the dependencies
 
 Create admin user
 
-`node createAdmin`
+`npm run createAdmin`
 
 Run the server
 
