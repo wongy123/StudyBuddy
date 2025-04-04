@@ -105,10 +105,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user1}}"
 							}
 						],
 						"body": {
@@ -160,10 +156,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user1}}"
 							}
 						],
 						"body": {
@@ -201,10 +193,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user1}}"
 							}
 						],
 						"body": {
@@ -256,10 +244,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user1}}"
 							}
 						],
 						"body": {
@@ -299,10 +283,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user1}}"
 							}
 						],
 						"body": {
@@ -420,12 +400,7 @@
 							]
 						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user2}}"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/sessions/{{session_id_1}}/join",
 							"host": [
@@ -459,10 +434,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user2}}"
 							}
 						],
 						"body": {
@@ -497,12 +468,7 @@
 							]
 						},
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user2}}"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/sessions/{{session_id_1}}",
 							"host": [
@@ -535,10 +501,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user2}}"
 							}
 						],
 						"body": {
@@ -575,12 +537,7 @@
 							]
 						},
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user2}}"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/sessions/{{session_id_1}}/comments/{{comment_id_1}}",
 							"host": [
@@ -615,10 +572,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user2}}"
 							}
 						],
 						"body": {
@@ -653,12 +606,7 @@
 							]
 						},
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user2}}"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/users/{{user1_id}}",
 							"host": [
@@ -704,10 +652,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user1}}"
 							}
 						],
 						"body": {
@@ -758,10 +702,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user1}}"
 							}
 						],
 						"body": {
@@ -797,12 +737,7 @@
 							]
 						},
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user2}}"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/users/{{user2_id}}",
 							"host": [
@@ -887,12 +822,7 @@
 							]
 						},
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user1}}"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/sessions/{{session_id_1}}/comments/{{comment_id_1}}",
 							"host": [
@@ -923,12 +853,7 @@
 							]
 						},
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user1}}"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/sessions/{{session_id_1}}",
 							"host": [
@@ -1528,12 +1453,7 @@
 							]
 						},
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{jwt_user2}}"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/users/{{user1_id}}",
 							"host": [
