@@ -998,7 +998,7 @@
           },
           "body": {
             "contentType": "application/json",
-            "body": "{\r\n    \"email\": \"n11941073@qut.edu.au\",\r\n    \"password\": \"password\"\r\n}"
+            "body": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"password\"\r\n}"
           },
           "requestVariables": [],
           "responses": {}
