@@ -18,12 +18,12 @@ const createAdminUser = async () => {
         }
 
         // Create admin
-        const hashedPassword = await bcrypt.hash("password", 10);
+        const password = "password";
         const admin = new User({
             userName,
             displayName: "Administrator",
             email,
-            password: hashedPassword,
+            password: password,
             degree: "Master of Management",
             role: "admin",
         });

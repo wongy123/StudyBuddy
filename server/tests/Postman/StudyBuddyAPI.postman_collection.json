@@ -1469,7 +1469,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Admin - Delete Admin",
 					"request": {
 						"auth": {
 							"type": "bearer",
