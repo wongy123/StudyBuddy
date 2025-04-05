@@ -1,5 +1,5 @@
 import { AppBar, Toolbar, Typography, Box } from '@mui/material';
-import LoginButton from './ui/LoginButton';
+import AuthButton from './ui/AuthButton';
 
 const Header = () => {
     return (
@@ -8,7 +8,7 @@ const Header = () => {
                 <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
                     📚 Study Buddy
                 </Typography>
-                <LoginButton />
+                <AuthButton />
             </Toolbar>
         </AppBar>
     );
