@@ -7,6 +7,7 @@ import LoginLayout from './components/LoginLayout';
 import HomePage from './pages/Home';
 import StudySessionPage from './pages/StudySession';
 import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register';
 
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
 
         <Route element={<LoginLayout />}>
           <Route path="/login" element={<LoginPage />} />
-          {/* <Route path="/register" element={<RegisterPage />} /> */}
+          <Route path="/register" element={<RegisterPage />} />
         </Route>
       </Routes>
     </>
