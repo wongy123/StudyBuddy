@@ -70,7 +70,7 @@ const RegisterForm = () => {
                 open={successOpen}
                 autoHideDuration={2000}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-
+                onClose={() => setSuccessOpen(false)}
             >
                 <Alert severity="success" variant="filled" onClose={() => setSuccessOpen(false)}>
                     Registration successful! Redirecting to login...
