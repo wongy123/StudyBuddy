@@ -1,22 +1,56 @@
-import { Box, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import CommentCard from './CommentCard';
+import { Typography } from '@mui/material';
 
-const CommentList = ({ sessionId }) => {
-  // Placeholder: you can replace with fetch later
-  const comments = [
-    { id: 1, author: 'Alice', text: 'Great session last time!' },
-    { id: 2, author: 'Bob', text: 'Can we cover binary trees too?' },
-  ];
+const CommentList = () => {
+  const { sessionId } = useParams();
+  const [comments, setComments] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await fetch(`/api/sessions/${sessionId}/comments`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          setComments(result.data.comments);
+        } else {
+          setError(result.message || 'Failed to load comments.');
+        }
+      } catch (err) {
+        console.error(err);
+        setError('Error fetching comments.');
+      }
+    };
+
+    fetchComments();
+  }, [sessionId]);
 
   return (
-    <Box>
-      <Typography variant="h6" gutterBottom>
-        Comments
+    <>
+      <Typography variant="h5" gutterBottom mt={4}>
+        💬 Comments
       </Typography>
-      {comments.map((comment) => (
-        <CommentCard key={comment.id} {...comment} />
-      ))}
-    </Box>
+      {error && (
+        <Typography color="error" sx={{ mb: 2 }}>
+          {error}
+        </Typography>
+      )}
+      {comments.length === 0 && !error ? (
+        <Typography variant="body2" color="text.secondary">
+          No comments yet.
+        </Typography>
+      ) : (
+        comments.map((comment) => <CommentCard key={comment._id} {...comment} />)
+      )}
+    </>
   );
 };
 

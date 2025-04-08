@@ -1,12 +1,23 @@
-import { Paper, Typography } from '@mui/material';
+import { Paper, Box, Typography } from '@mui/material';
+import { formatDate } from '../../utils/formatDate'; // adjust path if needed
 
-const CommentCard = ({ author, text }) => {
+const CommentCard = ({ user, createdAt, content }) => {
   return (
-    <Paper sx={{ p: 2, mb: 2 }}>
-      <Typography variant="subtitle2" color="text.secondary">
-        {author}
+    <Paper elevation={1} sx={{ p: 2, mb: 2 }}>
+      {/* Header row: name + date */}
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
+        <Typography variant="subtitle1" fontWeight="bold">
+          {user.displayName} <Typography variant="body2" component="span" color="text.secondary">(@{user.userName})</Typography>
+        </Typography>
+        <Typography variant="caption" color="text.secondary">
+          {formatDate(createdAt)}
+        </Typography>
+      </Box>
+
+      {/* Comment body */}
+      <Typography variant="body1">
+        {content}
       </Typography>
-      <Typography variant="body1">{text}</Typography>
     </Paper>
   );
 };

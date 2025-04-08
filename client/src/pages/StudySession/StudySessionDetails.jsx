@@ -48,7 +48,7 @@ const StudySessionDetails = ({ title, description, courseCode, date, startTime, 
       </Typography>
       {participants.map((p) => (
         <Typography key={p.userName} sx={{ ml: 1 }}>
-          • {p.displayName}
+          💻 {p.displayName}
         </Typography>
       ))}
     </Paper>
