@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Typography } from '@mui/material';
-import CommentList from './CommentList';
 import StudySessionDetails from './StudySessionDetails';
+import CommentSection from './CommentSection';
 
 const StudySessionPage = () => {
   const { sessionId } = useParams();
@@ -45,7 +45,7 @@ const StudySessionPage = () => {
       {session ? (
         <>
           <StudySessionDetails {...session} onJoinSuccess={fetchSession} />
-          <CommentList />
+          <CommentSection />
         </>
       ) : (
         !error && <Typography>Loading...</Typography>
