@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { Box, TextField, Button, CircularProgress } from '@mui/material';
+import {
+  Box,
+  TextField,
+  InputAdornment,
+  Button,
+  CircularProgress,
+} from '@mui/material';
 
 const CommentForm = ({ onSubmit }) => {
   const [content, setContent] = useState('');
@@ -20,7 +26,7 @@ const CommentForm = ({ onSubmit }) => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault(); // prevent newline
+      e.preventDefault();
       handlePost();
     }
   };
@@ -29,23 +35,27 @@ const CommentForm = ({ onSubmit }) => {
     <Box sx={{ mt: 3 }}>
       <TextField
         fullWidth
-        multiline
-        placeholder="Write your comment here..."
+        variant="outlined"
+        placeholder="Write a comment..."
         value={content}
         onChange={(e) => setContent(e.target.value)}
         onKeyDown={handleKeyDown}
         disabled={loading}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <Button
+                variant="contained"
+                onClick={handlePost}
+                disabled={!content.trim() || loading}
+                sx={{ minWidth: 80 }}
+              >
+                {loading ? <CircularProgress size={20} color="inherit" /> : 'Post'}
+              </Button>
+            </InputAdornment>
+          ),
+        }}
       />
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
-        <Button
-          variant="contained"
-          onClick={handlePost}
-          disabled={!content.trim() || loading}
-          endIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}
-        >
-          Post
-        </Button>
-      </Box>
     </Box>
   );
 };
