@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import { formatDate } from "../../utils/formatDate";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { getUserIdFromToken } from "../../utils/getUserIdFromToken";
+import { useParams, useNavigate } from "react-router-dom";
+import { getUserFromToken } from "../../utils/getUserFromToken";
 
 const StudySessionDetails = ({
   title,
@@ -27,11 +27,13 @@ const StudySessionDetails = ({
 }) => {
   const { sessionId } = useParams();
   const token = localStorage.getItem("token");
-  const userId = getUserIdFromToken(token);
+  const { id: userId, role: userRole } = getUserFromToken(token);
 
   const isParticipant = participants.some(
     (p) => String(p._id) === String(userId)
   );
+  const isOwner = String(createdBy._id) === String(userId);
+  const isModmin = userRole === "admin" || userRole === "moderator";
 
   const [snackOpen, setSnackOpen] = useState(false);
   const [snackMessage, setSnackMessage] = useState("");
@@ -71,6 +73,38 @@ const StudySessionDetails = ({
       setSnackOpen(true);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    if (!window.confirm("Are you sure you want to delete this session?"))
+      return;
+    try {
+      const res = await fetch(`/api/sessions/${sessionId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        setSnackMessage("Session deleted.");
+        setSnackSeverity("success");
+        setSnackOpen(true);
+        setTimeout(() => navigate("/"), 1500); // redirect home
+      } else {
+        const result = await res.json();
+        setSnackMessage(result.message || "Failed to delete session.");
+        setSnackSeverity("error");
+        setSnackOpen(true);
+      }
+    } catch (err) {
+      console.error(err);
+      setSnackMessage("Something went wrong while deleting.");
+      setSnackSeverity("error");
+      setSnackOpen(true);
     }
   };
 
@@ -144,6 +178,16 @@ const StudySessionDetails = ({
         >
           {isParticipant ? "Leave" : "Join"}
         </Button>
+        {(isOwner || isModmin) && (
+          <Button
+            variant="outlined"
+            color="error"
+            sx={{ ml: 2 }}
+            onClick={handleDelete}
+          >
+            Delete
+          </Button>
+        )}
       </Paper>
 
       <Snackbar
