@@ -1,5 +1,5 @@
 import { Paper, Box, Typography } from '@mui/material';
-import { formatDate } from '../../utils/formatDate'; // adjust path if needed
+import { formatDistanceToNow } from 'date-fns';
 
 const CommentCard = ({ user, createdAt, content }) => {
   return (
@@ -10,7 +10,7 @@ const CommentCard = ({ user, createdAt, content }) => {
           {user.displayName} <Typography variant="body2" component="span" color="text.secondary">(@{user.userName})</Typography>
         </Typography>
         <Typography variant="caption" color="text.secondary">
-          {formatDate(createdAt)}
+          {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}
         </Typography>
       </Box>
 
