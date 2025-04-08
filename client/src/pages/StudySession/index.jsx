@@ -9,28 +9,28 @@ const StudySessionPage = () => {
   const [session, setSession] = useState(null);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const res = await fetch(`/api/sessions/${sessionId}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+  const fetchSession = async () => {
+    try {
+      const res = await fetch(`/api/sessions/${sessionId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
 
-        const result = await res.json();
+      const result = await res.json();
 
-        if (res.ok) {
-          setSession(result);
-        } else {
-          setError(result.message || 'Failed to fetch session.');
-        }
-      } catch (err) {
-        setError('Something went wrong while fetching the session.');
-        console.error(err);
+      if (res.ok) {
+        setSession(result);
+      } else {
+        setError(result.message || 'Failed to fetch session.');
       }
-    };
+    } catch (err) {
+      setError('Something went wrong while fetching the session.');
+      console.error(err);
+    }
+  };
 
+  useEffect(() => {
     fetchSession();
   }, [sessionId]);
 
@@ -44,7 +44,7 @@ const StudySessionPage = () => {
 
       {session ? (
         <>
-          <StudySessionDetails {...session} />
+          <StudySessionDetails {...session} onJoinSuccess={fetchSession} />
           <CommentList />
         </>
       ) : (

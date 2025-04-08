@@ -83,11 +83,11 @@ const StudySessionCard = ({ title, description, courseCode, date, startTime, end
       </Paper>
       <Snackbar
         open={snackOpen}
-        autoHideDuration={3000}
+        autoHideDuration={2000}
         onClose={() => setSnackOpen(false)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert onClose={() => setSnackOpen(false)} severity={snackSeverity} variant="filled">
+        <Alert autoHideDuration={2000} onClose={() => setSnackOpen(false)} severity={snackSeverity} variant="filled">
           {snackMessage}
         </Alert>
       </Snackbar>
