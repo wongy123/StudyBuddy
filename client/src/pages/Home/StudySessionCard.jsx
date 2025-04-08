@@ -52,7 +52,7 @@ const handleJoin = async () => {
           </Typography>
         </Grid>
         <Grid size={4}>
-          <Typography variant="h6">
+          <Typography variant="subtitle1" sx={{ textAlign: 'right' }}>
             🎓 Created by: {createdBy.displayName}
           </Typography>
         </Grid>
@@ -61,19 +61,9 @@ const handleJoin = async () => {
             {description.length > 100 ? description.slice(0, 100) + '...' : description}
           </Typography>
         </Grid>
-        <Grid size={4}>
-          <Typography variant="body1">
-            📅 Date: {date}
-          </Typography>
-        </Grid>
-        <Grid size={8}>
-          <Typography variant="body1">
-            🕐 {startTime} - {endTime}
-          </Typography>
-        </Grid>
         <Grid size={12}>
           <Typography variant="body1">
-            📍 Location: {location}
+            📅 Date: {date} | 🕐 {startTime} - {endTime} | 📍 Location: {location}
           </Typography>
         </Grid>
         <Grid size={12}>
