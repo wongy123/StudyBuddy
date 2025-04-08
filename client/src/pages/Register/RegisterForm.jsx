@@ -53,10 +53,10 @@ const RegisterForm = () => {
             <form onSubmit={handleSubmit}>
                 <TextField fullWidth label="Username" name="userName" margin="normal" value={formData.userName} onChange={handleChange} required />
                 <TextField fullWidth label="Display Name (optional)" name="displayName" margin="normal" value={formData.displayName} onChange={handleChange} />
-                <TextField fullWidth label="Email" name="email" margin="normal" value={formData.email} onChange={handleChange} required />
+                <TextField fullWidth label="Email" name="email" type="email" margin="normal" value={formData.email} onChange={handleChange} required />
                 <TextField fullWidth label="Password" name="password" type="password" margin="normal" value={formData.password} onChange={handleChange} required />
                 <TextField fullWidth label="Degree" name="degree" margin="normal" value={formData.degree} onChange={handleChange} required />
-                <TextField fullWidth label="Profile Bio (optional)" name="profileBio" margin="normal" value={formData.profileBio} onChange={handleChange} />
+                <TextField fullWidth label="Profile Bio (optional)" name="profileBio" multiline rows={4} margin="normal" value={formData.profileBio} onChange={handleChange} />
 
                 {error && (
                     <Typography color="error" sx={{ mt: 1 }}>{error}</Typography>
