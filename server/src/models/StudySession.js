@@ -1,4 +1,5 @@
 const { default: mongoose } = require("mongoose");
+const Comment = require("./Comment");
 
 const studySessionSchema = new mongoose.Schema({
     title: {
@@ -53,5 +54,10 @@ studySessionSchema.pre(/^find/, function (next) {
         .populate("participants", "userName displayName");
     next();
 });
+
+studySessionSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
+    await Comment.deleteMany({ session: this._id });
+    next();
+  });
 
 module.exports = mongoose.model("StudySession", studySessionSchema);
