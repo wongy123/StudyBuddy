@@ -1,14 +1,14 @@
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 
-import DefaultLayout from './components/DefaultLayout';
-import LoginLayout from './components/LoginLayout';
+import DefaultLayout from "./components/DefaultLayout";
+import LoginLayout from "./components/LoginLayout";
 
-import HomePage from './pages/Home';
-import StudySessionPage from './pages/StudySession';
-import LoginPage from './pages/Login';
-import RegisterPage from './pages/Register';
-
+import HomePage from "./pages/Home";
+import StudySessionPage from "./pages/StudySession";
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
+import CreateSessionPage from "./pages/CreateSession";
 
 function App() {
   const location = useLocation();
@@ -25,7 +25,11 @@ function App() {
               isAuthenticated ? (
                 <HomePage />
               ) : (
-                <Navigate to="/login" state={{ backgroundLocation: location }} replace />
+                <Navigate
+                  to="/login"
+                  state={{ backgroundLocation: location }}
+                  replace
+                />
               )
             }
           />
@@ -35,7 +39,25 @@ function App() {
               isAuthenticated ? (
                 <StudySessionPage />
               ) : (
-                <Navigate to="/login" state={{ backgroundLocation: location }} replace />
+                <Navigate
+                  to="/login"
+                  state={{ backgroundLocation: location }}
+                  replace
+                />
+              )
+            }
+          />
+          <Route
+            path="/create-session"
+            element={
+              isAuthenticated ? (
+                <CreateSessionPage />
+              ) : (
+                <Navigate
+                  to="/login"
+                  state={{ backgroundLocation: location }}
+                  replace
+                />
               )
             }
           />
