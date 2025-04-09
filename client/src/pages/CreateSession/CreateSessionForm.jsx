@@ -1,14 +1,14 @@
 import { TextField, Button, Box, Grid, Snackbar, Alert } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { format } from 'date-fns';
+import { format } from "date-fns";
 
 const CreateSessionForm = () => {
   const [form, setForm] = useState({
     title: "",
     description: "",
     courseCode: "",
-    date: `${format(new Date(), 'yyyy-MM-dd')}`,
+    date: `${format(new Date(), "yyyy-MM-dd")}`,
     startTime: "09:00",
     endTime: "11:00",
     location: "",
@@ -132,7 +132,13 @@ const CreateSessionForm = () => {
         required
         margin="normal"
       />
-      <Button type="submit" variant="contained" fullWidth disabled={loading}>
+      <Button
+        type="submit"
+        variant="contained"
+        fullWidth
+        disabled={loading}
+        sx={{ mt: 2 }}
+      >
         {loading ? "Creating..." : "Create Session"}
       </Button>
 
