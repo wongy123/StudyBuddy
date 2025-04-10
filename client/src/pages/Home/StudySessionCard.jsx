@@ -90,10 +90,25 @@ const StudySessionCard = ({
             </Typography>
           </Grid>
           <Grid size={12}>
+          <Grid container spacing={2}>
+          <Grid item xs={12} sm={4}>
             <Typography variant="body1">
-              📅 Date: {formatDate(date)} | 🕐 {startTime} - {endTime} | 📍
-              Location: {location}
+              📅 Date: {formatDate(date)}
             </Typography>
+            </Grid>
+            <Divider orientation="vertical" flexItem />
+            <Grid item xs={12} sm={4}>
+            <Typography variant="body1">
+              🕐 {startTime} - {endTime}
+            </Typography>
+            </Grid>
+            <Divider orientation="vertical" flexItem />
+            <Grid item xs={12} sm={4}>
+            <Typography variant="body1">
+              📍 Location: {location}
+            </Typography>
+            </Grid>
+            </Grid>
           </Grid>
           <Grid size={12}>
             <Typography variant="body1">
@@ -109,9 +124,6 @@ const StudySessionCard = ({
             >
               View
             </Button>
-            {/* <Button variant="contained" color="primary" onClick={handleJoin}>
-              Join
-            </Button> */}
             <Button
               variant="contained"
               color={isParticipant ? "error" : "primary"}
