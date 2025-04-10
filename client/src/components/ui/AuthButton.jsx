@@ -23,6 +23,7 @@ const AuthButton = ({ variant = 'contained', ...props }) => {
       variant={variant}
       onClick={isAuthenticated ? handleLogout : handleLogin}
       {...props}
+      color='secondary'
     >
       {isAuthenticated ? 'Log Out' : 'Login'}
     </Button>
