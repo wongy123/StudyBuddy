@@ -2,6 +2,7 @@ import { TextField, Button, Box, Grid, Snackbar, Alert } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
+import { useSidebarRefresh } from "../../context/SidebarRefreshContext";
 
 const CreateSessionForm = () => {
   const [form, setForm] = useState({
@@ -19,6 +20,7 @@ const CreateSessionForm = () => {
   const [snackMessage, setSnackMessage] = useState("");
   const [snackSeverity, setSnackSeverity] = useState("success");
   const navigate = useNavigate();
+  const { triggerRefresh } = useSidebarRefresh();
 
   const handleChange = (e) => {
     setForm((prev) => ({
@@ -44,6 +46,7 @@ const CreateSessionForm = () => {
       const result = await res.json();
 
       if (res.ok) {
+        triggerRefresh();
         navigate(`/session/${result._id}`);
       } else {
         setSnackMessage(result.message || "Failed to create session.");

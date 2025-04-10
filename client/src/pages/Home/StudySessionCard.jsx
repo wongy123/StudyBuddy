@@ -29,7 +29,7 @@ const StudySessionCard = ({
   onJoinSuccess,
 }) => {
   const navigate = useNavigate();
-    const { triggerRefresh } = useSidebarRefresh();
+  const { triggerRefresh } = useSidebarRefresh();
  
   const sessionId = _id;
   const token = localStorage.getItem("token");
