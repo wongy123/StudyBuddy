@@ -30,11 +30,13 @@ const StudySessionCard = ({
 }) => {
   const navigate = useNavigate();
   const { triggerRefresh } = useSidebarRefresh();
- 
+
   const sessionId = _id;
   const token = localStorage.getItem("token");
   const { id: userId } = getUserFromToken(token);
-  const isParticipant = participants.some((p) => String(p._id) === String(userId));
+  const isParticipant = participants.some(
+    (p) => String(p._id) === String(userId)
+  );
 
   const { handleJoinOrLeave, loading, snack, closeSnack } =
     useJoinOrLeaveSession({
@@ -50,11 +52,11 @@ const StudySessionCard = ({
     <>
       <Paper elevation={2} sx={{ p: 2, mb: 2 }}>
         <Grid container spacing={3}>
-          <Grid size={8} >
-            <Typography variant="h5">
-              {title}
+          <Grid size={8}>
+            <Typography variant="h5">{title}</Typography>
+            <Typography variant="body1" color="text.secondary">
+              📘 {courseCode}
             </Typography>
-            <Typography variant="body1" color="text.secondary">📘 {courseCode}</Typography>
           </Grid>
 
           <Grid size={4}>
@@ -90,28 +92,28 @@ const StudySessionCard = ({
             </Typography>
           </Grid>
           <Grid size={12}>
-          <Grid container spacing={2}>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="body1">
-              📅 Date: {formatDate(date)}
-            </Typography>
-            </Grid>
-            <Divider orientation="vertical" flexItem />
-            <Grid item xs={12} sm={4}>
-            <Typography variant="body1">
-              🕐 {startTime} - {endTime}
-            </Typography>
-            </Grid>
-            <Divider orientation="vertical" flexItem />
-            <Grid item xs={12} sm={4}>
-            <Typography variant="body1">
-              📍 Location: {location}
-            </Typography>
-            </Grid>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={4}>
+                <Typography variant="body1" color="text.secondary">
+                  📅 Date: {formatDate(date)}
+                </Typography>
+              </Grid>
+              <Divider orientation="vertical" flexItem />
+              <Grid item xs={12} sm={4}>
+                <Typography variant="body1" color="text.secondary">
+                  🕐 {startTime} - {endTime}
+                </Typography>
+              </Grid>
+              <Divider orientation="vertical" flexItem />
+              <Grid item xs={12} sm={4}>
+                <Typography variant="body1" color="text.secondary">
+                  📍 Location: {location}
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
           <Grid size={12}>
-            <Typography variant="body1">
+            <Typography variant="body1" color="text.secondary">
               👥 Participants: {participants.length}
             </Typography>
           </Grid>
