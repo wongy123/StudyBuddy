@@ -50,10 +50,11 @@ const StudySessionCard = ({
     <>
       <Paper elevation={2} sx={{ p: 2, mb: 2 }}>
         <Grid container spacing={3}>
-          <Grid size={8} sx={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="h4" fontWeight="bold">
+          <Grid size={8} >
+            <Typography variant="h5">
               {title}
             </Typography>
+            <Typography variant="body1">📘 {courseCode}</Typography>
           </Grid>
 
           <Grid size={4}>
@@ -80,9 +81,6 @@ const StudySessionCard = ({
           </Grid>
           <Grid size={12}>
             <Divider />
-          </Grid>
-          <Grid size={12}>
-            <Typography variant="h6">📘 {courseCode}</Typography>
           </Grid>
           <Grid size={12}>
             <Typography variant="body1">
