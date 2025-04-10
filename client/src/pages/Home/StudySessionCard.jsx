@@ -54,7 +54,7 @@ const StudySessionCard = ({
             <Typography variant="h5">
               {title}
             </Typography>
-            <Typography variant="body1">📘 {courseCode}</Typography>
+            <Typography variant="body1" color="text.secondary">📘 {courseCode}</Typography>
           </Grid>
 
           <Grid size={4}>
