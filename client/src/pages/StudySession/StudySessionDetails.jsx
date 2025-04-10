@@ -8,12 +8,12 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
+import { useState } from "react";
 import { formatDate } from "../../utils/formatDate";
 import { useParams, useNavigate } from "react-router-dom";
 import { getUserFromToken } from "../../utils/getUserFromToken";
 import { useJoinOrLeaveSession } from "../../hooks/useJoinOrLeaveSession";
 import { useSidebarRefresh } from "../../context/SidebarRefreshContext";
-
 
 const StudySessionDetails = ({
   title,
@@ -39,7 +39,11 @@ const StudySessionDetails = ({
 
   const navigate = useNavigate();
   const { triggerRefresh } = useSidebarRefresh();
-  
+
+  const [deleteSnackOpen, setDeleteSnackOpen] = useState(false);
+  const [deleteSnackMessage, setDeleteSnackMessage] = useState("");
+  const [deleteSnackSeverity, setDeleteSnackSeverity] = useState("success");
+
   const { handleJoinOrLeave, loading, snack, closeSnack } =
     useJoinOrLeaveSession({
       sessionId,
@@ -49,8 +53,6 @@ const StudySessionDetails = ({
         triggerRefresh();
       },
     });
-
-
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this session?"))
@@ -64,15 +66,15 @@ const StudySessionDetails = ({
       });
 
       if (res.ok) {
-        setSnackMessage("Session deleted.");
-        setSnackSeverity("success");
-        setSnackOpen(true);
+        setDeleteSnackMessage("Session deleted. Redirecting...");
+        setDeleteSnackSeverity("success");
+        setDeleteSnackOpen(true);
         setTimeout(() => navigate("/"), 1500); // redirect home
       } else {
         const result = await res.json();
-        setSnackMessage(result.message || "Failed to delete session.");
-        setSnackSeverity("error");
-        setSnackOpen(true);
+        setDeleteSnackMessage(result.message || "Failed to delete session.");
+        setDeleteSnackSeverity("error");
+        setDeleteSnackOpen(true);
       }
     } catch (err) {
       console.error(err);
@@ -172,6 +174,20 @@ const StudySessionDetails = ({
       >
         <Alert onClose={closeSnack} severity={snack.severity} variant="filled">
           {snack.message}
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={deleteSnackOpen}
+        autoHideDuration={2000}
+        onClose={() => setDeleteSnackOpen(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setDeleteSnackOpen(false)}
+          severity={deleteSnackSeverity}
+          variant="filled"
+        >
+          {deleteSnackMessage}
         </Alert>
       </Snackbar>
     </>
