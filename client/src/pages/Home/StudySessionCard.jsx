@@ -6,6 +6,7 @@ import {
   Snackbar,
   Alert,
   Box,
+  Divider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -68,6 +69,7 @@ const StudySessionCard = ({
               {title}
             </Typography>
           </Grid>
+
           <Grid size={4}>
             <Typography variant="subtitle1" sx={{ textAlign: "right" }}>
               🎓 Created by:
@@ -89,6 +91,9 @@ const StudySessionCard = ({
                 (@{createdBy.userName})
               </Typography>
             </Box>
+          </Grid>
+          <Grid size={12}>
+            <Divider />
           </Grid>
           <Grid size={12}>
             <Typography variant="h6">📘 {courseCode}</Typography>
