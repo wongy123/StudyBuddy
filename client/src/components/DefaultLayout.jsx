@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import {
     AppBar,
     Box,
-    CssBaseline,
     Drawer,
     Toolbar,
     Typography,
@@ -14,14 +13,12 @@ import Sidebar from './Sidebar';
 const DefaultLayout = () => {
     return (
         <Box sx={{ display: 'flex', height: '100vh' }}>
-            <CssBaseline />
-
             <Header />
 
             <Sidebar />
 
             {/* Main Content on the right */}
-            <Box component="main" sx={{ flexGrow: 1, bgcolor: '#f5f5f5', p: 3, overflowY: 'auto', height: '100vh', }}>
+            <Box component="main" sx={{ flexGrow: 1, p: 3, overflowY: 'auto', height: '100vh', }}>
                 <Toolbar /> {/* Spacer to align with AppBar */}
                 <Outlet />
             </Box>
