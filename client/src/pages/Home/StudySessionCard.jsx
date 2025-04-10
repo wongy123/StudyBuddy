@@ -7,10 +7,12 @@ import {
   Alert,
   Box,
   Divider,
+  CircularProgress,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { getUserFromToken } from "../../utils/getUserFromToken";
 import { formatDate } from "../../utils/formatDate";
+import { useJoinOrLeaveSession } from "../../hooks/useJoinOrLeaveSession";
 
 const StudySessionCard = ({
   title,
@@ -26,39 +28,51 @@ const StudySessionCard = ({
   onJoinSuccess,
 }) => {
   const navigate = useNavigate();
-  const [snackOpen, setSnackOpen] = useState(false);
-  const [snackMessage, setSnackMessage] = useState("");
-  const [snackSeverity, setSnackSeverity] = useState("success");
+  // const [snackOpen, setSnackOpen] = useState(false);
+  // const [snackMessage, setSnackMessage] = useState("");
+  // const [snackSeverity, setSnackSeverity] = useState("success");
 
-  const handleJoin = async () => {
-    try {
-      const res = await fetch(`/api/sessions/${_id}/join`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+  // const handleJoin = async () => {
+  //   try {
+  //     const res = await fetch(`/api/sessions/${_id}/join`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     });
 
-      const result = await res.json();
+  //     const result = await res.json();
 
-      if (res.ok) {
-        setSnackMessage("Successfully joined the session!");
-        setSnackSeverity("success");
-        setSnackOpen(true);
-        if (onJoinSuccess) onJoinSuccess(); // 🔁 trigger parent refresh
-      } else {
-        setSnackMessage(result.message || "Failed to join the session.");
-        setSnackSeverity("error");
-        setSnackOpen(true);
-      }
-    } catch (err) {
-      console.error(err);
-      setSnackMessage("Something went wrong while joining the session.");
-      setSnackSeverity("error");
-      setSnackOpen(true);
-    }
-  };
+  //     if (res.ok) {
+  //       setSnackMessage("Successfully joined the session!");
+  //       setSnackSeverity("success");
+  //       setSnackOpen(true);
+  //       if (onJoinSuccess) onJoinSuccess(); // 🔁 trigger parent refresh
+  //     } else {
+  //       setSnackMessage(result.message || "Failed to join the session.");
+  //       setSnackSeverity("error");
+  //       setSnackOpen(true);
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     setSnackMessage("Something went wrong while joining the session.");
+  //     setSnackSeverity("error");
+  //     setSnackOpen(true);
+  //   }
+  // };
+
+  const sessionId = _id;
+  const token = localStorage.getItem("token");
+  const { id: userId } = getUserFromToken(token);
+  const isParticipant = participants.some((p) => String(p._id) === String(userId));
+
+  const { handleJoinOrLeave, loading, snack, closeSnack } =
+    useJoinOrLeaveSession({
+      sessionId,
+      isParticipant,
+      onSuccess: onJoinSuccess,
+    });
 
   return (
     <>
@@ -125,25 +139,31 @@ const StudySessionCard = ({
             >
               View
             </Button>
-            <Button variant="contained" color="primary" onClick={handleJoin}>
+            {/* <Button variant="contained" color="primary" onClick={handleJoin}>
               Join
+            </Button> */}
+            <Button
+              variant="contained"
+              color={isParticipant ? "error" : "primary"}
+              onClick={handleJoinOrLeave}
+              disabled={loading}
+              startIcon={
+                loading && <CircularProgress size={20} color="inherit" />
+              }
+            >
+              {isParticipant ? "Leave" : "Join"}
             </Button>
           </Grid>
         </Grid>
       </Paper>
       <Snackbar
-        open={snackOpen}
+        open={snack.open}
         autoHideDuration={2000}
-        onClose={() => setSnackOpen(false)}
+        onClose={closeSnack}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert
-          autoHideDuration={2000}
-          onClose={() => setSnackOpen(false)}
-          severity={snackSeverity}
-          variant="filled"
-        >
-          {snackMessage}
+        <Alert onClose={closeSnack} severity={snack.severity} variant="filled">
+          {snack.message}
         </Alert>
       </Snackbar>
     </>

@@ -9,9 +9,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { formatDate } from "../../utils/formatDate";
-import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getUserFromToken } from "../../utils/getUserFromToken";
+import { useJoinOrLeaveSession } from "../../hooks/useJoinOrLeaveSession";
+
 
 const StudySessionDetails = ({
   title,
@@ -35,46 +36,12 @@ const StudySessionDetails = ({
   const isOwner = String(createdBy._id) === String(userId);
   const isModmin = userRole === "admin" || userRole === "moderator";
 
-  const [snackOpen, setSnackOpen] = useState(false);
-  const [snackMessage, setSnackMessage] = useState("");
-  const [snackSeverity, setSnackSeverity] = useState("success");
-  const [loading, setLoading] = useState(false);
-
-  const handleJoinOrLeave = async () => {
-    const action = isParticipant ? "leave" : "join"; // move this up
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/sessions/${sessionId}/${action}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const result = await res.json();
-
-      if (res.ok) {
-        setSnackMessage(
-          `Successfully ${action === "join" ? "joined" : "left"} the session!`
-        );
-        setSnackSeverity("success");
-        setSnackOpen(true);
-        if (onJoinSuccess) onJoinSuccess(); // trigger parent refresh
-      } else {
-        setSnackMessage(result.message || `Failed to ${action} the session.`);
-        setSnackSeverity("error");
-        setSnackOpen(true);
-      }
-    } catch (err) {
-      console.error(err);
-      setSnackMessage("Something went wrong while processing your request.");
-      setSnackSeverity("error");
-      setSnackOpen(true);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { handleJoinOrLeave, loading, snack, closeSnack } =
+    useJoinOrLeaveSession({
+      sessionId,
+      isParticipant,
+      onSuccess: onJoinSuccess,
+    });
 
   const navigate = useNavigate();
 
@@ -191,17 +158,13 @@ const StudySessionDetails = ({
       </Paper>
 
       <Snackbar
-        open={snackOpen}
+        open={snack.open}
         autoHideDuration={2000}
-        onClose={() => setSnackOpen(false)}
+        onClose={closeSnack}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert
-          onClose={() => setSnackOpen(false)}
-          severity={snackSeverity}
-          variant="filled"
-        >
-          {snackMessage}
+        <Alert onClose={closeSnack} severity={snack.severity} variant="filled">
+          {snack.message}
         </Alert>
       </Snackbar>
     </>
