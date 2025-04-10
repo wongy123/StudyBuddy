@@ -12,6 +12,7 @@ import { formatDate } from "../../utils/formatDate";
 import { useParams, useNavigate } from "react-router-dom";
 import { getUserFromToken } from "../../utils/getUserFromToken";
 import { useJoinOrLeaveSession } from "../../hooks/useJoinOrLeaveSession";
+import { useSidebarRefresh } from "../../context/SidebarRefreshContext";
 
 
 const StudySessionDetails = ({
@@ -36,14 +37,20 @@ const StudySessionDetails = ({
   const isOwner = String(createdBy._id) === String(userId);
   const isModmin = userRole === "admin" || userRole === "moderator";
 
+  const navigate = useNavigate();
+  const { triggerRefresh } = useSidebarRefresh();
+  
   const { handleJoinOrLeave, loading, snack, closeSnack } =
     useJoinOrLeaveSession({
       sessionId,
       isParticipant,
-      onSuccess: onJoinSuccess,
+      onSuccess: () => {
+        if (onJoinSuccess) onJoinSuccess();
+        triggerRefresh();
+      },
     });
 
-  const navigate = useNavigate();
+
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this session?"))

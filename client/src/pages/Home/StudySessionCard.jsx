@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { getUserFromToken } from "../../utils/getUserFromToken";
 import { formatDate } from "../../utils/formatDate";
 import { useJoinOrLeaveSession } from "../../hooks/useJoinOrLeaveSession";
+import { useSidebarRefresh } from "../../context/SidebarRefreshContext";
 
 const StudySessionCard = ({
   title,
@@ -28,40 +29,8 @@ const StudySessionCard = ({
   onJoinSuccess,
 }) => {
   const navigate = useNavigate();
-  // const [snackOpen, setSnackOpen] = useState(false);
-  // const [snackMessage, setSnackMessage] = useState("");
-  // const [snackSeverity, setSnackSeverity] = useState("success");
-
-  // const handleJoin = async () => {
-  //   try {
-  //     const res = await fetch(`/api/sessions/${_id}/join`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     });
-
-  //     const result = await res.json();
-
-  //     if (res.ok) {
-  //       setSnackMessage("Successfully joined the session!");
-  //       setSnackSeverity("success");
-  //       setSnackOpen(true);
-  //       if (onJoinSuccess) onJoinSuccess(); // 🔁 trigger parent refresh
-  //     } else {
-  //       setSnackMessage(result.message || "Failed to join the session.");
-  //       setSnackSeverity("error");
-  //       setSnackOpen(true);
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //     setSnackMessage("Something went wrong while joining the session.");
-  //     setSnackSeverity("error");
-  //     setSnackOpen(true);
-  //   }
-  // };
-
+    const { triggerRefresh } = useSidebarRefresh();
+ 
   const sessionId = _id;
   const token = localStorage.getItem("token");
   const { id: userId } = getUserFromToken(token);
@@ -71,7 +40,10 @@ const StudySessionCard = ({
     useJoinOrLeaveSession({
       sessionId,
       isParticipant,
-      onSuccess: onJoinSuccess,
+      onSuccess: () => {
+        if (onJoinSuccess) onJoinSuccess();
+        triggerRefresh();
+      },
     });
 
   return (

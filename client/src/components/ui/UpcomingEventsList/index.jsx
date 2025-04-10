@@ -2,11 +2,13 @@ import { Box, Typography } from '@mui/material';
 import JoinedEvent from './JoinedEvent';
 import { useEffect, useState } from 'react';
 import { getUserFromToken } from '../../../utils/getUserFromToken';
+import { useSidebarRefresh } from '../../../context/SidebarRefreshContext';
 
 const UpcomingEventsList = () => {
   const [joinedEvents, setJoinedEvents] = useState([]);
   const [error, setError] = useState(null);
   const { id: userId } = getUserFromToken(localStorage.getItem('token'));
+  const { refreshKey } = useSidebarRefresh();
 
   useEffect(() => {
     const fetchJoinedEvents = async () => {
@@ -33,7 +35,7 @@ const UpcomingEventsList = () => {
     };
 
     fetchJoinedEvents();
-  }, [userId]);
+  }, [userId, refreshKey]);
 
   return (
     <Box sx={{ px: 2, pb: 2 }}>
