@@ -1,40 +1,60 @@
-import { Grid, Paper, Typography, Button, Snackbar, Alert } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { formatDate } from '../../utils/formatDate';
+import {
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  Snackbar,
+  Alert,
+  Box,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { formatDate } from "../../utils/formatDate";
 
-const StudySessionCard = ({ title, description, courseCode, date, startTime, endTime, location, createdBy, participants, _id, onJoinSuccess }) => {
+const StudySessionCard = ({
+  title,
+  description,
+  courseCode,
+  date,
+  startTime,
+  endTime,
+  location,
+  createdBy,
+  participants,
+  _id,
+  onJoinSuccess,
+}) => {
   const navigate = useNavigate();
   const [snackOpen, setSnackOpen] = useState(false);
-  const [snackMessage, setSnackMessage] = useState('');
-  const [snackSeverity, setSnackSeverity] = useState('success');
+  const [snackMessage, setSnackMessage] = useState("");
+  const [snackSeverity, setSnackSeverity] = useState("success");
 
   const handleJoin = async () => {
     try {
       const res = await fetch(`/api/sessions/${_id}/join`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
       const result = await res.json();
 
       if (res.ok) {
-        setSnackMessage('Successfully joined the session!');
-        setSnackSeverity('success');
+        setSnackMessage("Successfully joined the session!");
+        setSnackSeverity("success");
         setSnackOpen(true);
         if (onJoinSuccess) onJoinSuccess(); // 🔁 trigger parent refresh
       } else {
-        setSnackMessage(result.message || 'Failed to join the session.');
-        setSnackSeverity('error');
+        setSnackMessage(result.message || "Failed to join the session.");
+        setSnackSeverity("error");
         setSnackOpen(true);
       }
     } catch (err) {
       console.error(err);
-      setSnackMessage('Something went wrong while joining the session.');
-      setSnackSeverity('error');
+      setSnackMessage("Something went wrong while joining the session.");
+      setSnackSeverity("error");
       setSnackOpen(true);
     }
   };
@@ -43,27 +63,47 @@ const StudySessionCard = ({ title, description, courseCode, date, startTime, end
     <>
       <Paper elevation={2} sx={{ p: 2, mb: 2 }}>
         <Grid container spacing={3}>
-          <Grid size={12}>
-            <Typography variant="h5">{title}</Typography>
-          </Grid>
-          <Grid size={8}>
-            <Typography variant="h6">
-              📘 {courseCode}
+          <Grid size={8} sx={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="h4" fontWeight="bold">
+              {title}
             </Typography>
           </Grid>
           <Grid size={4}>
-            <Typography variant="subtitle1" sx={{ textAlign: 'right' }}>
-              🎓 Created by: {createdBy.displayName}
+            <Typography variant="subtitle1" sx={{ textAlign: "right" }}>
+              🎓 Created by:
+            </Typography>
+            <Box sx={{ textAlign: "right" }}>
+              <Typography
+                variant="subtitle1"
+                fontWeight="bold"
+                component="span"
+              >
+                {createdBy.displayName}
+              </Typography>
+              <Typography
+                variant="body2"
+                component="span"
+                color="text.secondary"
+              >
+                {" "}
+                (@{createdBy.userName})
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid size={12}>
+            <Typography variant="h6">📘 {courseCode}</Typography>
+          </Grid>
+          <Grid size={12}>
+            <Typography variant="body1">
+              {description.length > 100
+                ? description.slice(0, 100) + "..."
+                : description}
             </Typography>
           </Grid>
           <Grid size={12}>
             <Typography variant="body1">
-              {description.length > 100 ? description.slice(0, 100) + '...' : description}
-            </Typography>
-          </Grid>
-          <Grid size={12}>
-            <Typography variant="body1">
-              📅 Date: {formatDate(date)} | 🕐 {startTime} - {endTime} | 📍 Location: {location}
+              📅 Date: {formatDate(date)} | 🕐 {startTime} - {endTime} | 📍
+              Location: {location}
             </Typography>
           </Grid>
           <Grid size={12}>
@@ -72,7 +112,12 @@ const StudySessionCard = ({ title, description, courseCode, date, startTime, end
             </Typography>
           </Grid>
           <Grid size={12}>
-            <Button variant="outlined" color="primary" sx={{ mr: 1 }} onClick={() => navigate(`/session/${_id}`)}>
+            <Button
+              variant="outlined"
+              color="primary"
+              sx={{ mr: 1 }}
+              onClick={() => navigate(`/session/${_id}`)}
+            >
               View
             </Button>
             <Button variant="contained" color="primary" onClick={handleJoin}>
@@ -85,9 +130,14 @@ const StudySessionCard = ({ title, description, courseCode, date, startTime, end
         open={snackOpen}
         autoHideDuration={2000}
         onClose={() => setSnackOpen(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert autoHideDuration={2000} onClose={() => setSnackOpen(false)} severity={snackSeverity} variant="filled">
+        <Alert
+          autoHideDuration={2000}
+          onClose={() => setSnackOpen(false)}
+          severity={snackSeverity}
+          variant="filled"
+        >
           {snackMessage}
         </Alert>
       </Snackbar>

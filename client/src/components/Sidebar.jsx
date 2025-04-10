@@ -1,6 +1,6 @@
 import { Drawer, Toolbar, Box, Typography } from "@mui/material";
-import JoinedEvent from "./ui/JoinedEvent";
 import NavList from "./ui/NavList";
+import UpcomingEventsList from "./ui/UpcomingEventsList";
 
 const drawerWidth = 300;
 
@@ -20,12 +20,7 @@ const Sidebar = () => {
       >
         <Toolbar />
         <NavList />
-        <Box sx={{ px: 2, pb: 2 }}>
-          <Typography variant="h6" noWrap component="div" sx={{ mb: 2 }}>
-            📅 Upcoming Events
-          </Typography>
-          <JoinedEvent />
-        </Box>
+        <UpcomingEventsList />
       </Drawer>
     </>
   );
