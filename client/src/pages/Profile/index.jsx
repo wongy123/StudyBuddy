@@ -1,6 +1,7 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { Alert, Typography, Box, Skeleton} from '@mui/material';
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Alert, Typography, Box, Skeleton } from "@mui/material";
+import { profileOwnerOrAdmin } from "./profileUtils";
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -12,7 +13,7 @@ const ProfilePage = () => {
     try {
       const res = await fetch(`/api/users/${id}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
@@ -22,12 +23,12 @@ const ProfilePage = () => {
         setUser(result.data);
         setError(null);
       } else {
-        setError(result.message || 'User not found');
+        setError(result.message || "User not found");
         setUser(null);
       }
     } catch (err) {
-      console.error('Error fetching user:', err);
-      setError('Something went wrong. Please try again.');
+      console.error("Error fetching user:", err);
+      setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -40,7 +41,7 @@ const ProfilePage = () => {
   if (loading) {
     return (
       <Box sx={{ mt: 4, px: 3 }}>
-        <Skeleton variant='rectangular' height={300} />
+        <Skeleton variant="rectangular" height={300} />
       </Box>
     );
   }
@@ -56,7 +57,15 @@ const ProfilePage = () => {
     );
   }
 
-  return <div>{user.displayName}</div>;
+  const isEditable = user?._id && profileOwnerOrAdmin(user._id);
+
+  return (
+    <Box sx={{ mt: 4 }}>
+      <Typography variant="h4" gutterBottom>
+        {user.displayName} {isEditable && "(You can edit this profile)"}
+      </Typography>
+    </Box>
+  );
 };
 
 export default ProfilePage;
