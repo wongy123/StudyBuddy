@@ -11,7 +11,7 @@ import { SidebarRefreshProvider } from "./context/SidebarRefreshContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={lightTheme}>
     <CssBaseline />
     <BrowserRouter>
       <AuthProvider>

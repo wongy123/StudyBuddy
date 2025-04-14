@@ -69,6 +69,7 @@ const StudySessionDetails = ({
         setDeleteSnackMessage("Session deleted. Redirecting...");
         setDeleteSnackSeverity("success");
         setDeleteSnackOpen(true);
+        triggerRefresh();
         setTimeout(() => navigate("/"), 1500); // redirect home
       } else {
         const result = await res.json();
