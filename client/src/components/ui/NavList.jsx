@@ -8,8 +8,11 @@ import {
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import HomeIcon from "@mui/icons-material/Home";
+import { getUserFromToken } from "../../utils/getUserFromToken";
 
 const NavList = () => {
+  const token = localStorage.getItem("token");
+  const user = getUserFromToken(token);
   return (
     <List>
       <ListItem disablePadding>
@@ -29,7 +32,7 @@ const NavList = () => {
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton href="/profile">
+        <ListItemButton href={`/profile/${user.id}`}>
           <ListItemIcon>
             <AccountBoxIcon />
           </ListItemIcon>
