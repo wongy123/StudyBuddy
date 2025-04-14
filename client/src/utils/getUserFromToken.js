@@ -6,8 +6,9 @@ export const getUserFromToken = (token) => {
     return {
       id: decoded.id,
       role: decoded.role, // 'user', 'moderator', or 'admin'
+      displayName: decoded.displayName,
     };
   } catch {
-    return { id: null, role: null };
+    return { id: null, role: null, displayName: null };
   }
 };

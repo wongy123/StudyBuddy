@@ -1,15 +1,13 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useAuth } from '../../context/AuthContext';
 
 const AuthButton = ({ variant = 'contained', ...props }) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { isAuthenticated, setToken } = useAuth();
 
   const handleLogin = () => {
     navigate('/login', {
-      state: { backgroundLocation: location },
     });
   };
 
@@ -24,6 +22,7 @@ const AuthButton = ({ variant = 'contained', ...props }) => {
       onClick={isAuthenticated ? handleLogout : handleLogin}
       {...props}
       color='secondary'
+      sx={{ ml: 1 }}
     >
       {isAuthenticated ? 'Log Out' : 'Login'}
     </Button>
