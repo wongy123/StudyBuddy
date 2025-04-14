@@ -2,6 +2,7 @@ import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
 import AuthButton from "./ui/AuthButton";
 import ThemeToggle from "./ui/ThemeToggle";
 import { getUserFromToken } from "../utils/getUserFromToken";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const token = localStorage.getItem("token");
@@ -22,7 +23,7 @@ const Header = () => {
             Welcome, {user.displayName}
           </Typography>
         ): 
-        <Button variant="outlined" color="inherit" href="/register" sx={{mx: 1}}>Register</Button> 
+        <Button variant="outlined" color="inherit"  sx={{mx: 1}} component={Link} to="/register">Register</Button> 
         }
         <AuthButton />
       </Toolbar>

@@ -9,6 +9,7 @@ import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import HomeIcon from "@mui/icons-material/Home";
 import { getUserFromToken } from "../../utils/getUserFromToken";
+import { Link } from "react-router-dom";
 
 const NavList = () => {
   const token = localStorage.getItem("token");
@@ -16,7 +17,7 @@ const NavList = () => {
   return (
     <List>
       <ListItem disablePadding>
-        <ListItemButton href="/">
+        <ListItemButton component={Link} to="/">
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
@@ -24,7 +25,7 @@ const NavList = () => {
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton href="/create-session">
+        <ListItemButton component={Link} to="/create-session">
           <ListItemIcon>
             <EditCalendarIcon />
           </ListItemIcon>
@@ -32,7 +33,7 @@ const NavList = () => {
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton href={`/profile/${user.id}`}>
+        <ListItemButton component={Link} to={`/profile/${user.id}`}>
           <ListItemIcon>
             <AccountBoxIcon />
           </ListItemIcon>
