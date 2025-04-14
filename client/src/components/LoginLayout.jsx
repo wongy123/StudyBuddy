@@ -15,7 +15,6 @@ const LoginLayout = () => {
                     height: `calc(100vh - 64px)`,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    bgcolor: '#f0f2f5',
                     overflow: 'hidden',
                 }}
             >

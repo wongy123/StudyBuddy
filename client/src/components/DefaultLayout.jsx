@@ -12,7 +12,7 @@ import Sidebar from './Sidebar';
 
 const DefaultLayout = () => {
     return (
-        <Box sx={{ display: 'flex', height: '100vh' }}>
+        <Box sx={{ display: 'flex', height: '100vh'}}>
             <Header />
 
             <Sidebar />
