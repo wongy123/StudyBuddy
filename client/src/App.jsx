@@ -9,6 +9,7 @@ import StudySessionPage from "./pages/StudySession";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import CreateSessionPage from "./pages/CreateSession";
+import ProfilePage from "./pages/Profile";
 
 function App() {
   const location = useLocation();
@@ -61,6 +62,20 @@ function App() {
               )
             }
           />
+          <Route
+            path="/profile"
+            element={
+              isAuthenticated ? (
+                <ProfilePage />
+              ) : (
+                <Navigate
+                  to="/login"
+                  state={{ backgroundLocation: location }}
+                  replace
+                />
+              )
+            }
+            />
         </Route>
 
         <Route element={<LoginLayout />}>
