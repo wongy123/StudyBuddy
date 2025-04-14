@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { formatDate } from "../../../utils/formatDate";
 import { useNavigate } from "react-router-dom";
+import DisplayNameUserName from "../../common/DisplayNameUserName";
 
 const JoinedEvent = ({
   title,
@@ -36,13 +37,7 @@ const JoinedEvent = ({
           Created by
         </Typography>
         <Box sx={{ mb: 1 }}>
-          <Typography variant="subtitle1" fontWeight="bold" component="span">
-            {createdBy.displayName}
-          </Typography>
-          <Typography variant="body2" component="span" color="text.secondary">
-            {" "}
-            (@{createdBy.userName})
-          </Typography>
+          <DisplayNameUserName userName={createdBy.userName} displayName={createdBy.displayName} id={createdBy._id} />
         </Box>
         <Grid container>
           <Grid

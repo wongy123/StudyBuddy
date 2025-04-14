@@ -14,6 +14,7 @@ import { getUserFromToken } from "../../utils/getUserFromToken";
 import { formatDate } from "../../utils/formatDate";
 import { useJoinOrLeaveSession } from "../../hooks/useJoinOrLeaveSession";
 import { useSidebarRefresh } from "../../context/SidebarRefreshContext";
+import DisplayNameUserName from "../../components/common/DisplayNameUserName";
 
 const StudySessionCard = ({
   title,
@@ -64,21 +65,7 @@ const StudySessionCard = ({
               🎓 Created by:
             </Typography>
             <Box sx={{ textAlign: "right" }}>
-              <Typography
-                variant="subtitle1"
-                fontWeight="bold"
-                component="span"
-              >
-                {createdBy.displayName}
-              </Typography>
-              <Typography
-                variant="body2"
-                component="span"
-                color="text.secondary"
-              >
-                {" "}
-                (@{createdBy.userName})
-              </Typography>
+              <DisplayNameUserName displayName={createdBy.displayName} userName={createdBy.userName} id={createdBy._id}/>
             </Box>
           </Grid>
           <Grid size={12}>

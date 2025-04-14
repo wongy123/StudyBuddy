@@ -1,13 +1,12 @@
 import { Paper, Box, Typography } from '@mui/material';
 import { formatDistanceToNow } from 'date-fns';
+import DisplayNameUserName from '../../components/common/DisplayNameUserName';
 
 const CommentCard = ({ user, createdAt, content }) => {
   return (
     <Paper elevation={1} sx={{ p: 2, mb: 2 }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
-        <Typography variant="subtitle1" fontWeight="bold">
-          {user.displayName} <Typography variant="body2" component="span" color="text.secondary">(@{user.userName})</Typography>
-        </Typography>
+        <DisplayNameUserName displayName={user.displayName} userName={user.userName} id={user._id}  />
         <Typography variant="caption" color="text.secondary">
           {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}
         </Typography>

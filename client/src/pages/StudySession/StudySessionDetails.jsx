@@ -7,6 +7,7 @@ import {
   Snackbar,
   Alert,
   CircularProgress,
+  Box,
 } from "@mui/material";
 import { useState } from "react";
 import { formatDate } from "../../utils/formatDate";
@@ -14,6 +15,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getUserFromToken } from "../../utils/getUserFromToken";
 import { useJoinOrLeaveSession } from "../../hooks/useJoinOrLeaveSession";
 import { useSidebarRefresh } from "../../context/SidebarRefreshContext";
+import DisplayNameUserName from "../../components/common/DisplayNameUserName";
 
 const StudySessionDetails = ({
   title,
@@ -133,15 +135,31 @@ const StudySessionDetails = ({
         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
           🎓 Created by
         </Typography>
-        <Typography sx={{ mb: 1 }}>{createdBy.displayName}</Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2}}>
+        <Typography variant="body2" component="span" sx={{ mr: 1 }}>
+        👑
+          </Typography>
+        <DisplayNameUserName
+          displayName={createdBy.displayName}
+          userName={createdBy.userName}
+          id={createdBy._id}
+        />
+        </Box>
 
         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
           👥 Participants ({participants.length})
         </Typography>
         {participants.map((p) => (
-          <Typography key={p._id} sx={{ ml: 1 }}>
-            💻 {p.displayName}
+          <Box key={p._id} sx={{ display: 'flex', alignItems: 'center'}}>
+          <Typography variant="body2" component="span" sx={{ mr: 1 }}>
+            💻
           </Typography>
+          <DisplayNameUserName
+            displayName={p.displayName}
+            userName={p.userName}
+            id={p._id}
+          />
+        </Box>
         ))}
 
         <Divider sx={{ my: 2 }} />
