@@ -20,7 +20,7 @@ const UpcomingEventsList = () => {
         });
         const result = await res.json();
         if (res.ok) {
-          const sessions = result.data.sessions;
+          const sessions = result.data;
           const filtered = sessions.filter((s) =>
             s.participants.some((p) => String(p._id) === String(userId))
           );

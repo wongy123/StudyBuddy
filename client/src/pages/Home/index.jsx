@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography, Container } from '@mui/material';
+import { Box, Typography, Container, Button, Stack } from '@mui/material';
 import StudySessionCard from './StudySessionCard';
 
 const HomePage = () => {
   const [sessions, setSessions] = useState([]);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const fetchSessions = async () => {
+  const fetchSessions = async (pageNum = 1) => {
     try {
-      const res = await fetch('/api/sessions', {
+      const res = await fetch(`/api/sessions?page=${pageNum}&limit=3`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -17,7 +19,9 @@ const HomePage = () => {
       const result = await res.json();
 
       if (res.ok) {
-        setSessions(result.data.sessions);
+        setSessions(result.data); // assuming result.data is the array
+        setPage(result.page || 1);
+        setTotalPages(result.totalPages || 1);
       } else {
         setError(result.message || 'Failed to fetch study sessions.');
       }
@@ -28,8 +32,16 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    fetchSessions();
-  }, []);
+    fetchSessions(page);
+  }, [page]);
+
+  const handlePrev = () => {
+    if (page > 1) setPage((prev) => prev - 1);
+  };
+
+  const handleNext = () => {
+    if (page < totalPages) setPage((prev) => prev + 1);
+  };
 
   return (
     <Container>
@@ -45,8 +57,24 @@ const HomePage = () => {
         )}
 
         {sessions.map((session) => (
-          <StudySessionCard key={session._id} {...session} onJoinSuccess={fetchSessions} />
+          <StudySessionCard
+            key={session._id}
+            {...session}
+            onJoinSuccess={() => fetchSessions(page)} // refresh current page
+          />
         ))}
+
+        {totalPages > 1 && (
+          <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" mt={4}>
+            <Button onClick={handlePrev} disabled={page === 1}>
+            <Typography variant="body1">Previous</Typography>
+            </Button>
+            <Typography variant="body1">Page {page} of {totalPages}</Typography>
+            <Button onClick={handleNext} disabled={page === totalPages}>
+            <Typography variant="body1">Next</Typography>
+            </Button>
+          </Stack>
+        )}
       </Box>
     </Container>
   );

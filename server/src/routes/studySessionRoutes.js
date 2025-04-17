@@ -8,9 +8,10 @@ const ownerOrModmin = require('../middleware/ownerOrModmin');
 const StudySession = require('../models/StudySession');
 const commentRouter = require('./commentRoutes');
 const { validateSession, validateSessionUpdate } = require('../validators/validateSession');
+const validatePaginateQueryParams = require('../validators/validatePaginateQueryParams');
 
 router.route('/')
-    .get(authenticateWithJwt, controller.getAllSessions)
+    .get(authenticateWithJwt, validatePaginateQueryParams, controller.getAllSessions)
     .post(authenticateWithJwt, validateJSON, validateSession, controller.createSession);
 router.route('/:id')
     .get(authenticateWithJwt, controller.getSessionById)

@@ -19,7 +19,7 @@ const JoinedSessions = ({ userId }) => {
 
         if (!res.ok) throw new Error(result.message || 'Failed to load sessions');
 
-        const joined = result.data.sessions.filter((s) =>
+        const joined = result.data.filter((s) =>
           s.participants.some((p) => String(p._id) === String(userId))
         );
 
