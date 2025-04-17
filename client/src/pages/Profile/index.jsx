@@ -11,6 +11,10 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);   // Reset loading state when ID changes
+    setUser(null);      // Optional: clear old user to avoid flashing stale content
+    setError(null);     // Optional: clear old error
+  
     (async () => {
       try {
         const res = await fetch(`/api/users/${id}`, {
