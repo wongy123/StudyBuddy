@@ -1,5 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const Comment = require("./Comment");
+const paginate = require("mongoose-paginate-v2")
 
 const studySessionSchema = new mongoose.Schema({
     title: {
@@ -48,6 +49,8 @@ const studySessionSchema = new mongoose.Schema({
         },
     ]
 });
+
+studySessionSchema.plugin(paginate);
 
 studySessionSchema.pre(/^find/, function (next) {
     this.populate("createdBy", "userName displayName")

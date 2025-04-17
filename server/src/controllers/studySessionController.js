@@ -1,15 +1,20 @@
 const StudySession = require('../models/StudySession');
 const asyncHandler = require('express-async-handler');
+const { generatePaginationLinks } = require('../utils/generatePaginationLinks')
 
 exports.getAllSessions = asyncHandler(async (req, res, next) => {
-    const sessions = await StudySession.find();
-    res.status(200).json({
-        status: 'success',
-        results: sessions.length,
-        data: {
-            sessions,
-        },
-    });
+    //Pagination query
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const result = await StudySession.paginate({}, { page, limit });
+    res
+        .status(200)
+        .links(generatePaginationLinks(req.originalUrl, page, totalPages, limit))
+        .json({
+                success: true,
+                data: result.docs
+  });
 });
 
 exports.getSessionById = asyncHandler(async (req, res, next) => {
