@@ -14,7 +14,7 @@ router.route('/')
     .get(authenticateWithJwt, validatePaginateQueryParams, controller.getAllSessions)
     .post(authenticateWithJwt, validateJSON, validateSession, controller.createSession);
 
-router.get('/joined', authenticateWithJwt, validatePaginateQueryParams, controller.getJoinedSessions)
+router.get('/joined/:userId', authenticateWithJwt, validatePaginateQueryParams, controller.getJoinedSessions)
 
 router.route('/:id')
     .get(authenticateWithJwt, controller.getSessionById)

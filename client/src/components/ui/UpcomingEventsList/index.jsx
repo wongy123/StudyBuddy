@@ -2,6 +2,7 @@ import { Box, Typography, Button, Stack } from '@mui/material';
 import JoinedEvent from './JoinedEvent';
 import { useEffect, useState } from 'react';
 import { useSidebarRefresh } from '../../../context/SidebarRefreshContext';
+import { getUserFromToken } from '../../../utils/getUserFromToken';
 
 const UpcomingEventsList = () => {
   const [joinedEvents, setJoinedEvents] = useState([]);
@@ -10,13 +11,15 @@ const UpcomingEventsList = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [limit, setLimit] = useState(2); //For future extension of set limit
   const { refreshKey } = useSidebarRefresh();
+  const token = localStorage.getItem('token');
+  const { id: userId } = getUserFromToken(token);
 
   useEffect(() => {
     const fetchJoinedEvents = async () => {
       try {
-        const res = await fetch(`/api/sessions/joined?page=${page}&limit=${limit}`, {
+        const res = await fetch(`/api/sessions/joined/${userId}?page=${page}&limit=${limit}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`,
           },
         });
 

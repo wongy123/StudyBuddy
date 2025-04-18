@@ -10,7 +10,7 @@ const JoinedSessions = ({ userId }) => {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const res = await fetch('/api/sessions', {
+        const res = await fetch(`/api/sessions/joined/${userId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
