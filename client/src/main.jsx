@@ -7,14 +7,15 @@ import { ThemeModeProvider } from "./context/ThemeContext";
 
 import { AuthProvider } from "./context/AuthContext";
 import { SidebarRefreshProvider } from "./context/SidebarRefreshContext";
+import { basePath } from "./utils/basePath.js";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={basePath}>
       <AuthProvider>
         <SidebarRefreshProvider>
           <ThemeModeProvider>
-          <App />
+            <App />
           </ThemeModeProvider>
         </SidebarRefreshProvider>
       </AuthProvider>

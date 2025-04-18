@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation, data } from 'react-router-dom';
 import { Paper, Typography, TextField, Button, Snackbar, Alert } from '@mui/material';
 import { useAuth } from '../../context/AuthContext';
+import { apiBaseUrl } from '../../utils/basePath';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -16,7 +17,7 @@ const LoginForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch('/api/auth/login', {
+        const res = await fetch(`${apiBaseUrl}/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),

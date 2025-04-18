@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, Typography, Container, Button, Stack } from '@mui/material';
 import StudySessionCard from './StudySessionCard';
+import { apiBaseUrl } from '../../utils/basePath';
 
 const HomePage = () => {
   const [sessions, setSessions] = useState([]);
@@ -11,7 +12,7 @@ const HomePage = () => {
 
   const fetchSessions = async (pageNum = 1) => {
     try {
-      const res = await fetch(`/api/sessions?page=${pageNum}&limit=${limit}`, {
+      const res = await fetch(`${apiBaseUrl}/api/sessions?page=${pageNum}&limit=${limit}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

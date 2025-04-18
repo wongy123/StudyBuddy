@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ViewProfile from './ViewProfile';
 import EditProfile from './EditProfile';
+import { apiBaseUrl } from '../../../../utils/basePath';
 
 const ProfileInfo = ({ user, isEditable, token }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -11,7 +12,7 @@ const ProfileInfo = ({ user, isEditable, token }) => {
 
   const handleSave = async (formData) => {
     try {
-      const res = await fetch(`/api/users/${user._id}`, {
+      const res = await fetch(`${apiBaseUrl}/api/users/${user._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

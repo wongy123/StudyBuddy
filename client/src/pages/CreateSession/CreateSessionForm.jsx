@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { useSidebarRefresh } from "../../context/SidebarRefreshContext";
+import { apiBaseUrl } from "../../utils/basePath";
 
 const CreateSessionForm = () => {
   const [form, setForm] = useState({
@@ -34,7 +35,7 @@ const CreateSessionForm = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/sessions", {
+      const res = await fetch(`${apiBaseUrl}/api/sessions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

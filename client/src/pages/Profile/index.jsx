@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Alert, Typography, Box, Skeleton, Container } from "@mui/material";
 import { profileOwnerOrAdmin } from "./profileUtils";
 import ViewProfile from "./ViewProfile";
+import { apiBaseUrl } from "../../utils/basePath";
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const ProfilePage = () => {
   
     (async () => {
       try {
-        const res = await fetch(`/api/users/${id}`, {
+        const res = await fetch(`${apiBaseUrl}/api/users/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const result = await res.json();

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography, CircularProgress, Alert } from '@mui/material';
 // import JoinedEvent from '../../../components/ui/UpcomingEventsList/JoinedEvent';
 import UpcomingEventsList from '../../../components/ui/UpcomingEventsList';
+import { apiBaseUrl } from '../../../utils/basePath';
 
 const JoinedSessions = ({ userId, token }) => {
   const [sessions, setSessions] = useState([]);
@@ -11,7 +12,7 @@ const JoinedSessions = ({ userId, token }) => {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const res = await fetch(`/api/sessions/joined/${userId}`, {
+        const res = await fetch(`${apiBaseUrl}/api/sessions/joined/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

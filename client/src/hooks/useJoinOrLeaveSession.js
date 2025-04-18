@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { apiBaseUrl } from '../utils/basePath';
 
 export const useJoinOrLeaveSession = ({ sessionId, isParticipant, onSuccess }) => {
   const [loading, setLoading] = useState(false);
@@ -14,7 +15,7 @@ export const useJoinOrLeaveSession = ({ sessionId, isParticipant, onSuccess }) =
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/sessions/${sessionId}/${action}`, {
+      const res = await fetch(`${apiBaseUrl}/api/sessions/${sessionId}/${action}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

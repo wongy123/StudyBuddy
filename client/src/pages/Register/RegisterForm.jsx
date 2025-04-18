@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Paper, Typography, TextField, Button, Snackbar, Alert } from '@mui/material';
+import { apiBaseUrl } from '../../utils/basePath';
 
 const RegisterForm = () => {
     const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ const RegisterForm = () => {
             return;
         }
 
-        const res = await fetch('/api/auth/register', {
+        const res = await fetch(`${apiBaseUrl}/api/auth/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData),

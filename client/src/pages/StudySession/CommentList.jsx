@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CommentCard from './CommentCard';
 import { Typography } from '@mui/material';
+import { apiBaseUrl } from '../../utils/basePath';
 
 const CommentList = () => {
   const { sessionId } = useParams();
@@ -11,7 +12,7 @@ const CommentList = () => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await fetch(`/api/sessions/${sessionId}/comments`, {
+        const res = await fetch(`${apiBaseUrl}/api/sessions/${sessionId}/comments`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },

@@ -2,6 +2,7 @@ import { Box, Typography, Button, Stack } from '@mui/material';
 import JoinedEvent from './JoinedEvent';
 import { useEffect, useState } from 'react';
 import { useSidebarRefresh } from '../../../context/SidebarRefreshContext';
+import { apiBaseUrl } from '../../../utils/basePath';
 
 const UpcomingEventsList = ({ token, userId, title = "🔮 Upcoming Events" }) => {
   const [joinedEvents, setJoinedEvents] = useState([]);
@@ -14,7 +15,7 @@ const UpcomingEventsList = ({ token, userId, title = "🔮 Upcoming Events" }) =
   useEffect(() => {
     const fetchJoinedEvents = async () => {
       try {
-        const res = await fetch(`/api/sessions/joined/${userId}?page=${page}&limit=${limit}`, {
+        const res = await fetch(`${apiBaseUrl}/api/sessions/joined/${userId}?page=${page}&limit=${limit}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
