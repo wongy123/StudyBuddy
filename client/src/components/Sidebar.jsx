@@ -40,41 +40,38 @@ const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
     >
       <Toolbar />
 
-        {/* Only show close button + auth stuff in mobile drawer */}
-        {isTemporary && (
-          <Box sx={{ px: 1 }}>
-            <Box display="flex" justifyContent="space-between">
+      {/* Only show close button + auth stuff in mobile drawer */}
+      {isTemporary && (
+        <Box sx={{ m: 1 }}>
+          <Box display="flex" justifyContent="space-between">
             <ThemeToggle />
-              <IconButton onClick={toggleDrawer}>
-                <CloseIcon />
-              </IconButton>
-            </Box>
+            <IconButton onClick={toggleDrawer}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
 
-            
-            <Box
+          <Box
             sx={{
-              mb: 2,
+              mb: 1,
               mx: 1,
               display: "flex",
-              flexDirection: "column"
+              flexDirection: "column",
             }}
-            >
-              {token && (
+          >
+            {token && (
               <Typography variant="body1" sx={{ my: 1 }}>
                 Welcome, {displayName}
               </Typography>
             )}
 
             <AuthButton variant="outlined" />
-            </Box>
-            
-            <Divider />
           </Box>
-        )}
-
-        <NavList />
-        <Divider />
-        <UpcomingEventsList token={token} userId={userId} />
+        </Box>
+      )}
+      <Divider />
+      <NavList />
+      <Divider />
+      <UpcomingEventsList token={token} userId={userId} />
     </Drawer>
   );
 };
