@@ -1,32 +1,32 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Button, Stack } from '@mui/material';
 import JoinedEvent from './JoinedEvent';
 import { useEffect, useState } from 'react';
-import { getUserFromToken } from '../../../utils/getUserFromToken';
 import { useSidebarRefresh } from '../../../context/SidebarRefreshContext';
 
 const UpcomingEventsList = () => {
   const [joinedEvents, setJoinedEvents] = useState([]);
   const [error, setError] = useState(null);
-  const { id: userId } = getUserFromToken(localStorage.getItem('token'));
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [limit, setLimit] = useState(2); //For future extension of set limit
   const { refreshKey } = useSidebarRefresh();
 
   useEffect(() => {
     const fetchJoinedEvents = async () => {
       try {
-        const res = await fetch('/api/sessions', {
+        const res = await fetch(`/api/sessions/joined?page=${page}&limit=${limit}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
+
         const result = await res.json();
+
         if (res.ok) {
-          const sessions = result.data;
-          const filtered = sessions.filter((s) =>
-            s.participants.some((p) => String(p._id) === String(userId))
-          );
-          setJoinedEvents(filtered);
+          setJoinedEvents(result.data);
+          setTotalPages(result.totalPages || 1);
         } else {
-          setError(result.message || 'Failed to fetch sessions');
+          setError(result.message || 'Failed to fetch joined sessions');
         }
       } catch (err) {
         setError('Something went wrong');
@@ -35,12 +35,15 @@ const UpcomingEventsList = () => {
     };
 
     fetchJoinedEvents();
-  }, [userId, refreshKey]);
+  }, [page, limit, refreshKey]);
+
+  const handlePrev = () => setPage((prev) => Math.max(prev - 1, 1));
+  const handleNext = () => setPage((prev) => Math.min(prev + 1, totalPages));
 
   return (
     <Box sx={{ px: 2, pb: 2 }}>
       <Typography variant="h6" noWrap component="div" sx={{ mb: 2 }}>
-      🔮 Upcoming Events
+        🔮 Upcoming Events
       </Typography>
 
       {error && (
@@ -59,6 +62,18 @@ const UpcomingEventsList = () => {
             <JoinedEvent {...event} />
           </Box>
         ))
+      )}
+
+      {totalPages > 1 && (
+        <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" mt={2}>
+          <Button onClick={handlePrev} size="small" disabled={page === 1}>
+            Prev
+          </Button>
+          <Typography variant="body2">Page {page} of {totalPages}</Typography>
+          <Button onClick={handleNext} size="small" disabled={page === totalPages}>
+            Next
+          </Button>
+        </Stack>
       )}
     </Box>
   );

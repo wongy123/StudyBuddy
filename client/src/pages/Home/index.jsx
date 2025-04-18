@@ -6,11 +6,12 @@ const HomePage = () => {
   const [sessions, setSessions] = useState([]);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(3); //For future extension to select how many sessions to show per page
   const [totalPages, setTotalPages] = useState(1);
 
   const fetchSessions = async (pageNum = 1) => {
     try {
-      const res = await fetch(`/api/sessions?page=${pageNum}&limit=3`, {
+      const res = await fetch(`/api/sessions?page=${pageNum}&limit=${limit}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
