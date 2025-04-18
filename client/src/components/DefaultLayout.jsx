@@ -21,7 +21,7 @@ const DefaultLayout = () => {
       {/* Main Content on the right */}
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, overflowY: "auto", minHeight: 0 }}
+        sx={{ flexGrow: 1, overflowY: "auto", minHeight: 0 }}
       >
         <Toolbar /> {/* Spacer to align with AppBar */}
         <Outlet />

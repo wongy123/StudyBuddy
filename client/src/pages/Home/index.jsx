@@ -46,7 +46,7 @@ const HomePage = () => {
   };
 
   return (
-    <Container>
+    <Container sx={{ my: 2 }}>
       <Box>
         <Typography variant="h4" gutterBottom>
           🏫 All Study Sessions
@@ -67,7 +67,7 @@ const HomePage = () => {
         ))}
 
         {totalPages > 1 && (
-          <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" mt={4} >
+          <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" >
             <Button onClick={handlePrev} disabled={page === 1}>
             <Typography variant="body1">Previous</Typography>
             </Button>

@@ -35,7 +35,7 @@ const ProfilePage = () => {
 
   if (loading) {
     return (
-      <Container>
+      <Container sx={{ my: 2 }}>
         <Box sx={{ mt: 4, px: 3 }}>
           <Skeleton variant="rectangular" height={300} />
         </Box>
@@ -45,7 +45,7 @@ const ProfilePage = () => {
 
   if (error) {
     return (
-      <Container>
+      <Container sx={{ my: 2 }}>
         <Box>
           <Alert severity="error">{error}</Alert>
           <Typography variant="h5" sx={{ mt: 2 }}>
@@ -59,7 +59,7 @@ const ProfilePage = () => {
   const isEditable = user._id && profileOwnerOrAdmin(user._id, token);
 
   return (
-    <Container>
+    <Container sx={{ my: 2 }}>
         <ViewProfile user={user} isEditable={isEditable} token={token}/>
     </Container>
   );

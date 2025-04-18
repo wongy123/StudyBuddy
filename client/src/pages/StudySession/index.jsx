@@ -36,7 +36,7 @@ const StudySessionPage = () => {
   }, [sessionId]);
 
   return (
-    <Container>
+    <Container sx={{ my: 2 }}>
       {error && (
         <Typography color="error" sx={{ mb: 2 }}>
           {error}

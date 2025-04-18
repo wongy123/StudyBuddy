@@ -40,7 +40,6 @@ const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
     >
       <Toolbar />
 
-      <Box sx={{ py: 1 }}>
         {/* Only show close button + auth stuff in mobile drawer */}
         {isTemporary && (
           <Box sx={{ px: 1 }}>
@@ -76,7 +75,6 @@ const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
         <NavList />
         <Divider />
         <UpcomingEventsList token={token} userId={userId} />
-      </Box>
     </Drawer>
   );
 };
