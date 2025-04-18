@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x #echo on
 
 APP_NAME="StudyBuddy"
 DEPLOY_PATH="/var/www/html/$APP_NAME"
