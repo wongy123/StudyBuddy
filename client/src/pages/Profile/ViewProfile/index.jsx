@@ -11,7 +11,7 @@ const ViewProfile = ({ user, isEditable, token }) => {
       sx={{
         display: 'flex',
         flexDirection: isMedium ? 'column' : 'row',
-        gap: 4,
+        gap: 2,
         alignItems: 'flex-start',
       }}
     >
