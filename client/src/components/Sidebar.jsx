@@ -1,35 +1,83 @@
-import { Drawer, Toolbar, Box, Typography } from "@mui/material";
+import {
+  Drawer,
+  Toolbar,
+  Box,
+  Typography,
+  Divider,
+  IconButton,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import NavList from "./ui/NavList";
 import UpcomingEventsList from "./ui/UpcomingEventsList";
-import { useTheme } from "@mui/material/styles";
+import ThemeToggle from "./ui/ThemeToggle";
+import AuthButton from "./ui/AuthButton";
 import { getUserFromToken } from "../utils/getUserFromToken";
+import { useTheme } from "@mui/material/styles";
 
 const drawerWidth = 300;
 
-const Sidebar = () => {
+const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
   const theme = useTheme();
-  const token = localStorage.getItem('token');
-  const { id: userId } = getUserFromToken(token);
+  const token = localStorage.getItem("token");
+  const { id: userId, displayName } = getUserFromToken(token);
 
   return (
-    <>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-            bgcolor: theme.palette.sidebar.main,
-          },
-        }}
-      >
-        <Toolbar />
+    <Drawer
+      variant={isTemporary ? "temporary" : "permanent"}
+      open={isTemporary ? drawerOpen : true}
+      onClose={isTemporary ? toggleDrawer : undefined}
+      ModalProps={{ keepMounted: true }}
+      sx={{
+        width: isTemporary ? undefined : drawerWidth,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
+          maxWidth: drawerWidth,
+          bgcolor: theme.palette.sidebar.main,
+          overflow: "auto",
+          backgroundImage: "none",
+        },
+      }}
+    >
+      <Toolbar />
+
+      <Box sx={{ py: 1 }}>
+        {/* Only show close button + auth stuff in mobile drawer */}
+        {isTemporary && (
+          <Box sx={{ px: 1 }}>
+            <Box display="flex" justifyContent="space-between">
+            <ThemeToggle />
+              <IconButton onClick={toggleDrawer}>
+                <CloseIcon />
+              </IconButton>
+            </Box>
+
+            
+            <Box
+            sx={{
+              mb: 2,
+              mx: 1,
+              display: "flex",
+              flexDirection: "column"
+            }}
+            >
+              {token && (
+              <Typography variant="body1" sx={{ my: 1 }}>
+                Welcome, {displayName}
+              </Typography>
+            )}
+
+            <AuthButton variant="outlined" />
+            </Box>
+            
+            <Divider />
+          </Box>
+        )}
+
         <NavList />
+        <Divider />
         <UpcomingEventsList token={token} userId={userId} />
-      </Drawer>
-    </>
+      </Box>
+    </Drawer>
   );
 };
 

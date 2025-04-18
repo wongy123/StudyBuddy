@@ -31,7 +31,6 @@ const ViewProfile = ({ user, isEditable, token }) => {
         sx={{
         width: isMedium ? '100%' : 300,
           flexShrink: 0,
-          py: 3,
         }}
       >
         <JoinedSessions userId={user._id} token={token} />

@@ -41,7 +41,7 @@ const UpcomingEventsList = ({ token, userId, title = "🔮 Upcoming Events" }) =
   const handleNext = () => setPage((prev) => Math.min(prev + 1, totalPages));
 
   return (
-    <Box sx={{ px: 2, pb: 2 }}>
+    <Box sx={{ p: 2 }}>
       <Typography variant="h6" noWrap component="div" sx={{ mb: 2 }}>
         {title}
       </Typography>
