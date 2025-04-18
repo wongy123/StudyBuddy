@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ViewProfile from './ViewProfile';
 import EditProfile from './EditProfile';
 
-const ProfileInfo = ({ user, isEditable }) => {
+const ProfileInfo = ({ user, isEditable, token }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentUser, setCurrentUser] = useState(user); // local update
 
@@ -15,7 +15,7 @@ const ProfileInfo = ({ user, isEditable }) => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });

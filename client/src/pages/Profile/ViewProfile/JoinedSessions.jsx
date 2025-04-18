@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Box, Typography, CircularProgress, Alert } from '@mui/material';
-import JoinedEvent from '../../../components/ui/UpcomingEventsList/JoinedEvent';
+// import JoinedEvent from '../../../components/ui/UpcomingEventsList/JoinedEvent';
+import UpcomingEventsList from '../../../components/ui/UpcomingEventsList';
 
-const JoinedSessions = ({ userId }) => {
+const JoinedSessions = ({ userId, token }) => {
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,7 +13,7 @@ const JoinedSessions = ({ userId }) => {
       try {
         const res = await fetch(`/api/sessions/joined/${userId}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         const result = await res.json();
@@ -51,23 +52,24 @@ const JoinedSessions = ({ userId }) => {
   }
 
   return (
-    <Box>
-      <Typography variant="h6" gutterBottom>
-        👥 Joined Sessions
-      </Typography>
+    // <Box>
+    //   <Typography variant="h6" gutterBottom>
+    //     👥 Joined Sessions
+    //   </Typography>
 
-      {sessions.length === 0 ? (
-        <Typography variant="body2" color="text.secondary">
-          This user hasn’t joined any sessions yet.
-        </Typography>
-      ) : (
-        <Box display="flex" flexDirection="column" gap={2}>
-          {sessions.map((session) => (
-            <JoinedEvent key={session._id} {...session} />
-          ))}
-        </Box>
-      )}
-    </Box>
+    //   {sessions.length === 0 ? (
+    //     <Typography variant="body2" color="text.secondary">
+    //       This user hasn’t joined any sessions yet.
+    //     </Typography>
+    //   ) : (
+    //     <Box display="flex" flexDirection="column" gap={2}>
+    //       {sessions.map((session) => (
+    //         <JoinedEvent key={session._id} {...session} />
+    //       ))}
+    //     </Box>
+    //   )}
+    // </Box>
+    <UpcomingEventsList token={token} userId={userId} title="👥 Joined Sessions" />
   );
 };
 

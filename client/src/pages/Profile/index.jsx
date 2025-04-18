@@ -9,6 +9,7 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     setLoading(true);   // Reset loading state when ID changes
@@ -18,7 +19,7 @@ const ProfilePage = () => {
     (async () => {
       try {
         const res = await fetch(`/api/users/${id}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          headers: { Authorization: `Bearer ${token}` },
         });
         const result = await res.json();
         if (!res.ok) throw new Error(result.message || "User not found");
@@ -29,7 +30,7 @@ const ProfilePage = () => {
         setLoading(false);
       }
     })();
-  }, [id]);
+  }, [id, token]);
 
   if (loading) {
     return (
@@ -54,11 +55,11 @@ const ProfilePage = () => {
     );
   }
 
-  const isEditable = user._id && profileOwnerOrAdmin(user._id);
+  const isEditable = user._id && profileOwnerOrAdmin(user._id, token);
 
   return (
     <Container>
-        <ViewProfile user={user} isEditable={isEditable} />
+        <ViewProfile user={user} isEditable={isEditable} token={token}/>
     </Container>
   );
 };

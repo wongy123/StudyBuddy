@@ -1,10 +1,9 @@
 import { getUserFromToken } from '../../utils/getUserFromToken';
 
-export const profileOwnerOrAdmin = (profileUserId) => {
+export const profileOwnerOrAdmin = (profileUserId, token) => {
 
 
     if (!profileUserId) return false;
-    const token = localStorage.getItem('token');
     const { id: loggedInId, role } = getUserFromToken(token);
 
     const isOwner = loggedInId === profileUserId;

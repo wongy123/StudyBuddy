@@ -2,7 +2,7 @@ import { Box, Paper, useTheme, useMediaQuery } from '@mui/material';
 import ProfileInfo from './ProfileInfo';
 import JoinedSessions from './JoinedSessions';
 
-const ViewProfile = ({ user, isEditable }) => {
+const ViewProfile = ({ user, isEditable, token }) => {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -23,7 +23,7 @@ const ViewProfile = ({ user, isEditable }) => {
           width: isMedium ? '100%' : 'auto',
         }}
       >
-        <ProfileInfo user={user} isEditable={isEditable} />
+        <ProfileInfo user={user} isEditable={isEditable} token={token} />
       </Paper>
 
       {/* Right: Joined Sessions (fixed width) */}
@@ -31,10 +31,10 @@ const ViewProfile = ({ user, isEditable }) => {
         sx={{
         width: isMedium ? '100%' : 300,
           flexShrink: 0,
-          p: 3,
+          py: 3,
         }}
       >
-        <JoinedSessions userId={user._id} />
+        <JoinedSessions userId={user._id} token={token} />
       </Paper>
     </Box>
   );
