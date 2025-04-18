@@ -155,3 +155,23 @@ exports.leaveSession = asyncHandler(async (req, res) => {
         data: session,
     });
 });
+
+exports.getJoinedSessions = asyncHandler(async (req, res) => {
+    const userId = req.user._id;
+    const { page, limit } = req.paginate;
+  
+    const result = await StudySession.paginate(
+      { participants: { $in: [userId] } },
+      { page, limit, sort: { date: 1 } }
+    );
+  
+    res.status(200).json({
+      success: true,
+      data: result.docs,
+      page: result.page,
+      totalPages: result.totalPages,
+      totalItems: result.totalDocs
+    });
+  });
+  
+  
