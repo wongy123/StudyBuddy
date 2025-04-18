@@ -13,15 +13,15 @@ const DefaultLayout = () => {
   const toggleDrawer = () => setDrawerOpen((prev) => !prev);
 
   return (
-    <Box sx={{ display: "flex", height: "100vh" }}>
-      <Header mobileView={lgDown} toggleDrawer={toggleDrawer}/>
+    <Box sx={{ display: "flex", minHeight: "100dvh" }}>
+      <Header mobileView={lgDown} toggleDrawer={toggleDrawer} />
 
       {!lgDown && <Sidebar />}
 
       {/* Main Content on the right */}
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, overflowY: "auto", height: "100vh" }}
+        sx={{ flexGrow: 1, p: 3, overflowY: "auto", minHeight: 0 }}
       >
         <Toolbar /> {/* Spacer to align with AppBar */}
         <Outlet />
@@ -35,7 +35,6 @@ const DefaultLayout = () => {
           isTemporary
         />
       )}
-      
     </Box>
   );
 };

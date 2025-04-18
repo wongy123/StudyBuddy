@@ -67,7 +67,7 @@ const HomePage = () => {
         ))}
 
         {totalPages > 1 && (
-          <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" mt={4}>
+          <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" mt={4} >
             <Button onClick={handlePrev} disabled={page === 1}>
             <Typography variant="body1">Previous</Typography>
             </Button>
