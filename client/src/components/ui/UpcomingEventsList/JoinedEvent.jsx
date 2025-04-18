@@ -26,7 +26,7 @@ const JoinedEvent = ({
   const navigate = useNavigate();
   return (
     <Card sx={{ minWidth: 200 }}>
-      <CardContent>
+      <CardContent sx={{ pb: 1 }}>
         <Typography gutterBottom sx={{ color: "text.secondary", fontSize: 14 }}>
           📅 {formatDate(date)}
         </Typography>
@@ -37,7 +37,7 @@ const JoinedEvent = ({
           Created by
         </Typography>
         <Box sx={{ mb: 1 }}>
-          <DisplayNameUserName userName={createdBy.userName} displayName={createdBy.displayName} id={createdBy._id} />
+          <DisplayNameUserName userName={createdBy.userName} displayName={createdBy.displayName} id={createdBy._id}/>
         </Box>
         <Grid container>
           <Grid
