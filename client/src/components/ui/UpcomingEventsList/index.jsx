@@ -2,17 +2,14 @@ import { Box, Typography, Button, Stack } from '@mui/material';
 import JoinedEvent from './JoinedEvent';
 import { useEffect, useState } from 'react';
 import { useSidebarRefresh } from '../../../context/SidebarRefreshContext';
-import { getUserFromToken } from '../../../utils/getUserFromToken';
 
-const UpcomingEventsList = () => {
+const UpcomingEventsList = ({ token, userId, title = "🔮 Upcoming Events" }) => {
   const [joinedEvents, setJoinedEvents] = useState([]);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit, setLimit] = useState(2); //For future extension of set limit
   const { refreshKey } = useSidebarRefresh();
-  const token = localStorage.getItem('token');
-  const { id: userId } = getUserFromToken(token);
 
   useEffect(() => {
     const fetchJoinedEvents = async () => {
@@ -46,7 +43,7 @@ const UpcomingEventsList = () => {
   return (
     <Box sx={{ px: 2, pb: 2 }}>
       <Typography variant="h6" noWrap component="div" sx={{ mb: 2 }}>
-        🔮 Upcoming Events
+        {title}
       </Typography>
 
       {error && (
