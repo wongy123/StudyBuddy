@@ -63,15 +63,35 @@ const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
                 Welcome, {displayName}
               </Typography>
             )}
-
-            <AuthButton variant="outlined" />
+            <Box
+              onClick={(e) => {
+                // Close sidebar only if it's temporary and the click is on an interactive element
+                if (
+                  isTemporary &&
+                  e.target.closest('button, a, [role="button"]')
+                ) {
+                  toggleDrawer();
+                }
+              }}
+            >
+              <AuthButton variant="outlined" />
+            </Box>
           </Box>
         </Box>
       )}
       <Divider />
-      <NavList />
-      <Divider />
-      <UpcomingEventsList token={token} userId={userId} />
+      <Box
+        onClick={(e) => {
+          // Close sidebar only if it's temporary and the click is on an interactive element
+          if (isTemporary && e.target.closest('button, a, [role="button"]')) {
+            toggleDrawer();
+          }
+        }}
+      >
+        <NavList />
+        <Divider />
+        <UpcomingEventsList token={token} userId={userId} />
+      </Box>
     </Drawer>
   );
 };
