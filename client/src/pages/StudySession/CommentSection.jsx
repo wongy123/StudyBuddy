@@ -2,13 +2,14 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
+import { apiBaseUrl } from "../../utils/basePath";
 
 const CommentSection = () => {
   const { sessionId } = useParams();
   const [refreshFlag, setRefreshFlag] = useState(false); // for triggering refresh
 
   const handleSubmit = async (content) => {
-    const res = await fetch(`/api/sessions/${sessionId}/comments`, {
+    const res = await fetch(`${apiBaseUrl}/api/sessions/${sessionId}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -16,6 +16,7 @@ import { getUserFromToken } from "../../utils/getUserFromToken";
 import { useJoinOrLeaveSession } from "../../hooks/useJoinOrLeaveSession";
 import { useSidebarRefresh } from "../../context/SidebarRefreshContext";
 import DisplayNameUserName from "../../components/common/DisplayNameUserName";
+import { apiBaseUrl } from "../../utils/basePath";
 
 const StudySessionDetails = ({
   title,
@@ -60,7 +61,7 @@ const StudySessionDetails = ({
     if (!window.confirm("Are you sure you want to delete this session?"))
       return;
     try {
-      const res = await fetch(`/api/sessions/${sessionId}`, {
+      const res = await fetch(`${apiBaseUrl}/api/sessions/${sessionId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

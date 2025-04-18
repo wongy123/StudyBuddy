@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Container, Typography } from '@mui/material';
-import StudySessionDetails from './StudySessionDetails';
-import CommentSection from './CommentSection';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Container, Typography } from "@mui/material";
+import StudySessionDetails from "./StudySessionDetails";
+import CommentSection from "./CommentSection";
+import { apiBaseUrl } from "../../utils/basePath";
 
 const StudySessionPage = () => {
   const { sessionId } = useParams();
@@ -11,9 +12,9 @@ const StudySessionPage = () => {
 
   const fetchSession = async () => {
     try {
-      const res = await fetch(`/api/sessions/${sessionId}`, {
+      const res = await fetch(`${apiBaseUrl}/api/sessions/${sessionId}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
@@ -22,10 +23,10 @@ const StudySessionPage = () => {
       if (res.ok) {
         setSession(result);
       } else {
-        setError(result.message || 'Failed to fetch session.');
+        setError(result.message || "Failed to fetch session.");
       }
     } catch (err) {
-      setError('Something went wrong while fetching the session.');
+      setError("Something went wrong while fetching the session.");
       console.error(err);
     }
   };

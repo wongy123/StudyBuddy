@@ -31,7 +31,7 @@ const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
         width: isTemporary ? undefined : drawerWidth,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          maxWidth: drawerWidth,
+          width: drawerWidth,
           bgcolor: theme.palette.sidebar.main,
           overflow: "auto",
           backgroundImage: "none",
