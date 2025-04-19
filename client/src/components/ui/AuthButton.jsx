@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
+import { basePath } from "../../utils/basePath";
 
 const AuthButton = ({ variant = "contained", ...props }) => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const AuthButton = ({ variant = "contained", ...props }) => {
 
   const handleLogout = () => {
     setToken(null);
-    window.location.href = "/";
+    window.location.href = `${basePath}/`;
   };
 
   return (
