@@ -2,7 +2,6 @@ import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 
 import DefaultLayout from "./components/DefaultLayout";
-import LoginLayout from "./components/LoginLayout";
 
 import HomePage from "./pages/Home";
 import StudySessionPage from "./pages/StudySession";
@@ -21,12 +20,7 @@ function App() {
     <>
       <Routes location={state?.backgroundLocation || location}>
         <Route element={<DefaultLayout />}>
-          <Route
-            path="/"
-            element={
-              <HomePage />
-            }
-          />
+          <Route path="/" element={<HomePage />} />
           <Route
             path="/session/:sessionId"
             element={
@@ -68,10 +62,10 @@ function App() {
                 />
               )
             }
-            />
-            <Route path="/qut-events" element={<QUTEventsPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
+          />
+          <Route path="/qut-events" element={<QUTEventsPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Route>
       </Routes>
     </>
