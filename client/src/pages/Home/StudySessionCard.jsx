@@ -33,7 +33,7 @@ const StudySessionCard = ({
   const { triggerRefresh } = useSidebarRefresh();
 
   const sessionId = _id;
-  const { user } = useUser();
+  const { token, user } = useUser();
   const { id: userId } = user;
   const isParticipant = participants.some(
     (p) => String(p._id) === String(userId)
@@ -108,27 +108,30 @@ const StudySessionCard = ({
               👥 Participants: {participants.length}
             </Typography>
           </Grid>
-          <Grid size={12}>
-            <Button
-              variant="outlined"
-              color="primary"
-              sx={{ mr: 1 }}
-              onClick={() => navigate(`/session/${_id}`)}
-            >
-              View
-            </Button>
-            <Button
-              variant="contained"
-              color={isParticipant ? "error" : "primary"}
-              onClick={handleJoinOrLeave}
-              disabled={loading}
-              startIcon={
-                loading && <CircularProgress size={20} color="inherit" />
-              }
-            >
-              {isParticipant ? "Leave" : "Join"}
-            </Button>
-          </Grid>
+          {token && (
+            <Grid size={12}>
+              <Button
+                variant="outlined"
+                color="primary"
+                sx={{ mr: 1 }}
+                onClick={() => navigate(`/session/${_id}`)}
+              >
+                View
+              </Button>
+
+              <Button
+                variant="contained"
+                color={isParticipant ? "error" : "primary"}
+                onClick={handleJoinOrLeave}
+                disabled={loading}
+                startIcon={
+                  loading && <CircularProgress size={20} color="inherit" />
+                }
+              >
+                {isParticipant ? "Leave" : "Join"}
+              </Button>
+            </Grid>
+          )}
         </Grid>
       </Paper>
       <Snackbar
