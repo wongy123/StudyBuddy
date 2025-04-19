@@ -8,11 +8,12 @@ import {
   Alert,
   CircularProgress,
   Box,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { useState } from "react";
 import { formatDate } from "../../utils/formatDate";
 import { useParams, useNavigate } from "react-router-dom";
-import { getUserFromToken } from "../../utils/getUserFromToken";
 import { useJoinOrLeaveSession } from "../../hooks/useJoinOrLeaveSession";
 import { useSidebarRefresh } from "../../context/SidebarRefreshContext";
 import DisplayNameUserName from "../../components/common/DisplayNameUserName";
@@ -34,6 +35,8 @@ const StudySessionDetails = ({
   const { sessionId } = useParams();
   const { token, user } = useUser();
   const { id: userId, role: userRole } = user;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const isParticipant = participants.some(
     (p) => String(p._id) === String(userId)
@@ -108,61 +111,76 @@ const StudySessionDetails = ({
 
         <Divider sx={{ my: 2 }} />
 
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={4}>
+        <Box
+          component="session-details"
+          sx={{
+            display: "inline-flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 1, md: 2 },
+          }}
+        >
+          <Box>
             <Typography variant="body2" color="text.secondary">
               📅 Date
             </Typography>
             <Typography>{formatDate(date)}</Typography>
-          </Grid>
-          <Divider orientation="vertical" flexItem />
-          <Grid item xs={12} sm={4}>
+          </Box>
+
+          {!isMobile && (
+            <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
+          )}
+
+          <Box>
             <Typography variant="body2" color="text.secondary">
               🕐 Time
             </Typography>
             <Typography>
               {startTime} - {endTime}
             </Typography>
-          </Grid>
-          <Divider orientation="vertical" flexItem />
-          <Grid item xs={12} sm={4}>
+          </Box>
+
+          {!isMobile && (
+            <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
+          )}
+
+          <Box>
             <Typography variant="body2" color="text.secondary">
               📍 Location
             </Typography>
             <Typography>{location}</Typography>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
 
         <Divider sx={{ my: 2 }} />
 
         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
           🎓 Created by
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2}}>
-        <Typography variant="body2" component="span" sx={{ mr: 1 }}>
-        👑
+        <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+          <Typography variant="body2" component="span" sx={{ mr: 1 }}>
+            👑
           </Typography>
-        <DisplayNameUserName
-          displayName={createdBy.displayName}
-          userName={createdBy.userName}
-          id={createdBy._id}
-        />
+          <DisplayNameUserName
+            displayName={createdBy.displayName}
+            userName={createdBy.userName}
+            id={createdBy._id}
+          />
         </Box>
 
         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
           👥 Participants ({participants.length})
         </Typography>
         {participants.map((p) => (
-          <Box key={p._id} sx={{ display: 'flex', alignItems: 'center'}}>
-          <Typography variant="body2" component="span" sx={{ mr: 1 }}>
-            💻
-          </Typography>
-          <DisplayNameUserName
-            displayName={p.displayName}
-            userName={p.userName}
-            id={p._id}
-          />
-        </Box>
+          <Box key={p._id} sx={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="body2" component="span" sx={{ mr: 1 }}>
+              💻
+            </Typography>
+            <DisplayNameUserName
+              displayName={p.displayName}
+              userName={p.userName}
+              id={p._id}
+            />
+          </Box>
         ))}
 
         <Divider sx={{ my: 2 }} />
