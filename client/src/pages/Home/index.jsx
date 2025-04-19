@@ -1,20 +1,26 @@
-import { useEffect, useState } from 'react';
-import { Box, Typography, Container, Button, Stack } from '@mui/material';
-import StudySessionCard from './StudySessionCard';
-import { apiBaseUrl } from '../../utils/basePath';
-import LoginPrompt from './LoginPrompt';
-
+import { useEffect, useState } from "react";
+import { Box, Typography, Container, Button, Stack, Alert } from "@mui/material";
+import StudySessionCard from "./StudySessionCard";
+import { apiBaseUrl } from "../../utils/basePath";
+import LoginPrompt from "./LoginPrompt";
+import SessionControls from "./SessionControls";
 
 const HomePage = () => {
   const [sessions, setSessions] = useState([]);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(3); //For future extension to select how many sessions to show per page
+  const [limit, setLimit] = useState(3);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc"); //asc for soonest, desc for latest
 
   const fetchSessions = async (pageNum = 1) => {
     try {
-      const res = await fetch(`${apiBaseUrl}/api/sessions?page=${pageNum}&limit=${limit}`);
+      const res = await fetch(
+        `${apiBaseUrl}/api/sessions?page=${pageNum}&limit=${limit}&search=${encodeURIComponent(
+          searchQuery
+        )}&sort=${sortOrder}`
+      );
 
       const result = await res.json();
 
@@ -23,17 +29,17 @@ const HomePage = () => {
         setPage(result.page || 1);
         setTotalPages(result.totalPages || 1);
       } else {
-        setError(result.message || 'Failed to fetch study sessions.');
+        setError(result.message || "Failed to fetch study sessions.");
       }
     } catch (err) {
-      setError('Something went wrong while fetching sessions.');
+      setError("Something went wrong while fetching sessions.");
       console.error(err);
     }
   };
 
   useEffect(() => {
     fetchSessions(page);
-  }, [page]);
+  }, [page, searchQuery, sortOrder, limit]);
 
   const handlePrev = () => {
     if (page > 1) setPage((prev) => prev - 1);
@@ -47,9 +53,14 @@ const HomePage = () => {
     <Container sx={{ my: 2 }}>
       <LoginPrompt />
       <Box>
-        <Typography variant="h4" gutterBottom>
-          🏫 All Study Sessions
-        </Typography>
+        <SessionControls
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+          limit={limit}
+          setLimit={setLimit}
+        />
 
         {error && (
           <Typography color="error" sx={{ mb: 2 }}>
@@ -57,22 +68,33 @@ const HomePage = () => {
           </Typography>
         )}
 
+        {sessions.length === 0 && 
+        <Alert severity="info" variant="outlined" sx={{ alignItems: "center" }} ><Typography variant="body1">No Sessions Found</Typography></Alert>
+        }
+
         {sessions.map((session) => (
           <StudySessionCard
             key={session._id}
             {...session}
-            onJoinSuccess={() => fetchSessions(page)} // refresh current page
+            onJoinSuccess={() => fetchSessions(page)}
           />
         ))}
 
         {totalPages > 1 && (
-          <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" >
+          <Stack
+            direction="row"
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+          >
             <Button onClick={handlePrev} disabled={page === 1}>
-            <Typography variant="body1">Previous</Typography>
+              <Typography variant="body1">Previous</Typography>
             </Button>
-            <Typography variant="body1">Page {page} of {totalPages}</Typography>
+            <Typography variant="body1">
+              Page {page} of {totalPages}
+            </Typography>
             <Button onClick={handleNext} disabled={page === totalPages}>
-            <Typography variant="body1">Next</Typography>
+              <Typography variant="body1">Next</Typography>
             </Button>
           </Stack>
         )}
