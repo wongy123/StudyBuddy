@@ -26,6 +26,14 @@ const NavList = () => {
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
+        <ListItemButton component={Link} to={`/qut-events`}>
+          <ListItemIcon>
+            <SchoolIcon />
+          </ListItemIcon>
+          <ListItemText primary="QUT Events" />
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
         <ListItemButton component={Link} to="/create-session">
           <ListItemIcon>
             <EditCalendarIcon />
@@ -39,14 +47,6 @@ const NavList = () => {
             <AccountBoxIcon />
           </ListItemIcon>
           <ListItemText primary="My profile" />
-        </ListItemButton>
-      </ListItem>
-      <ListItem disablePadding>
-        <ListItemButton component={Link} to={`/qut-events`}>
-          <ListItemIcon>
-            <SchoolIcon />
-          </ListItemIcon>
-          <ListItemText primary="QUT Events" />
         </ListItemButton>
       </ListItem>
     </List>

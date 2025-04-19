@@ -24,15 +24,7 @@ function App() {
           <Route
             path="/"
             element={
-              isAuthenticated ? (
-                <HomePage />
-              ) : (
-                <Navigate
-                  to="/login"
-                  state={{ backgroundLocation: location }}
-                  replace
-                />
-              )
+              <HomePage />
             }
           />
           <Route

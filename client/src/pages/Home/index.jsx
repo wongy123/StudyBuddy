@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Box, Typography, Container, Button, Stack } from '@mui/material';
 import StudySessionCard from './StudySessionCard';
 import { apiBaseUrl } from '../../utils/basePath';
+import LoginPrompt from './LoginPrompt';
+
 
 const HomePage = () => {
   const [sessions, setSessions] = useState([]);
@@ -12,11 +14,7 @@ const HomePage = () => {
 
   const fetchSessions = async (pageNum = 1) => {
     try {
-      const res = await fetch(`${apiBaseUrl}/api/sessions?page=${pageNum}&limit=${limit}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      const res = await fetch(`${apiBaseUrl}/api/sessions?page=${pageNum}&limit=${limit}`);
 
       const result = await res.json();
 
@@ -47,6 +45,7 @@ const HomePage = () => {
 
   return (
     <Container sx={{ my: 2 }}>
+      <LoginPrompt />
       <Box>
         <Typography variant="h4" gutterBottom>
           🏫 All Study Sessions

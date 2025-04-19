@@ -11,7 +11,7 @@ const { validateSession, validateSessionUpdate } = require('../validators/valida
 const validatePaginateQueryParams = require('../validators/validatePaginateQueryParams');
 
 router.route('/')
-    .get(authenticateWithJwt, validatePaginateQueryParams, controller.getAllSessions)
+    .get(validatePaginateQueryParams, controller.getAllSessions)
     .post(authenticateWithJwt, validateJSON, validateSession, controller.createSession);
 
 router.get('/joined/:userId', authenticateWithJwt, validatePaginateQueryParams, controller.getJoinedSessions)
