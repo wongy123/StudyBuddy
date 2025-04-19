@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Box,
   TextField,
   InputAdornment,
   Button,
   CircularProgress,
-} from '@mui/material';
+} from "@mui/material";
 
 const CommentForm = ({ onSubmit }) => {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handlePost = async () => {
@@ -16,7 +16,7 @@ const CommentForm = ({ onSubmit }) => {
     setLoading(true);
     try {
       await onSubmit(content);
-      setContent('');
+      setContent("");
     } catch (err) {
       console.error(err);
     } finally {
@@ -25,7 +25,7 @@ const CommentForm = ({ onSubmit }) => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handlePost();
     }
@@ -41,16 +41,30 @@ const CommentForm = ({ onSubmit }) => {
         onChange={(e) => setContent(e.target.value)}
         onKeyDown={handleKeyDown}
         disabled={loading}
+        inputProps={{ maxLength: 500 }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
+              {content.length > 0 && (
+                <Box mr={1} textAlign="right">
+                  <small
+                    style={{ color: content.length >= 500 ? "red" : "inherit" }}
+                  >
+                    {content.length} / 500
+                  </small>
+                </Box>
+              )}
               <Button
                 variant="contained"
                 onClick={handlePost}
                 disabled={!content.trim() || loading}
                 sx={{ minWidth: 80 }}
               >
-                {loading ? <CircularProgress size={20} color="inherit" /> : 'Post'}
+                {loading ? (
+                  <CircularProgress size={20} color="inherit" />
+                ) : (
+                  "Post"
+                )}
               </Button>
             </InputAdornment>
           ),
