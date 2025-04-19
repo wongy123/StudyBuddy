@@ -70,11 +70,8 @@ function App() {
             }
             />
             <Route path="/qut-events" element={<QUTEventsPage />} />
-        </Route>
-
-        <Route element={<LoginLayout />}>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
         </Route>
       </Routes>
     </>
