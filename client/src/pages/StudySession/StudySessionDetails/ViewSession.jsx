@@ -54,7 +54,8 @@ const ViewSession = ({ session, setMode, onJoinSuccess, token }) => {
   });
 
   const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this session?")) return;
+    if (!window.confirm("Are you sure you want to delete this session?"))
+      return;
 
     try {
       setLoading(true);
@@ -112,7 +113,9 @@ const ViewSession = ({ session, setMode, onJoinSuccess, token }) => {
           <Typography>{formatDate(date)}</Typography>
         </Box>
 
-        {!isMobile && <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />}
+        {!isMobile && (
+          <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
+        )}
 
         <Box>
           <Typography variant="body2" color="text.secondary">
@@ -123,7 +126,9 @@ const ViewSession = ({ session, setMode, onJoinSuccess, token }) => {
           </Typography>
         </Box>
 
-        {!isMobile && <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />}
+        {!isMobile && (
+          <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
+        )}
 
         <Box>
           <Typography variant="body2" color="text.secondary">
@@ -167,37 +172,44 @@ const ViewSession = ({ session, setMode, onJoinSuccess, token }) => {
 
       <Divider sx={{ my: 2 }} />
 
-      <Button
-        variant="contained"
-        color={isParticipant ? "error" : "primary"}
-        onClick={handleJoinOrLeave}
-        disabled={loading}
-        startIcon={loading && <CircularProgress size={20} color="inherit" />}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+        conponent="session-buttons"
       >
-        {isParticipant ? "Leave" : "Join"}
-      </Button>
+        <Button
+          variant="contained"
+          color={isParticipant ? "error" : "primary"}
+          onClick={handleJoinOrLeave}
+          disabled={loading}
+          startIcon={loading && <CircularProgress size={20} color="inherit" />}
+        >
+          {isParticipant ? "Leave" : "Join"}
+        </Button>
 
-      {(isOwner || isModmin) && (
-        <>
-          <Button
-            variant="outlined"
-            color="primary"
-            sx={{ ml: 2 }}
-            onClick={() => setMode("edit")}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="outlined"
-            color="error"
-            sx={{ ml: 2 }}
-            onClick={handleDelete}
-            disabled={loading}
-          >
-            Delete
-          </Button>
-        </>
-      )}
+        {(isOwner || isModmin) && (
+          <Box sx={{ display: "flex", gap: 1 }} component="session-controls">
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => setMode("edit")}
+            >
+              Edit
+            </Button>
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={handleDelete}
+              disabled={loading}
+            >
+              Delete
+            </Button>
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };
