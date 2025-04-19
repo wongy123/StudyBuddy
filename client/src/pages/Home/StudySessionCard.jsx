@@ -8,6 +8,8 @@ import {
   Box,
   Divider,
   CircularProgress,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
@@ -31,6 +33,12 @@ const StudySessionCard = ({
 }) => {
   const navigate = useNavigate();
   const { triggerRefresh } = useSidebarRefresh();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const shortDesc =
+    description.length > (isMobile ? 50 : 100)
+      ? description.slice(0, isMobile ? 50 : 100) + "..."
+      : description;
 
   const sessionId = _id;
   const { token, user } = useUser();
@@ -50,63 +58,94 @@ const StudySessionCard = ({
     });
 
   return (
-    <>
+    <Box component="study-session-card">
       <Paper elevation={2} sx={{ p: 2, mb: 2 }}>
-        <Grid container spacing={3}>
-          <Grid size={8}>
+        <Grid container spacing={{ xs: 2, md: 3 }}>
+          <Grid size={{ xs: 12, md: 8 }}>
             <Typography variant="h5">{title}</Typography>
             <Typography variant="body1" color="text.secondary">
               📘 {courseCode}
             </Typography>
           </Grid>
-
-          <Grid size={4}>
-            <Typography variant="subtitle1" sx={{ textAlign: "right" }}>
-              🎓 Created by:
-            </Typography>
-            <Box sx={{ textAlign: "right" }}>
-              <DisplayNameUserName
-                displayName={createdBy.displayName}
-                userName={createdBy.userName}
-                id={createdBy._id}
-              />
-            </Box>
-          </Grid>
+          {!isMobile && (
+            <Grid size={{ md: 4 }}>
+              <Typography variant="subtitle1" sx={{ textAlign: "right" }}>
+                🎓 Created by:
+              </Typography>
+              <Box sx={{ textAlign: "right" }}>
+                <DisplayNameUserName
+                  displayName={createdBy.displayName}
+                  userName={createdBy.userName}
+                  id={createdBy._id}
+                />
+              </Box>
+            </Grid>
+          )}
           <Grid size={12}>
             <Divider />
           </Grid>
+
           <Grid size={12}>
-            <Typography variant="body1">
-              {description.length > 100
-                ? description.slice(0, 100) + "..."
-                : description}
-            </Typography>
+            <Typography variant="body1">{shortDesc}</Typography>
           </Grid>
+
           <Grid size={12}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={4}>
-                <Typography variant="body1" color="text.secondary">
-                  📅 Date: {formatDate(date)}
-                </Typography>
-              </Grid>
-              <Divider orientation="vertical" flexItem />
-              <Grid item xs={12} sm={4}>
-                <Typography variant="body1" color="text.secondary">
-                  🕐 {startTime} - {endTime}
-                </Typography>
-              </Grid>
-              <Divider orientation="vertical" flexItem />
-              <Grid item xs={12} sm={4}>
-                <Typography variant="body1" color="text.secondary">
-                  📍 Location: {location}
-                </Typography>
-              </Grid>
+            <Box
+              component="session-details"
+              sx={{
+                display: "inline-flex",
+                flexDirection: { xs: "column", md: "row" },
+              }}
+              gap={1}
+            >
+              <Typography variant="body1" color="text.secondary">
+                📅 Date: {formatDate(date)}
+              </Typography>
+              {!isMobile && (
+                <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
+              )}
+              <Typography variant="body1" color="text.secondary">
+                🕐 {startTime} - {endTime}
+              </Typography>
+              {!isMobile && (
+                <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
+              )}
+              <Typography variant="body1" color="text.secondary">
+                📍 Location: {location}
+              </Typography>
+            </Box>
+          </Grid>
+
+          {isMobile && (
+            <Grid size={12}>
+              <Divider flexItem />
             </Grid>
-          </Grid>
+          )}
+
           <Grid size={12}>
             <Typography variant="body1" color="text.secondary">
               👥 Participants: {participants.length}
             </Typography>
+            {isMobile && (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 1,
+                  my: 1,
+                }}
+              >
+                <Typography variant="subtitle1" sx={{ textAlign: "left" }}>
+                  🎓 Created by:
+                </Typography>
+                <DisplayNameUserName
+                  displayName={createdBy.displayName}
+                  userName={createdBy.userName}
+                  id={createdBy._id}
+                />
+              </Box>
+            )}
           </Grid>
           {token && (
             <Grid size={12}>
@@ -144,7 +183,7 @@ const StudySessionCard = ({
           {snack.message}
         </Alert>
       </Snackbar>
-    </>
+    </Box>
   );
 };
 
