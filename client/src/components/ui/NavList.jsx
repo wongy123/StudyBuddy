@@ -8,6 +8,7 @@ import {
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import HomeIcon from "@mui/icons-material/Home";
+import SchoolIcon from '@mui/icons-material/School';
 import { getUserFromToken } from "../../utils/getUserFromToken";
 import { Link } from "react-router-dom";
 
@@ -38,6 +39,14 @@ const NavList = () => {
             <AccountBoxIcon />
           </ListItemIcon>
           <ListItemText primary="My profile" />
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton component={Link} to={`/qut-events`}>
+          <ListItemIcon>
+            <SchoolIcon />
+          </ListItemIcon>
+          <ListItemText primary="QUT Events" />
         </ListItemButton>
       </ListItem>
     </List>

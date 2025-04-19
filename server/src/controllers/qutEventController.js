@@ -1,3 +1,4 @@
+const asyncHandler = require('express-async-handler');
 const cheerio = require('cheerio');
 const fetch = global.fetch;
 
@@ -33,60 +34,51 @@ function parseDateRange(dateText) {
   };
 }
 
-exports.getAllEvents = async (req, res) => {
-  try {
-    const response = await fetch(QUT_EVENTS_URL);
-    const html = await response.text();
-    const $ = cheerio.load(html);
-    const events = [];
+exports.getAllEvents = asyncHandler(async (req, res) => {
+  const response = await fetch(QUT_EVENTS_URL);
+  const html = await response.text();
+  const $ = cheerio.load(html);
+  const events = [];
 
-    $('.col-md-4[data-release-id]').each((_, el) => {
-      const $el = $(el);
-      const id = $el.attr('data-release-id');
+  $('.col-md-4[data-release-id]').each((_, el) => {
+    const $el = $(el);
+    const id = $el.attr('data-release-id');
 
-      const imageStyle = $el.find('.box-image-top').attr('style');
-      const imageMatch = imageStyle?.match(/url\((.*?)\)/);
-      const image = imageMatch ? imageMatch[1] : null;
+    const imageStyle = $el.find('.box-image-top').attr('style');
+    const imageMatch = imageStyle?.match(/url\((.*?)\)/);
+    const image = imageMatch ? imageMatch[1] : null;
 
-      const dateText = $el.find('.box-heading h3').text().trim();
-      const { startDate, endDate } = parseDateRange(dateText);
+    const dateText = $el.find('.box-heading h3').text().trim();
+    const { startDate, endDate } = parseDateRange(dateText);
 
-      const titleEl = $el.find('h4.mt-2 a');
-      const title = titleEl.text().trim();
-      const link = titleEl.attr('href');
+    const titleEl = $el.find('h4.mt-2 a');
+    const title = titleEl.text().trim();
+    const link = titleEl.attr('href');
 
-      const description = $el.find('.box-content p').first().text().trim();
+    const description = $el.find('.box-content p').first().text().trim();
+    const whenText = $el.find('.box-content p:contains("When:")').text().replace(/^When:\s*/i, '').trim();
+    const whereText = $el.find('.box-content p:contains("Where:")').text().replace(/^Where:\s*/i, '').trim();
 
-      const whenText = $el.find('.box-content p:contains("When:")').text().replace(/^When:\s*/i, '').trim();
-      const whereText = $el.find('.box-content p:contains("Where:")').text().replace(/^Where:\s*/i, '').trim();
+    const { startTime, endTime } = parseTimeRange(whenText);
 
-      const { startTime, endTime } = parseTimeRange(whenText);
-
-      events.push({
-        id,
-        title,
-        date: dateText,
-        description,
-        link,
-        where: whereText || null,
-        startDate,
-        endDate,
-        startTime,
-        endTime,
-        image,
-      });
+    events.push({
+      id,
+      title,
+      date: dateText,
+      description,
+      link,
+      where: whereText || null,
+      startDate,
+      endDate,
+      startTime,
+      endTime,
+      image,
     });
+  });
 
-    return res.json({
-      success: true,
-      count: events.length,
-      data: events,
-    });
-  } catch (err) {
-    console.error('❌ Failed to fetch QUT events:', err);
-    return res.status(500).json({
-      success: false,
-      message: 'Failed to retrieve events.',
-    });
-  }
-};
+  res.json({
+    success: true,
+    count: events.length,
+    data: events,
+  });
+});

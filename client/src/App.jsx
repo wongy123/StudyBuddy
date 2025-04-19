@@ -10,6 +10,7 @@ import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import CreateSessionPage from "./pages/CreateSession";
 import ProfilePage from "./pages/Profile";
+import QUTEventsPage from "./pages/QUTEvents";
 
 function App() {
   const location = useLocation();
@@ -76,6 +77,7 @@ function App() {
               )
             }
             />
+            <Route path="/qut-events" element={<QUTEventsPage />} />
         </Route>
 
         <Route element={<LoginLayout />}>
