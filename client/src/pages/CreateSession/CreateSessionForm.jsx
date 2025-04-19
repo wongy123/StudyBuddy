@@ -1,11 +1,14 @@
-import { TextField, Button, Box, Grid, Snackbar, Alert } from "@mui/material";
+import { TextField, Button, Box, Snackbar, Alert } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { useSidebarRefresh } from "../../context/SidebarRefreshContext";
 import { apiBaseUrl } from "../../utils/basePath";
+import { useUser } from "../../hooks/useUser";
 
 const CreateSessionForm = () => {
+  const { token } = useUser();
+
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -39,7 +42,7 @@ const CreateSessionForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(form),
       });

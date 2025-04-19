@@ -10,11 +10,11 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { getUserFromToken } from "../../utils/getUserFromToken";
 import { formatDate } from "../../utils/formatDate";
 import { useJoinOrLeaveSession } from "../../hooks/useJoinOrLeaveSession";
 import { useSidebarRefresh } from "../../context/SidebarRefreshContext";
 import DisplayNameUserName from "../../components/common/DisplayNameUserName";
+import { useUser } from "../../hooks/useUser";
 
 const StudySessionCard = ({
   title,
@@ -33,8 +33,8 @@ const StudySessionCard = ({
   const { triggerRefresh } = useSidebarRefresh();
 
   const sessionId = _id;
-  const token = localStorage.getItem("token");
-  const { id: userId } = getUserFromToken(token);
+  const { user } = useUser();
+  const { id: userId } = user;
   const isParticipant = participants.some(
     (p) => String(p._id) === String(userId)
   );
@@ -65,7 +65,11 @@ const StudySessionCard = ({
               🎓 Created by:
             </Typography>
             <Box sx={{ textAlign: "right" }}>
-              <DisplayNameUserName displayName={createdBy.displayName} userName={createdBy.userName} id={createdBy._id}/>
+              <DisplayNameUserName
+                displayName={createdBy.displayName}
+                userName={createdBy.userName}
+                id={createdBy._id}
+              />
             </Box>
           </Grid>
           <Grid size={12}>

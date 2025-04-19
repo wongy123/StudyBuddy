@@ -4,13 +4,14 @@ import { Alert, Typography, Skeleton, Container, Box } from "@mui/material";
 import { profileOwnerOrAdmin } from "./profileUtils";
 import ViewProfile from "./ViewProfile";
 import { apiBaseUrl } from "../../utils/basePath";
+import { useUser } from "../../hooks/useUser";
 
 const ProfilePage = () => {
   const { id } = useParams();
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const token = localStorage.getItem("token");
+  const { token } = useUser();
 
   useEffect(() => {
     setLoading(true); // Reset loading state when ID changes

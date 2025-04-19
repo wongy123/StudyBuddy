@@ -4,17 +4,19 @@ import { Container, Typography } from "@mui/material";
 import StudySessionDetails from "./StudySessionDetails";
 import CommentSection from "./CommentSection";
 import { apiBaseUrl } from "../../utils/basePath";
+import { useUser } from "../../hooks/useUser";
 
 const StudySessionPage = () => {
   const { sessionId } = useParams();
   const [session, setSession] = useState(null);
   const [error, setError] = useState(null);
+  const { token } = useUser();
 
   const fetchSession = async () => {
     try {
       const res = await fetch(`${apiBaseUrl}/api/sessions/${sessionId}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 

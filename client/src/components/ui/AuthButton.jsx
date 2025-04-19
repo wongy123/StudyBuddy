@@ -1,19 +1,18 @@
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
-import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import { useAuth } from "../../context/AuthContext";
 
-const AuthButton = ({ variant = 'contained', ...props }) => {
+const AuthButton = ({ variant = "contained", ...props }) => {
   const navigate = useNavigate();
   const { isAuthenticated, setToken } = useAuth();
 
   const handleLogin = () => {
-    navigate('/login', {
-    });
+    navigate("/login", {});
   };
 
   const handleLogout = () => {
     setToken(null);
-    navigate('/login');
+    window.location.href = "/";
   };
 
   return (
@@ -21,9 +20,9 @@ const AuthButton = ({ variant = 'contained', ...props }) => {
       variant={variant}
       onClick={isAuthenticated ? handleLogout : handleLogin}
       {...props}
-      color='secondary'
+      color="secondary"
     >
-      {isAuthenticated ? 'Log Out' : 'Login'}
+      {isAuthenticated ? "Log Out" : "Login"}
     </Button>
   );
 };
