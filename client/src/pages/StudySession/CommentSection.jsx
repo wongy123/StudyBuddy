@@ -4,7 +4,7 @@ import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import { apiBaseUrl } from "../../utils/basePath";
 
-const CommentSection = () => {
+const CommentSection = ({ token }) => {
   const { sessionId } = useParams();
   const [refreshFlag, setRefreshFlag] = useState(false); // for triggering refresh
 
@@ -13,7 +13,7 @@ const CommentSection = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ content }),
     });
@@ -30,7 +30,7 @@ const CommentSection = () => {
   return (
     <>
       <CommentForm onSubmit={handleSubmit} />
-      <CommentList key={refreshFlag} />
+      <CommentList key={refreshFlag} token = {token} />
     </>
   );
 };

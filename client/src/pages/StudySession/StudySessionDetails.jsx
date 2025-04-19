@@ -17,6 +17,7 @@ import { useJoinOrLeaveSession } from "../../hooks/useJoinOrLeaveSession";
 import { useSidebarRefresh } from "../../context/SidebarRefreshContext";
 import DisplayNameUserName from "../../components/common/DisplayNameUserName";
 import { apiBaseUrl } from "../../utils/basePath";
+import { useUser } from "../../hooks/useUser";
 
 const StudySessionDetails = ({
   title,
@@ -31,8 +32,8 @@ const StudySessionDetails = ({
   onJoinSuccess,
 }) => {
   const { sessionId } = useParams();
-  const token = localStorage.getItem("token");
-  const { id: userId, role: userRole } = getUserFromToken(token);
+  const { token, user } = useUser();
+  const { id: userId, role: userRole } = user;
 
   const isParticipant = participants.some(
     (p) => String(p._id) === String(userId)
@@ -58,6 +59,7 @@ const StudySessionDetails = ({
     });
 
   const handleDelete = async () => {
+    const { token } = useUser();
     if (!window.confirm("Are you sure you want to delete this session?"))
       return;
     try {

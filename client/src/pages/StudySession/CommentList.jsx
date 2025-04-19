@@ -4,7 +4,7 @@ import CommentCard from './CommentCard';
 import { Typography } from '@mui/material';
 import { apiBaseUrl } from '../../utils/basePath';
 
-const CommentList = () => {
+const CommentList = ({ token }) => {
   const { sessionId } = useParams();
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
@@ -14,7 +14,7 @@ const CommentList = () => {
       try {
         const res = await fetch(`${apiBaseUrl}/api/sessions/${sessionId}/comments`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`,
           },
         });
 

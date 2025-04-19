@@ -48,7 +48,7 @@ const StudySessionPage = () => {
       {session ? (
         <>
           <StudySessionDetails {...session} onJoinSuccess={fetchSession} />
-          <CommentSection />
+          <CommentSection token = {token} />
         </>
       ) : (
         !error && <Typography>Loading...</Typography>
