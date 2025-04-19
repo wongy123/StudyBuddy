@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "createAdmin": "node scripts/createAdminUser.js"
+    "createAdmin": "node scripts/createAdminUser.js",
+    "createMod": "node scripts/createModeratorUser.js"
   },
   "author": "Angus Wong",
   "license": "ISC",
