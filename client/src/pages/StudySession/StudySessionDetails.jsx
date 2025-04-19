@@ -1,6 +1,5 @@
 import {
   Typography,
-  Grid,
   Paper,
   Divider,
   Button,
@@ -33,7 +32,7 @@ const StudySessionDetails = ({
   onJoinSuccess,
 }) => {
   const { sessionId } = useParams();
-  const { user } = useUser();
+  const { token, user } = useUser();
   const { id: userId, role: userRole } = user;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -62,7 +61,6 @@ const StudySessionDetails = ({
     });
 
   const handleDelete = async () => {
-    const { token } = useUser();
     if (!window.confirm("Are you sure you want to delete this session?"))
       return;
     try {
