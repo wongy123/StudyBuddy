@@ -33,7 +33,7 @@ const StudySessionDetails = ({
   onJoinSuccess,
 }) => {
   const { sessionId } = useParams();
-  const { token, user } = useUser();
+  const { user } = useUser();
   const { id: userId, role: userRole } = user;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
