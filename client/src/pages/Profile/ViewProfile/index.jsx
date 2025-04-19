@@ -21,6 +21,7 @@ const ViewProfile = ({ user, isEditable, token }) => {
           flexGrow: 1,
           p: 3,
           width: isMedium ? '100%' : 'auto',
+          bgcolor: theme.palette.sidebar.main,
         }}
       >
         <ProfileInfo user={user} isEditable={isEditable} token={token} />
@@ -31,6 +32,7 @@ const ViewProfile = ({ user, isEditable, token }) => {
         sx={{
         width: isMedium ? '100%' : 300,
           flexShrink: 0,
+          bgcolor: theme.palette.sidebar.main,
         }}
       >
         <JoinedSessions userId={user._id} token={token} />
