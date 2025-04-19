@@ -3,16 +3,36 @@ const asyncHandler = require('express-async-handler');
 const { generatePaginationLinks } = require('../utils/generatePaginationLinks')
 
 exports.getAllSessions = asyncHandler(async (req, res, next) => {
-    const result = await StudySession.paginate({}, req.paginate);
+    const { search = '', sort: sortQuery } = req.query;
+    const sort = sortQuery === 'asc' ? 'asc' : 'desc';
+  
+    const query = search
+      ? {
+          $or: [
+            { title: { $regex: search, $options: 'i' } },
+            { description: { $regex: search, $options: 'i' } },
+            { courseCode: { $regex: search, $options: 'i' } }
+          ]
+        }
+      : {};
+  
+    const sortOption = { date: sort === 'asc' ? 1 : -1 };
+  
+    const result = await StudySession.paginate(query, {
+      ...req.paginate,
+      sort: sortOption
+    });
   
     res
       .status(200)
-      .links(generatePaginationLinks(
-        req.originalUrl,
-        req.paginate.page,
-        result.totalPages,
-        req.paginate.limit
-      ))
+      .links(
+        generatePaginationLinks(
+          req.originalUrl,
+          req.paginate.page,
+          result.totalPages,
+          req.paginate.limit
+        )
+      )
       .json({
         success: true,
         data: result.docs,
