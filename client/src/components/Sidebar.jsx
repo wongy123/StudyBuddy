@@ -5,6 +5,7 @@ import {
   Typography,
   Divider,
   IconButton,
+  Button,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import NavList from "./ui/NavList";
@@ -12,7 +13,8 @@ import UpcomingEventsList from "./ui/UpcomingEventsList";
 import ThemeToggle from "./ui/ThemeToggle";
 import AuthButton from "./ui/AuthButton";
 import { useTheme } from "@mui/material/styles";
-import { useUser } from '../hooks/useUser';
+import { useUser } from "../hooks/useUser";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 300;
 
@@ -74,7 +76,18 @@ const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
                 }
               }}
             >
-              <AuthButton variant="outlined" />
+              {!token && (
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  sx={{ mr: 1 }}
+                  component={Link}
+                  to="/register"
+                >
+                  Register
+                </Button>
+              )}
+              <AuthButton />
             </Box>
           </Box>
         </Box>
@@ -90,7 +103,7 @@ const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
       >
         <NavList />
         <Divider />
-        <UpcomingEventsList token={token} userId={userId} />
+        {token && <UpcomingEventsList token={token} userId={userId} />}
       </Box>
     </Drawer>
   );

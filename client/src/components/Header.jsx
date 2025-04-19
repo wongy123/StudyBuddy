@@ -1,17 +1,32 @@
-import { AppBar, Toolbar, Typography, Box, IconButton, Button } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  IconButton,
+  Button,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AuthButton from "./ui/AuthButton";
 import ThemeToggle from "./ui/ThemeToggle";
 import { Link } from "react-router-dom";
-import { useUser } from '../hooks/useUser';
+import { useUser } from "../hooks/useUser";
 
 const Header = ({ mobileView = false, toggleDrawer }) => {
   const { token, user } = useUser();
   return (
-    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+    <AppBar
+      position="fixed"
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
       <Toolbar>
         {mobileView && (
-          <IconButton color="inherit" edge="start" onClick={toggleDrawer} sx={{ mr: 2 }}>
+          <IconButton
+            color="inherit"
+            edge="start"
+            onClick={toggleDrawer}
+            sx={{ mr: 2 }}
+          >
             <MenuIcon />
           </IconButton>
         )}
@@ -21,7 +36,10 @@ const Header = ({ mobileView = false, toggleDrawer }) => {
         </Typography>
 
         {!mobileView && (
-          <>
+          <Box
+            component="header-desktop-controls"
+            sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+          >
             <ThemeToggle />
             {/* Swap welcome message and register button */}
             {token ? (
@@ -40,8 +58,8 @@ const Header = ({ mobileView = false, toggleDrawer }) => {
               </Button>
             )}
 
-            <AuthButton sx={{ml: 1}}/>
-          </>
+            <AuthButton sx={{ ml: 1 }} />
+          </Box>
         )}
       </Toolbar>
     </AppBar>

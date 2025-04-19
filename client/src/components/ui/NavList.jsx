@@ -4,20 +4,21 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Box,
 } from "@mui/material";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import HomeIcon from "@mui/icons-material/Home";
-import SchoolIcon from '@mui/icons-material/School';
-import { getUserFromToken } from "../../utils/getUserFromToken";
+import SchoolIcon from "@mui/icons-material/School";
 import { Link } from "react-router-dom";
+import { useUser } from "../../hooks/useUser";
 
 const NavList = () => {
-  const token = localStorage.getItem("token");
-  const user = getUserFromToken(token);
+  const { token, user } = useUser();
+
   return (
-    <List>
-      <ListItem disablePadding>
+    <List component="nav-list">
+      <ListItem disablePadding component="nav-item-home">
         <ListItemButton component={Link} to="/">
           <ListItemIcon>
             <HomeIcon />
@@ -25,7 +26,7 @@ const NavList = () => {
           <ListItemText primary="View All Sessions" />
         </ListItemButton>
       </ListItem>
-      <ListItem disablePadding>
+      <ListItem disablePadding component="nav-item-qut-events">
         <ListItemButton component={Link} to={`/qut-events`}>
           <ListItemIcon>
             <SchoolIcon />
@@ -33,22 +34,26 @@ const NavList = () => {
           <ListItemText primary="QUT Events" />
         </ListItemButton>
       </ListItem>
-      <ListItem disablePadding>
-        <ListItemButton component={Link} to="/create-session">
-          <ListItemIcon>
-            <EditCalendarIcon />
-          </ListItemIcon>
-          <ListItemText primary="Create Session" />
-        </ListItemButton>
-      </ListItem>
-      <ListItem disablePadding>
-        <ListItemButton component={Link} to={`/profile/${user.id}`}>
-          <ListItemIcon>
-            <AccountBoxIcon />
-          </ListItemIcon>
-          <ListItemText primary="My profile" />
-        </ListItemButton>
-      </ListItem>
+      {token && (
+        <Box component="nav-user-only">
+          <ListItem disablePadding component="nav-item-create-session">
+            <ListItemButton component={Link} to="/create-session">
+              <ListItemIcon>
+                <EditCalendarIcon />
+              </ListItemIcon>
+              <ListItemText primary="Create Session" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding component="nav-item-my-profile">
+            <ListItemButton component={Link} to={`/profile/${user.id}`}>
+              <ListItemIcon>
+                <AccountBoxIcon />
+              </ListItemIcon>
+              <ListItemText primary="My profile" />
+            </ListItemButton>
+          </ListItem>
+        </Box>
+      )}
     </List>
   );
 };
