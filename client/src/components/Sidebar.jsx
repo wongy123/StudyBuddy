@@ -54,7 +54,7 @@ const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
 
           <Box
             sx={{
-              mb: 1,
+              my: 1,
               mx: 1,
               display: "flex",
               flexDirection: "column",
