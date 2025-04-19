@@ -14,7 +14,7 @@ const DefaultLayout = () => {
 
   return (
     <Box sx={{ display: "flex", minHeight: "100dvh" }}>
-      <Header mobileView={lgDown} toggleDrawer={toggleDrawer} />
+      <Header mobileView={lgDown} toggleDrawer={toggleDrawer}/>
 
       {!lgDown && <Sidebar />}
 

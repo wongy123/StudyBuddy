@@ -17,7 +17,7 @@ const LoginPrompt = () => {
             alignItems: { xs: "start", md: "center" },
           }}
         >
-          <Typography variant="body1" fontWeight={"bold"} sx={{ mr: 1 }}>
+          <Typography variant="body1" fontWeight={"bold"} sx={{ mr: { xs: 0, md: 1 } }}>
             Want to join a session or create your own?
           </Typography>
           <Typography variant="body1">

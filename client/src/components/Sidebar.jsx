@@ -11,15 +11,15 @@ import NavList from "./ui/NavList";
 import UpcomingEventsList from "./ui/UpcomingEventsList";
 import ThemeToggle from "./ui/ThemeToggle";
 import AuthButton from "./ui/AuthButton";
-import { getUserFromToken } from "../utils/getUserFromToken";
 import { useTheme } from "@mui/material/styles";
+import { useUser } from '../hooks/useUser';
 
 const drawerWidth = 300;
 
 const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
   const theme = useTheme();
-  const token = localStorage.getItem("token");
-  const { id: userId, displayName } = getUserFromToken(token);
+  const { token, user } = useUser();
+  const { id: userId, displayName } = user;
 
   return (
     <Drawer

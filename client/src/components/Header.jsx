@@ -2,13 +2,11 @@ import { AppBar, Toolbar, Typography, Box, IconButton, Button } from "@mui/mater
 import MenuIcon from "@mui/icons-material/Menu";
 import AuthButton from "./ui/AuthButton";
 import ThemeToggle from "./ui/ThemeToggle";
-import { getUserFromToken } from "../utils/getUserFromToken";
 import { Link } from "react-router-dom";
+import { useUser } from '../hooks/useUser';
 
 const Header = ({ mobileView = false, toggleDrawer }) => {
-  const token = localStorage.getItem("token");
-  const user = getUserFromToken(token);
-
+  const { token, user } = useUser();
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>
