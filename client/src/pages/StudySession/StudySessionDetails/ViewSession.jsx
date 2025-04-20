@@ -15,7 +15,7 @@ import DisplayNameUserName from "../../../components/common/DisplayNameUserName"
 import { useUser } from "../../../hooks/useUser";
 import { apiBaseUrl } from "../../../utils/basePath";
 import { useState } from "react";
-import OptionsMenu from "../../../components/ui/OptionsMenu";
+import OptionsMenu from "../../../components/common/OptionsMenu";
 
 const ViewSession = ({ session, setViewMode, onJoinSuccess, token }) => {
   const { user } = useUser();

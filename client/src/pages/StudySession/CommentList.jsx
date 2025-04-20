@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CommentCard from "./CommentCard";
-import {
-  Typography,
-  Box,
-  Snackbar,
-  Alert,
-} from "@mui/material";
+import { Typography, Box, Snackbar, Alert } from "@mui/material";
 import { apiBaseUrl } from "../../utils/basePath";
 
 const CommentList = ({ token }) => {
@@ -47,9 +42,11 @@ const CommentList = ({ token }) => {
   }, [sessionId]);
 
   const handleDelete = async (commentId) => {
-    const confirmed = window.confirm("Are you sure you want to delete this comment?");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this comment?"
+    );
     if (!confirmed) return;
-  
+
     try {
       const res = await fetch(
         `${apiBaseUrl}/api/sessions/${sessionId}/comments/${commentId}`,
@@ -60,10 +57,10 @@ const CommentList = ({ token }) => {
           },
         }
       );
-  
+
       const text = await res.text(); // ✅ only read once
       const result = text ? JSON.parse(text) : {};
-  
+
       if (res.ok) {
         setSnackMessage(result.message || "Comment deleted.");
         setSnackSeverity("success");
@@ -80,7 +77,39 @@ const CommentList = ({ token }) => {
       setSnackOpen(true);
     }
   };
-  
+
+  const handleUpdate = async (commentId, updatedContent) => {
+    try {
+      const res = await fetch(
+        `${apiBaseUrl}/api/sessions/${sessionId}/comments/${commentId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ content: updatedContent }),
+        }
+      );
+
+      const result = await res.json();
+
+      if (res.ok) {
+        setSnackMessage("Comment updated.");
+        setSnackSeverity("success");
+        fetchComments(); // Refresh
+      } else {
+        setSnackMessage(result.message || "Failed to update comment.");
+        setSnackSeverity("error");
+      }
+    } catch (err) {
+      console.error(err);
+      setSnackMessage("Error updating comment.");
+      setSnackSeverity("error");
+    } finally {
+      setSnackOpen(true);
+    }
+  };
 
   return (
     <Box component="comment-list">
@@ -100,6 +129,7 @@ const CommentList = ({ token }) => {
             key={comment._id}
             {...comment}
             onDelete={() => handleDelete(comment._id)}
+            onUpdate={(updatedContent) => handleUpdate(comment._id, updatedContent)}
           />
         ))
       )}
