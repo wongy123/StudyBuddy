@@ -11,3 +11,14 @@ export const profileOwnerOrAdmin = (profileUserId, token) => {
 
     return isOwner || isAdmin;
 };
+
+export const profileOwner = (profileUserId, token) => {
+
+
+    if (!profileUserId) return false;
+    const { id: loggedInId } = getUserFromToken(token);
+
+    const isOwner = loggedInId === profileUserId;
+
+    return isOwner;
+};

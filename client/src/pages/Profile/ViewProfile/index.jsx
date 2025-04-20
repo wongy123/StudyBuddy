@@ -2,7 +2,7 @@ import { Box, Paper, useTheme, useMediaQuery } from '@mui/material';
 import ProfileInfo from './ProfileInfo';
 import JoinedSessions from './JoinedSessions';
 
-const ViewProfile = ({ user, isEditable, token }) => {
+const ViewProfile = ({ user, isEditable, isOwner, token }) => {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -24,7 +24,7 @@ const ViewProfile = ({ user, isEditable, token }) => {
           bgcolor: theme.palette.sidebar.main,
         }}
       >
-        <ProfileInfo user={user} isEditable={isEditable} token={token} />
+        <ProfileInfo user={user} isEditable={isEditable} isOwner={isOwner} token={token} />
       </Paper>
 
       {/* Right: Joined Sessions (fixed width) */}

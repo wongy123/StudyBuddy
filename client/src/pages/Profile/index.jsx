@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Alert, Typography, Skeleton, Container, Box } from "@mui/material";
-import { profileOwnerOrAdmin } from "./profileUtils";
+import { profileOwnerOrAdmin, profileOwner } from "./profileUtils";
 import ViewProfile from "./ViewProfile";
 import { apiBaseUrl } from "../../utils/basePath";
 import { useUser } from "../../hooks/useUser";
@@ -63,10 +63,11 @@ const ProfilePage = () => {
   }
 
   const isEditable = user._id && profileOwnerOrAdmin(user._id, token);
+  const isOwner = user._id && profileOwner(user._id, token);
 
   return (
     <Container sx={{ my: 2 }}>
-      <ViewProfile user={user} isEditable={isEditable} token={token} />
+      <ViewProfile user={user} isEditable={isEditable} isOwner={isOwner} token={token} />
     </Container>
   );
 };
