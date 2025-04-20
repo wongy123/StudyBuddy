@@ -15,8 +15,9 @@ import DisplayNameUserName from "../../../components/common/DisplayNameUserName"
 import { useUser } from "../../../hooks/useUser";
 import { apiBaseUrl } from "../../../utils/basePath";
 import { useState } from "react";
+import OptionsMenu from "../../../components/ui/OptionsMenu";
 
-const ViewSession = ({ session, setMode, onJoinSuccess, token }) => {
+const ViewSession = ({ session, setViewMode, onJoinSuccess, token }) => {
   const { user } = useUser();
   const { id: userId, role: userRole } = user;
   const {
@@ -192,10 +193,10 @@ const ViewSession = ({ session, setMode, onJoinSuccess, token }) => {
 
         {(isOwner || isModmin) && (
           <Box sx={{ display: "flex", gap: 1 }} component="session-controls">
-            <Button
+            {/* <Button
               variant="outlined"
               color="primary"
-              onClick={() => setMode("edit")}
+              onClick={() => setViewMode(false)}
             >
               Edit
             </Button>
@@ -206,7 +207,8 @@ const ViewSession = ({ session, setMode, onJoinSuccess, token }) => {
               disabled={loading}
             >
               Delete
-            </Button>
+            </Button> */}
+            <OptionsMenu onEdit={() => setViewMode(false)} onDelete={handleDelete} />
           </Box>
         )}
       </Box>

@@ -4,7 +4,7 @@ import ViewSession from "./ViewSession";
 import EditSessionForm from "./EditSessionForm";
 
 const StudySessionDetails = ({ token, session, onUpdate }) => {
-  const [mode, setMode] = useState("view");
+  const [viewMode, setViewMode] = useState(true);
   const [snack, setSnack] = useState({
     open: false,
     message: "",
@@ -20,18 +20,18 @@ const StudySessionDetails = ({ token, session, onUpdate }) => {
   return (
     <>
       <Paper elevation={2} sx={{ p: 3 }}>
-        {mode === "edit" ? (
+        {!viewMode ? (
           <EditSessionForm
             session={session}
             token={token}
-            onCancel={() => setMode("view")}
+            onCancel={() => setViewMode(true)}
             onSuccess={() => {
               setSnack({
                 open: true,
                 message: "Session updated.",
                 severity: "success",
               });
-              setMode("view");
+              setViewMode(true);
               if (onUpdate) onUpdate();
             }}
           />
@@ -39,7 +39,7 @@ const StudySessionDetails = ({ token, session, onUpdate }) => {
           <ViewSession
             session={session}
             token={token}
-            setMode={setMode}
+            setViewMode={setViewMode}
             onJoinSuccess={onUpdate}
           />
         )}

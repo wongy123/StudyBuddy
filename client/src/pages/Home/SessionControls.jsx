@@ -6,6 +6,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Box,
 } from "@mui/material";
 import { useState } from "react";
 
@@ -36,26 +37,43 @@ const SessionControls = ({
       alignItems={{ xs: "end", md: "start" }}
     >
       {/* Row 1: Search, Search Button, Clear */}
-      <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
-        <TextField
-          label="Search (Title, Course, or Creator)"
-          variant="outlined"
-          size="small"
-          value={localSearch}
-          onChange={(e) => setLocalSearch(e.target.value)}
-          sx={{ flexGrow: 1 }}
-        />
+      <Box
+        component="form"
+        onSubmit={(e) => {
+          e.preventDefault(); // prevent page reload
+          handleSearchSubmit();
+        }}
+        sx={{ width: "100%" }}
+        noValidate
+        autoComplete="off"
+      >
+        <Stack direction="row" spacing={2}>
+          <TextField
+            label="Search (Title, Course, or Creator)"
+            id="search-bar"
+            variant="outlined"
+            size="small"
+            value={localSearch}
+            onChange={(e) => setLocalSearch(e.target.value)}
+            sx={{ flexGrow: 1 }}
+            type="search"
+          />
 
-        <Button variant="contained" onClick={handleSearchSubmit}>
-          Search
-        </Button>
-
-        {searchQuery && (
-          <Button variant="text" color="secondary" onClick={handleClearSearch}>
-            Clear
+          <Button type="submit" variant="contained">
+            Search
           </Button>
-        )}
-      </Stack>
+
+          {searchQuery && (
+            <Button
+              variant="text"
+              color="secondary"
+              onClick={handleClearSearch}
+            >
+              Clear
+            </Button>
+          )}
+        </Stack>
+      </Box>
 
       {/* Row 2: Sort & Per Page dropdowns */}
       <Stack direction="row" spacing={2}>
