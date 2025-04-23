@@ -39,7 +39,11 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchSessions(page);
-  }, [page, searchQuery, sortOrder, limit]);
+  }, [page, searchQuery]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery, sortOrder, limit]);
 
   const handlePrev = () => {
     if (page > 1) setPage((prev) => prev - 1);
