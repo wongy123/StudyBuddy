@@ -7,7 +7,7 @@ Have you ever thought: Man, it sure would be nice if I could discuss that diffic
 
 This is an ongoing project developed by Angus Wong initially for IFN666 Web and Mobile Application Development at the Queensland University of Technology.
 
-
+####Updates
 19/04: The web application is fully developed and ready for deployment. Documentation will be updated soon. The application is being hosted on a test server on n11941073.ifn666.com/StudyBuddy (Not available 24/7 currently).
 
 
