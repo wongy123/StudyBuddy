@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Box, Typography, Container, Button, Stack, Alert } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Container,
+  Button,
+  Stack,
+  Alert,
+} from "@mui/material";
 import StudySessionCard from "./StudySessionCard";
 import { apiBaseUrl } from "../../utils/basePath";
 import LoginPrompt from "./LoginPrompt";
@@ -39,9 +46,10 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchSessions(page);
-  }, [page, searchQuery]);
+  }, [page]);
 
   useEffect(() => {
+    fetchSessions(1);
     setPage(1);
   }, [searchQuery, sortOrder, limit]);
 
@@ -72,9 +80,15 @@ const HomePage = () => {
           </Typography>
         )}
 
-        {sessions.length === 0 && 
-        <Alert severity="info" variant="outlined" sx={{ alignItems: "center" }} ><Typography variant="body1">No Sessions Found</Typography></Alert>
-        }
+        {sessions.length === 0 && (
+          <Alert
+            severity="info"
+            variant="outlined"
+            sx={{ alignItems: "center" }}
+          >
+            <Typography variant="body1">No Sessions Found</Typography>
+          </Alert>
+        )}
 
         {sessions.map((session) => (
           <StudySessionCard
