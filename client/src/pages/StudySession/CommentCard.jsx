@@ -14,7 +14,7 @@ import OptionsMenu from "../../components/common/OptionsMenu";
 
 const CommentCard = ({ user, createdAt, content, onDelete, onUpdate }) => {
   const { user: currentUser } = useUser();
-  const isOwner = currentUser?.id === user._id;
+  const isOwner = currentUser?.id === (user?._id || null);
   const isModmin =
     currentUser?.role === "admin" || currentUser?.role === "moderator";
 
@@ -34,11 +34,17 @@ const CommentCard = ({ user, createdAt, content, onDelete, onUpdate }) => {
         alignItems="center"
         mb={1}
       >
-        <DisplayNameUserName
-          displayName={user.displayName}
-          userName={user.userName}
-          id={user._id}
-        />
+        {user ? (
+          <DisplayNameUserName
+            displayName={user.displayName}
+            userName={user.userName}
+            id={user._id}
+          />
+        ) : (
+          <Typography variant="body2" color="text.secondary">
+            Deleted User
+          </Typography>
+        )}
 
         <Box display="flex" alignItems="center" gap={1}>
           <Typography variant="caption" color="text.secondary">
