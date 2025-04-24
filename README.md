@@ -9,10 +9,35 @@ This is an ongoing project developed by Angus Wong initially for IFN666 Web and 
 
 #### Updates
 
+
+24/04: Added admin panel to view all registered users. Admin can already modify or delete any users.
+
+
 19/04: The web application is fully developed and ready for deployment. Documentation will be updated soon. The application is being hosted on a test server on n11941073.ifn666.com/StudyBuddy (Not available 24/7 currently).
 
 
-###  How to run
+### 🔐 Role-Based Access Control (RBAC)
+
+| Feature / Action                     | User 👤 | Moderator 🛡️ | Admin 👑 |
+|--------------------------------------|:-------:|:------------:|:---------:|
+| View study sessions                  | ✅     | ✅           | ✅       |
+| Create study sessions                | ✅     | ✅           | ✅       |
+| Edit own study sessions              | ✅     | ✅           | ✅       |
+| Delete own study sessions            | ✅     | ✅           | ✅       |
+| Edit *any* session                   | ❌     | ✅           | ✅       |
+| Delete *any* session                 | ❌     | ✅           | ✅       |
+| Comment on sessions                  | ✅     | ✅           | ✅       |
+| Edit/delete own comments             | ✅     | ✅           | ✅       |
+| Edit/delete *any* comment            | ❌     | ✅           | ✅       |
+| Access AdminPage                     | ❌     | ❌           | ✅       |
+| Edit or delete users                 | ❌     | ❌           | ✅       |
+| View all users (Admin panel)         | ❌     | ❌           | ✅       |
+
+✅ = Allowed  
+❌ = Not allowed
+
+
+###  How to run API
 
 To test this web app on your local device, simply download the source code
 `git clone https://github.com/wongy123/StudyBuddy.git`
@@ -36,7 +61,11 @@ Install the dependencies
 
 Create admin user
 
-`npm run createAdmin`
+`npm run createAdmin -- <userName> <email> <password>`
+
+Create moderator user
+
+`npm run createMod -- <userName> <email> <password>`
 
 Run the server
 
@@ -44,3 +73,37 @@ Run the server
 
 
 You can also test the API by importing the **StudyBuddy.postman_environment** file into Postman environment, then import **StudyBuddy API.postman_collection** into collections, and run the collection.
+
+
+###  How to run Front-End
+
+Go into the working directory
+
+`cd StudyBuddy`
+
+
+Install the dependencies
+
+`cd client`
+
+`npm install`
+
+
+The front-end React app is configured to be deployed under the /StudyBuddy path in production.
+
+In development mode, this restriction does not apply.
+
+
+To test the web app in development mode, ensure you already have the API running on port `4000`, then start the front-end
+
+`npm run dev`
+
+
+This will launch the React app locally (usually at http://localhost:5173), and it will proxy API requests to your backend on port 4000.
+
+
+If you wish to expose the React app to your local network, you can run
+
+`npm run dev --host`
+
+Other devices on your local network can now access the React app via http://`server's local ip`:5173
