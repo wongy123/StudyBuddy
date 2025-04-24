@@ -62,11 +62,13 @@ Run the server
 
 `node server.js`
 
-You can also test the API by importing the **StudyBuddy.postman_environment** file into Postman environment, then import **StudyBuddy API.postman_collection** into collections, and run the collection.
+You can also test the API by importing the **Hoppscotch_env_StudyBuddy.json** file into Hoppscotch environment, then import **Hoppscotch_StudyBuddyAPI.json** into collections, and run the collection.
 
 **If you want to run the HoppScotch API tests, make sure you create an admin account with the following command first**
 
 **`npm run createAdmin -- adminUser adminuser@example.com password`**
+
+_As of 24/04, the Hoppscotch tests are updated, and the Postman tests are outdated and will not test all end points._
 
 ### How to run Front-End
 
