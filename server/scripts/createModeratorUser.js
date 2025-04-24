@@ -1,39 +1,47 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const User = require("../src/models/User"); // adjust path if needed
+const User = require("../src/models/User");
 
-const createAdminUser = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/studybuddy");
+const createModeratorUser = async () => {
+  try {
+    // Parse arguments
+    const [,, userNameArg, emailArg, passwordArg] = process.argv;
 
-        const email = "mod@example.com";
-        const userName = "moduser";
-
-        // Check if mod already exists
-        const existing = await User.findOne({ email });
-        if (existing) {
-            console.log("❌ Mod already exists:", existing.email);
-            process.exit(0);
-        }
-
-        // Create mod
-        const password = "password";
-        const admin = new User({
-            userName,
-            displayName: "Moderator",
-            email,
-            password: password,
-            degree: "Bachelor of Management",
-            role: "moderator",
-        });
-
-        await admin.save();
-        console.log("✅ Moderator user created:", email);
-        process.exit(0);
-    } catch (err) {
-        console.error("❌ Failed to create moderator:", err);
-        process.exit(1);
+    if (!userNameArg || !emailArg || !passwordArg) {
+      console.error("❌ Please provide userName, email, and password as arguments.");
+      console.error("👉 Usage: node createModeratorUser.js moduser mod@example.com mysecurepassword");
+      process.exit(1);
     }
+
+    await mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/studybuddy");
+
+    // Check if user already exists by email or userName
+    const existing = await User.findOne({ 
+      $or: [{ email: emailArg }, { userName: userNameArg }] 
+    });
+
+    if (existing) {
+      console.log("❌ Moderator already exists:", existing.email || existing.userName);
+      process.exit(0);
+    }
+
+    // Create moderator
+    const moderator = new User({
+      userName: userNameArg,
+      displayName: userNameArg,
+      email: emailArg,
+      password: passwordArg,
+      degree: "Bachelor of Management",
+      role: "moderator",
+    });
+
+    await moderator.save();
+    console.log("✅ Moderator user created:", emailArg);
+    process.exit(0);
+  } catch (err) {
+    console.error("❌ Failed to create moderator:", err);
+    process.exit(1);
+  }
 };
 
-createAdminUser();
+createModeratorUser();
