@@ -54,10 +54,6 @@ Create admin user
 
 `npm run createAdmin -- <userName> <email> <password>`
 
-**If you want to run the HoppScotch API tests, make sure you create an admin account with the following command first**
-
-**`npm run createAdmin -- adminUser adminuser@example.com password`**
-
 Create moderator user
 
 `npm run createMod -- <userName> <email> <password>`
@@ -67,6 +63,10 @@ Run the server
 `node server.js`
 
 You can also test the API by importing the **StudyBuddy.postman_environment** file into Postman environment, then import **StudyBuddy API.postman_collection** into collections, and run the collection.
+
+**If you want to run the HoppScotch API tests, make sure you create an admin account with the following command first**
+
+**`npm run createAdmin -- adminUser adminuser@example.com password`**
 
 ### How to run Front-End
 
