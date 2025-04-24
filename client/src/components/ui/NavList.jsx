@@ -10,6 +10,7 @@ import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import HomeIcon from "@mui/icons-material/Home";
 import SchoolIcon from "@mui/icons-material/School";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { Link } from "react-router-dom";
 import { useUser } from "../../hooks/useUser";
 
@@ -52,6 +53,16 @@ const NavList = () => {
               <ListItemText primary="My profile" />
             </ListItemButton>
           </ListItem>
+          {user?.role === "admin" && (
+            <ListItem disablePadding component="nav-item-admin">
+              <ListItemButton component={Link} to="/admin">
+                <ListItemIcon>
+                  <AdminPanelSettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Admin Dashboard" />
+              </ListItemButton>
+            </ListItem>
+          )}
         </Box>
       )}
     </List>
