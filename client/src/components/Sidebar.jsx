@@ -96,6 +96,17 @@ const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
       <Box
         onClick={(e) => {
           // Close sidebar only if it's temporary and the click is on an interactive element
+          if (isTemporary && e.target.closest('button, a, [role="button"]')) {
+            toggleDrawer();
+          }
+        }}
+      >
+        <NavList />
+      </Box>
+      <Divider />
+      <Box
+        onClick={(e) => {
+          // Close sidebar only if it's temporary and the click is on events-list component (excludes next and prev buttons)
           const interactive = e.target.closest('button, a, [role="button"]');
           const isNavLink = interactive?.closest("events-list");
           if (isTemporary && isNavLink) {
@@ -103,8 +114,6 @@ const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
           }
         }}
       >
-        <NavList />
-        <Divider />
         {token && <UpcomingEventsList token={token} userId={userId} />}
       </Box>
     </Drawer>
