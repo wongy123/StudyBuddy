@@ -10,6 +10,8 @@ import RegisterPage from "./pages/Register";
 import CreateSessionPage from "./pages/CreateSession";
 import ProfilePage from "./pages/Profile";
 import QUTEventsPage from "./pages/QUTEvents";
+import AdminPage from "./pages/Admin";
+import RequireAdmin from "./components/auth/RequireAdmin";
 
 function App() {
   const location = useLocation();
@@ -66,6 +68,7 @@ function App() {
           <Route path="/qut-events" element={<QUTEventsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/admin" element={<RequireAdmin><AdminPage /></RequireAdmin>} />
         </Route>
       </Routes>
     </>
