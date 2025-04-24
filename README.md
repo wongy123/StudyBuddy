@@ -55,6 +55,7 @@ Create admin user
 `npm run createAdmin -- <userName> <email> <password>`
 
 **If you want to run the HoppScotch API tests, make sure you create an admin account with the following command first**
+
 **`npm run createAdmin -- adminUser adminuser@example.com password`**
 
 Create moderator user
