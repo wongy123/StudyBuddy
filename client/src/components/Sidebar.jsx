@@ -103,8 +103,8 @@ const Sidebar = ({ isTemporary = false, drawerOpen, toggleDrawer }) => {
       >
         <NavList />
         <Divider />
-        {token && <UpcomingEventsList token={token} userId={userId} />}
       </Box>
+      {token && <UpcomingEventsList token={token} userId={userId} />}
     </Drawer>
   );
 };

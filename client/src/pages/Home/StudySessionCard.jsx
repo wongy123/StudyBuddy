@@ -73,11 +73,17 @@ const StudySessionCard = ({
                 🎓 Created by:
               </Typography>
               <Box sx={{ textAlign: "right" }}>
-                <DisplayNameUserName
-                  displayName={createdBy.displayName}
-                  userName={createdBy.userName}
-                  id={createdBy._id}
-                />
+                {createdBy ? (
+                  <DisplayNameUserName
+                    displayName={createdBy.displayName}
+                    userName={createdBy.userName}
+                    id={createdBy._id}
+                  />
+                ) : (
+                  <Typography variant="body2" color="text.secondary">
+                    Deleted User
+                  </Typography>
+                )}
               </Box>
             </Grid>
           )}

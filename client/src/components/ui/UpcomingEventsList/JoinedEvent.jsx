@@ -37,7 +37,17 @@ const JoinedEvent = ({
           Created by
         </Typography>
         <Box sx={{ mb: 1 }}>
-          <DisplayNameUserName userName={createdBy.userName} displayName={createdBy.displayName} id={createdBy._id}/>
+          {createdBy ? (
+            <DisplayNameUserName
+              userName={createdBy.userName}
+              displayName={createdBy.displayName}
+              id={createdBy._id}
+            />
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              Deleted User
+            </Typography>
+          )}
         </Box>
         <Grid container>
           <Grid
@@ -83,7 +93,6 @@ const JoinedEvent = ({
             <Typography variant="body2">{participants.length}</Typography>
           </Grid>
         </Grid>
-        
       </CardContent>
       <Box
         sx={{ display: "flex", justifyContent: "center" }}

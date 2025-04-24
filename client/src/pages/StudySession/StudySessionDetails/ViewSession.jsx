@@ -36,7 +36,7 @@ const ViewSession = ({ session, setViewMode, onJoinSuccess, token }) => {
   const isParticipant = participants.some(
     (p) => String(p._id) === String(userId)
   );
-  const isOwner = String(createdBy._id) === String(userId);
+  const isOwner = String(createdBy?._id || null) === String(userId);
   const isModmin = userRole === "admin" || userRole === "moderator";
 
   const theme = useTheme();
@@ -148,11 +148,17 @@ const ViewSession = ({ session, setViewMode, onJoinSuccess, token }) => {
         <Typography variant="body2" component="span" sx={{ mr: 1 }}>
           👑
         </Typography>
-        <DisplayNameUserName
-          displayName={createdBy.displayName}
-          userName={createdBy.userName}
-          id={createdBy._id}
-        />
+        {createdBy ? (
+          <DisplayNameUserName
+            displayName={createdBy.displayName}
+            userName={createdBy.userName}
+            id={createdBy._id}
+          />
+        ) : (
+          <Typography variant="body2" color="text.secondary">
+            Deleted User
+          </Typography>
+        )}
       </Box>
 
       <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
@@ -163,11 +169,11 @@ const ViewSession = ({ session, setViewMode, onJoinSuccess, token }) => {
           <Typography variant="body2" component="span" sx={{ mr: 1 }}>
             💻
           </Typography>
-          <DisplayNameUserName
-            displayName={p.displayName}
-            userName={p.userName}
-            id={p._id}
-          />
+            <DisplayNameUserName
+              displayName={p.displayName}
+              userName={p.userName}
+              id={p._id}
+            />
         </Box>
       ))}
 
@@ -208,7 +214,10 @@ const ViewSession = ({ session, setViewMode, onJoinSuccess, token }) => {
             >
               Delete
             </Button> */}
-            <OptionsMenu onEdit={() => setViewMode(false)} onDelete={handleDelete} />
+            <OptionsMenu
+              onEdit={() => setViewMode(false)}
+              onDelete={handleDelete}
+            />
           </Box>
         )}
       </Box>
