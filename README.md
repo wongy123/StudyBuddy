@@ -12,6 +12,8 @@ This is an ongoing project developed by Angus Wong initially for IFN666 Web and 
 
 19/04: The web application is fully developed and ready for deployment. Documentation will be updated soon. The application is being hosted on a test server on https://n11941073.ifn666.com/StudyBuddy (Not available 24/7 currently).
 
+---
+
 ### 🔐 Role-Based Access Control (RBAC)
 
 | Feature / Action             | User 👤 | Moderator 🛡️ | Admin 👑 |
@@ -69,6 +71,74 @@ You can also test the API by importing the **Hoppscotch_env_StudyBuddy.json** fi
 **`npm run createAdmin -- adminUser adminuser@example.com password`**
 
 _As of 24/04, the Hoppscotch tests are updated, and the Postman tests are outdated and will not test all end points._
+
+---
+
+### 📚 StudyBuddy API Endpoints Documentation
+
+#### 🧑‍💼 Auth (`/api/auth`)
+
+| Method | Route       | Description              | Access   |
+|--------|-------------|--------------------------|----------|
+| POST   | `/register` | Register a new user      | Public   |
+| POST   | `/login`    | Log in a user            | Public   |
+| POST   | `/logout`   | Log out the current user | Public   |
+
+---
+
+#### 👥 Users (`/api/users`)
+
+| Method | Route   | Description         | Access          |
+|--------|---------|---------------------|-----------------|
+| GET    | `/`     | Get all users       | Admin only      |
+| GET    | `/:id`  | Get user by ID      | Public          |
+| PUT    | `/:id`  | Update user         | Owner or Admin  |
+| DELETE | `/:id`  | Delete user         | Owner or Admin  |
+
+---
+
+#### 📆 Study Sessions (`/api/sessions`)
+
+| Method | Route               | Description                                 | Access                    |
+|--------|---------------------|---------------------------------------------|---------------------------|
+| GET    | `/`                 | List all sessions (supports search/sort)    | Public                    |
+| POST   | `/`                 | Create a new session                        | Authenticated users       |
+| GET    | `/joined/:userId`   | Get sessions a user has joined              | Authenticated users       |
+| GET    | `/:id`              | Get a session by ID                         | Authenticated users       |
+| PUT    | `/:id`              | Update a session                            | Owner or Moderator/Admin  |
+| DELETE | `/:id`              | Delete a session                            | Owner or Moderator/Admin  |
+| POST   | `/:id/join`         | Join a session                              | Authenticated users       |
+| POST   | `/:id/leave`        | Leave a session                             | Authenticated users       |
+
+---
+
+#### 💬 Comments (`/api/sessions/:sessionId/comments`)
+
+| Method | Route     | Description                  | Access                    |
+|--------|-----------|------------------------------|---------------------------|
+| GET    | `/`       | List all comments for session| Authenticated users       |
+| POST   | `/`       | Create a new comment         | Authenticated users       |
+| GET    | `/:id`    | Get a comment by ID          | Authenticated users       |
+| PUT    | `/:id`    | Update a comment             | Owner or Moderator/Admin  |
+| DELETE | `/:id`    | Delete a comment             | Owner or Moderator/Admin  |
+
+---
+
+#### 🗓️ QUT Events (`/api/qut-events`)
+
+| Method | Route | Description              | Access |
+|--------|-------|--------------------------|--------|
+| GET    | `/`   | Get upcoming QUT events  | Public |
+
+---
+
+##### ✅ Notes
+
+- All authenticated routes require a valid JWT token in the `Authorization` header.
+- Owner-based routes use user ID matching (`req.user.id === resource.userId`).
+- `Moderator` and `Admin` users can access and manage other users' content where noted.
+
+---
 
 ### How to run Front-End
 
