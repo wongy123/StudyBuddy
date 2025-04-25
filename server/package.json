@@ -9,7 +9,7 @@
     "createMod": "node scripts/createModeratorUser.js"
   },
   "author": "Angus Wong",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cheerio": "^1.0.0",
