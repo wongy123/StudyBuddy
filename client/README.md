@@ -119,15 +119,37 @@ VITE_BASE_PATH=/StudyBuddy
 
 ## 📦 Dependencies
 
-Key dependencies include:
+These are the main libraries used in this project:
 
-- `react`
-- `react-router-dom`
-- `@mui/material` (Material UI)
-- `@emotion/react` and `@emotion/styled`
-- `date-fns`
+### Runtime
 
-To see the full list, refer to `package.json`.
+- **React** (`^19.0.0`)
+- **React DOM** (`^19.0.0`)
+- **React Router DOM** (`^7.5.0`) – client-side routing
+- **Material UI (MUI)** (`^7.0.1`)
+- **MUI Icons** (`^7.0.1`)
+- **Emotion** (`^11.14.0`) – styling library used by MUI
+- **Date-fns** (`^4.1.0`) – lightweight date utility library
+- **jwt-decode** (`^4.0.0`) – decode JWT for role-based access control
+
+### Dev & Tooling
+
+- **Vite** (`^6.2.0`) – lightning-fast build tool
+- **@vitejs/plugin-react** – for JSX and fast refresh
+- **ESLint** (`^9.21.0`) – linting tool
+- **eslint-plugin-react-hooks** – linting for React hooks
+- **eslint-plugin-react-refresh** – linting for Vite HMR
+- **@eslint/js** – ESLint base config
+- **Globals** – share global vars like `window`, `console`
+- **TypeScript types**:
+  - `@types/react`
+  - `@types/react-dom`
+
+You can install all dependencies with:
+
+```
+npm install
+```
 
 ---
 
