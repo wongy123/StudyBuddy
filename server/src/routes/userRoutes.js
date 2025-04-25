@@ -13,7 +13,7 @@ const { validateUserUpdate } = require('../validators/validateUser');
 router.route('/')
     .get(authenticateWithJwt, adminAccess, controller.getAllUsers)
 router.route('/:id')
-    .get(controller.getUserById)
+    .get(authenticateWithJwt, controller.getUserById)
     .put(authenticateWithJwt, validateJSON, ownerOrAdmin(User, "_id"), validateUserUpdate, controller.updateUser)
     .delete(authenticateWithJwt, ownerOrAdmin(User, "_id"), controller.deleteUser);
 

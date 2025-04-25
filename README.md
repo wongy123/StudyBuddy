@@ -84,18 +84,18 @@ _As of 24/04, the Hoppscotch tests are updated, and the Postman tests are outdat
 | POST   | `/login`    | Log in a user            | Public   |
 | POST   | `/logout`   | Log out the current user | Public   |
 
----
+
 
 #### 👥 Users (`/api/users`)
 
-| Method | Route   | Description         | Access          |
-|--------|---------|---------------------|-----------------|
-| GET    | `/`     | Get all users       | Admin only      |
-| GET    | `/:id`  | Get user by ID      | Public          |
-| PUT    | `/:id`  | Update user         | Owner or Admin  |
-| DELETE | `/:id`  | Delete user         | Owner or Admin  |
+| Method | Route   | Description         | Access              |
+|--------|---------|---------------------|---------------------|
+| GET    | `/`     | Get all users       | Admin only          |
+| GET    | `/:id`  | Get user by ID      | Authenticated users |
+| PUT    | `/:id`  | Update user         | Owner or Admin      |
+| DELETE | `/:id`  | Delete user         | Owner or Admin      |
 
----
+
 
 #### 📆 Study Sessions (`/api/sessions`)
 
@@ -110,7 +110,7 @@ _As of 24/04, the Hoppscotch tests are updated, and the Postman tests are outdat
 | POST   | `/:id/join`         | Join a session                              | Authenticated users       |
 | POST   | `/:id/leave`        | Leave a session                             | Authenticated users       |
 
----
+
 
 #### 💬 Comments (`/api/sessions/:sessionId/comments`)
 
@@ -122,7 +122,7 @@ _As of 24/04, the Hoppscotch tests are updated, and the Postman tests are outdat
 | PUT    | `/:id`    | Update a comment             | Owner or Moderator/Admin  |
 | DELETE | `/:id`    | Delete a comment             | Owner or Moderator/Admin  |
 
----
+
 
 #### 🗓️ QUT Events (`/api/qut-events`)
 
@@ -130,7 +130,7 @@ _As of 24/04, the Hoppscotch tests are updated, and the Postman tests are outdat
 |--------|-------|--------------------------|--------|
 | GET    | `/`   | Get upcoming QUT events  | Public |
 
----
+
 
 ##### ✅ Notes
 
