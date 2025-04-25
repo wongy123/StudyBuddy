@@ -1,0 +1,73 @@
+# The Caddyfile is an easy way to configure your Caddy web server.
+
+#
+
+# Unless the file starts with a global options block, the first
+
+# uncommented line is always the address of your site.
+
+#
+
+# To use your own domain name (with automatic HTTPS), first make
+
+# sure your domain's A/AAAA DNS records are properly pointed to
+
+# this machine's public IP, then replace ":80" below with your
+
+# domain name.
+
+n11941073.ifn666.com {
+handle /api/\* {
+reverse_proxy localhost:3001
+}
+
+    handle {
+    	reverse_proxy localhost:3002
+    }
+
+    handle /locallib/* {
+    	uri strip_prefix /locallib
+    	reverse_proxy localhost:3005
+    }
+    handle /task-manager-api/* {
+    	uri strip_prefix /task-manager-api
+    	reverse_proxy localhost:3000
+    }
+    handle /StudyBuddy/api/* {
+    	uri strip_prefix /StudyBuddy
+    	reverse_proxy localhost:4000
+    }
+    handle /StudyBuddy* {
+    	root * /var/www/html/StudyBuddy
+    	uri strip_prefix /StudyBuddy
+    	try_files {path} /index.html
+    	file_server
+    }
+
+}
+
+# Below commented by Jake Bradford for IFN666
+
+#:80 {
+
+# Set this path to your site's directory.
+
+# root \* /usr/share/caddy
+
+# Enable the static file server.
+
+# file_server
+
+# Another common task is to set up a reverse proxy:
+
+# reverse_proxy localhost:8080
+
+# Or serve a PHP site through php-fpm:
+
+# php_fastcgi localhost:9000
+
+#}
+
+# Refer to the Caddy docs for more information:
+
+# https://caddyserver.com/docs/caddyfile
