@@ -1,0 +1,1315 @@
+{
+    "v": 6,
+    "name": "StudyBuddy API",
+    "requests": [],
+    "auth": {
+      "authType": "inherit",
+      "authActive": true
+    },
+    "headers": [],
+    "_ref_id": "coll_m92w117i_1416438d-a55d-4c34-8e7b-975f55d307e6",
+    "folders": [
+      {
+        "v": 6,
+        "name": "User 1 Create Session and Comment",
+        "requests": [
+          {
+            "v": "11",
+            "name": "Auth - Register User 1",
+            "method": "POST",
+            "endpoint": "<<base_url>>/api/auth/register",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "\n",
+            "auth": {
+              "authType": "none",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"userName\": \"userOne\", \"displayName\": \"User One\", \"email\": \"userone@example.com\", \"password\": \"password\", \"degree\": \"IT\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "Auth - Login User 1",
+            "method": "POST",
+            "endpoint": "<<base_url>>/api/auth/login",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "\n\n// Hoppscotch equivalent\nconst jsonData = pw.response.body;\npw.env.set('jwt_user1', jsonData.token);\npw.env.set('user1_id', jsonData.user._id);",
+            "auth": {
+              "authType": "none",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"email\": \"userone@example.com\", \"password\": \"password\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 1 - Update Profile",
+            "method": "PUT",
+            "endpoint": "<<base_url>>/api/users/<<user1_id>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"displayName\": \"Updated User One\", \"degree\": \"Updated IT\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 1 - Create Session",
+            "method": "POST",
+            "endpoint": "<<base_url>>/api/sessions",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "\n\n// Hoppscotch equivalent\nconst jsonData = pw.response.body;\npw.env.set('session_id_1', jsonData._id);",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"title\": \"Session Title\", \"description\": \"Session Description\", \"courseCode\": \"CS101\", \"date\": \"2025-05-15\", \"startTime\": \"14:00\", \"endTime\": \"16:00\", \"location\": \"Library Room 1\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 1 - Update Session",
+            "method": "PUT",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_1>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"description\": \"Updated Description\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 1 - Create Comment",
+            "method": "POST",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_1>>/comments",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "\n\n// Hoppscotch equivalent\nconst jsonData = pw.response.body;\npw.env.set('comment_id_1', jsonData.data._id);",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"content\": \"This is a test comment\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 1 - Update Comment",
+            "method": "PUT",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_1>>/comments/<<comment_id_1>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"content\": \"Updated comment\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          }
+        ],
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "headers": [],
+        "_ref_id": "coll_m92w117i_73c02dba-dd9e-400b-9d23-036084b901dd",
+        "folders": []
+      },
+      {
+        "v": 6,
+        "name": "User 2 Join Session 1 and Try Unauth, Make Session 2 and Comment",
+        "requests": [
+          {
+            "v": "11",
+            "name": "Auth - Register User 2",
+            "method": "POST",
+            "endpoint": "<<base_url>>/api/auth/register",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "none",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"userName\": \"userTwo\", \"displayName\": \"User Two\", \"email\": \"usertwo@example.com\", \"password\": \"password\", \"degree\": \"Engineering\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "Auth - Login User 2",
+            "method": "POST",
+            "endpoint": "<<base_url>>/api/auth/login",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "\n\n// Hoppscotch equivalent\nconst jsonData = pw.response.body;\npw.env.set('jwt_user2', jsonData.token);\npw.env.set('user2_id', jsonData.user._id);",
+            "auth": {
+              "authType": "none",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"email\": \"usertwo@example.com\", \"password\": \"password\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 2 - Join Session",
+            "method": "POST",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_1>>/join",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user2>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user2>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 2 - Try Update Session (Should Fail)",
+            "method": "PUT",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_1>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user2>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user2>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"description\": \"Hacked!\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 2 - Try Delete Session (Should Fail)",
+            "method": "DELETE",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_1>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user2>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user2>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 2 - Try Update Comment (Should Fail)",
+            "method": "PUT",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_1>>/comments/<<comment_id_1>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user2>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user2>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"content\": \"I'm stealing this comment\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 2 - Try Delete Comment (Should Fail)",
+            "method": "DELETE",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_1>>/comments/<<comment_id_1>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user2>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user2>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 2 - Try Update User 1 (Should Fail)",
+            "method": "PUT",
+            "endpoint": "<<base_url>>/api/users/<<user1_id>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user2>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user2>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"displayName\": \"Impostor\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 2 - Try Delete User 1 (Should Fail)",
+            "method": "DELETE",
+            "endpoint": "<<base_url>>/api/users/<<user1_id>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user2>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user2>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 2 - Create Session 2",
+            "method": "POST",
+            "endpoint": "<<base_url>>/api/sessions",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user2>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "\n\n// Hoppscotch equivalent\nconst jsonData = pw.response.body;\npw.env.set('session_id_2', jsonData._id);",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user2>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"title\": \"Session Title\", \"description\": \"Session Description\", \"courseCode\": \"CS101\", \"date\": \"2025-05-15\", \"startTime\": \"14:00\", \"endTime\": \"16:00\", \"location\": \"Library Room 1\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 2 - Create Comment 2",
+            "method": "POST",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>/comments",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user2>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "\n\n// Hoppscotch equivalent\nconst jsonData = pw.response.body;\npw.env.set('comment_id_2', jsonData.data._id);",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user2>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"content\": \"This is a test comment\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 2 - Delete Own Account",
+            "method": "DELETE",
+            "endpoint": "<<base_url>>/api/users/<<user2_id>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user2>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user2>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          }
+        ],
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "headers": [],
+        "_ref_id": "coll_m92w117i_59e27973-e0f7-4b45-b7aa-ea9f7076d8f7",
+        "folders": []
+      },
+      {
+        "v": 6,
+        "name": "User 1 - Delete Session 1 and Comment 1",
+        "requests": [
+          {
+            "v": "11",
+            "name": "Auth - Login User 1 Copy",
+            "method": "POST",
+            "endpoint": "<<base_url>>/api/auth/login",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "active": true,
+                "description": ""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"email\": \"userone@example.com\", \"password\": \"password\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 1 - Delete Comment",
+            "method": "DELETE",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_1>>/comments/<<comment_id_1>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 1 - Delete Session",
+            "method": "DELETE",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_1>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 1 - Get Session 2",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 1 - Get Comments from Session 2",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>/comments",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 1 - Get Comments 2",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>/comments/<<comment_id_2>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 1 - Get All Users (Should Fail)",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/users/",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "User 1 - Get All Sessions",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/sessions",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_user1>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_user1>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          }
+        ],
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "headers": [],
+        "_ref_id": "coll_m92w117i_f92aba53-ea4a-4516-a575-cf4f3023add0",
+        "folders": []
+      },
+      {
+        "v": 6,
+        "name": "Unauth - Try Get All Users and Sessions",
+        "requests": [
+          {
+            "v": "11",
+            "name": "No User - Get All Sessions",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/sessions",
+            "params": [],
+            "headers": [],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "none",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "No User - Get QUT Events",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/qut-events",
+            "params": [],
+            "headers": [],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "none",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "No User - Get All Users (Should Fail)",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/users/",
+            "params": [],
+            "headers": [],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "none",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "No User - Get Session 2 (Should Fail)",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>",
+            "params": [],
+            "headers": [],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "none",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "No User - Get Session 2 Comments (Should Fail)",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>/comments",
+            "params": [],
+            "headers": [],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "none",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "No User - Get Comment 2 (Should Fail)",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>/comments/<<comment_id_2>>",
+            "params": [],
+            "headers": [],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "none",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          }
+        ],
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "headers": [],
+        "_ref_id": "coll_m92w117i_ac7d448b-1170-4e95-9e2b-019e8a171899",
+        "folders": []
+      },
+      {
+        "v": 6,
+        "name": "Admin - Update and Delete Session 2 and Comment 2, then Delete User 1",
+        "requests": [
+          {
+            "v": "11",
+            "name": "Admin - Login Admin",
+            "method": "POST",
+            "endpoint": "<<base_url>>/api/auth/login",
+            "params": [],
+            "headers": [],
+            "preRequestScript": "",
+            "testScript": "\n\n// Hoppscotch equivalent\nconst jsonData = pw.response.body;\npw.env.set('jwt_admin', jsonData.token);\npw.env.set('admin_id', jsonData.user._id);",
+            "auth": {
+              "authType": "none",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\n    \"email\": \"adminuser@example.com\",\n    \"password\": \"password\"\n}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "Admin  - Get All Users",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/users/",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_admin>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_admin>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "Admin - Get Session 2",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_admin>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_admin>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "Admin - Get Session 2 Comments",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>/comments",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_admin>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_admin>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "Admin - Get Comment 2",
+            "method": "GET",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>/comments/<<comment_id_2>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_admin>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_admin>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "Admin - Update Comment",
+            "method": "PUT",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>/comments/<<comment_id_2>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_admin>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_admin>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"content\": \"Updated comment by admin\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "Admin - Delete Comment Copy",
+            "method": "DELETE",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>/comments/<<comment_id_2>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_admin>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_admin>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "Admin - Update Session 2",
+            "method": "PUT",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_admin>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_admin>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": "application/json",
+              "body": "{\"description\": \"Updated Description\"}"
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "Admin - Delete Session 2",
+            "method": "DELETE",
+            "endpoint": "<<base_url>>/api/sessions/<<session_id_2>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_admin>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_admin>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "Admin - Delete User 1",
+            "method": "DELETE",
+            "endpoint": "<<base_url>>/api/users/<<user1_id>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_admin>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "bearer",
+              "token": "<<jwt_admin>>",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          },
+          {
+            "v": "11",
+            "name": "Admin - Delete Admin",
+            "method": "DELETE",
+            "endpoint": "<<base_url>>/api/users/<<admin_id>>",
+            "params": [],
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <<jwt_admin>>",
+                "active": true,
+                "description": ""
+              }
+            ],
+            "preRequestScript": "",
+            "testScript": "",
+            "auth": {
+              "authType": "inherit",
+              "authActive": true
+            },
+            "body": {
+              "contentType": null,
+              "body": null
+            },
+            "requestVariables": [],
+            "responses": {}
+          }
+        ],
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "headers": [],
+        "_ref_id": "coll_m92w117i_c05949e9-bffb-493b-a273-90de3f224de2",
+        "folders": []
+      }
+    ]
+  }
