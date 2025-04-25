@@ -52,6 +52,10 @@ Install the dependencies
 
 `npm install`
 
+Create a file called `.env`
+
+Inside this file, write `JWT_SECRET={YOUR_KEY}` and replace `{YOUR_KEY}` with your own JWT secret key.
+
 Create admin user
 
 `npm run createAdmin -- <userName> <email> <password>`
