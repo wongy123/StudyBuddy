@@ -42,29 +42,29 @@ To test this web app on your local device, simply download the source code
 Ensure you have Node.js installed.
 [Node.js](https://nodejs.org/en)
 
-Go into the working directory
+1. Go into the working directory
 
 `cd StudyBuddy`
 
-Install the dependencies
+2. Install the dependencies
 
 `cd server`
 
 `npm install`
 
-Create a file called `.env`
+3. Create a file called `.env`
 
 Inside this file, write `JWT_SECRET={YOUR_KEY}` and replace `{YOUR_KEY}` with your own JWT secret key.
 
-Create admin user
+(Optional) Create admin user
 
 `npm run createAdmin -- <userName> <email> <password>`
 
-Create moderator user
+(Optional) Create moderator user
 
 `npm run createMod -- <userName> <email> <password>`
 
-Run the server
+4. Run the server
 
 `node server.js`
 
@@ -146,11 +146,11 @@ _As of 24/04, the Hoppscotch tests are updated, and the Postman tests are outdat
 
 ### How to run Front-End
 
-Go into the working directory
+1. Go into the working directory
 
 `cd StudyBuddy`
 
-Install the dependencies
+2. Install the dependencies
 
 `cd client`
 
