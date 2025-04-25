@@ -37,20 +37,28 @@ This is an ongoing project developed by Angus Wong initially for IFN666 Web and 
 ### How to run API
 
 To test this web app on your local device, simply download the source code
-`git clone https://github.com/wongy123/StudyBuddy.git`
+```
+git clone https://github.com/wongy123/StudyBuddy.git
+```
 
 Ensure you have Node.js installed.
 [Node.js](https://nodejs.org/en)
 
 1. Go into the working directory
 
-`cd StudyBuddy`
+```
+cd StudyBuddy
+```
 
 2. Install the dependencies
 
-`cd server`
+```
+cd server
+```
 
-`npm install`
+```
+npm install
+```
 
 3. Create a file called `.env`
 
@@ -58,15 +66,21 @@ Inside this file, write `JWT_SECRET={YOUR_KEY}` and replace `{YOUR_KEY}` with yo
 
 (Optional) Create admin user
 
-`npm run createAdmin -- <userName> <email> <password>`
+```
+npm run createAdmin -- <userName> <email> <password>
+```
 
 (Optional) Create moderator user
 
-`npm run createMod -- <userName> <email> <password>`
+```
+npm run createMod -- <userName> <email> <password>
+```
 
 4. Run the server
 
-`node server.js`
+```
+node server.js
+```
 
 You can also test the API by importing the **Hoppscotch_env_StudyBuddy.json** file into Hoppscotch environment, then import **Hoppscotch_StudyBuddyAPI.json** into collections, and run the collection.
 
@@ -148,13 +162,17 @@ _As of 24/04, the Hoppscotch tests are updated, and the Postman tests are outdat
 
 1. Go into the working directory
 
-`cd StudyBuddy`
+```
+cd StudyBuddy
+```
 
 2. Install the dependencies
 
-`cd client`
+```
+cd client
 
-`npm install`
+npm install
+```
 
 The front-end React app is configured to be deployed under the /StudyBuddy path in production.
 
@@ -162,12 +180,16 @@ In development mode, this restriction does not apply.
 
 To test the web app in development mode, ensure you already have the API running on port `4000`, then start the front-end
 
-`npm run dev`
+```
+npm run dev
+```
 
 This will launch the React app locally (usually at http://localhost:5173), and it will proxy API requests to your backend on port 4000.
 
 If you wish to expose the React app to your local network, you can run
 
-`npm run dev --host`
+```
+npm run dev --host
+```
 
 Other devices on your local network can now access the React app via http://`server's local ip`:5173
