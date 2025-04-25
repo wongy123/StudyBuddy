@@ -24,7 +24,6 @@
   - README.md
   - API-collection.json
 
-
 ## (API) Core: Endpoints (2 marks)
 
 - **One line description:**
@@ -40,7 +39,6 @@
   - src/routes/qutEventRoutes.js
   - src/routes/commentRoutes.js
   - src/routes/index.js
-
 
 ## (API) Core: Data model (3 marks)
 
@@ -81,7 +79,6 @@
 - **Relevant files**
   - Caddyfile
 
-
 ## (API) Core: API testing with Hoppscotch (3 marks)
 
 - **One line description:**
@@ -92,7 +89,6 @@
 
 - **Relevant files**
   - API-collection.json
-
 
 ## (API) Additional: Authentication (3 marks)
 
@@ -108,7 +104,6 @@
   - src/middleware/authenticateWithJwt.js
   - src/models/User.js
 
-
 ## (API) Additional: Input validation (3 marks)
 
 - **One line description:**
@@ -123,7 +118,6 @@
   - src/validators/validateComment.js
   - src/middleware/validateJSON.js
 
-
 ## (API) Additional: Query filtering (3 marks)
 
 - **One line description:**
@@ -136,7 +130,6 @@
   - src/controllers/studySessionController.js
   - src/routes/studySessionRoutes.js
   - src/validators/validatePaginateQueryParams.js
-
 
 ## (API) Additional: Pagination (3 marks)
 
@@ -152,7 +145,6 @@
   - src/models/StudySession.js
   - src/models/Comment.js
   - src/validators/validatePaginateQueryParams.js
-
 
 ## (API) Additional: Role-based Access Control (3 marks)
 
@@ -173,111 +165,124 @@
 ## (Client) Core: Application architecture (3 marks)
 
 - **One line description:**
+  Modular React app using vite, react-router, and environment-specific base paths for deployment.
+
 - **Video timestamp:**
+  _[To be completed by student]_
+
 - **Relevant files**
-  - path/to/file
-  - path/to/file
+  - client/vite.config.js
+  - client/src/routes/index.jsx
+  - client/src/main.jsx
 
 ## (Client) Core: User interface design (3 marks)
 
 - **One line description:**
+  Clean and intuitive interface using Material UI, applying 60/30/10 colour rule, mobile-first layout, and consistent font styling.
+
 - **Video timestamp:**
+  _[To be completed by student]_
+
 - **Relevant files**
-  - path/to/file
-  - path/to/file
+  - client/src/pages/HomePage.jsx
+  - client/src/components/SessionCard.jsx
 
 ## (Client) Core: React components (3 marks)
 
 - **One line description:**
+  Built reusable components like SessionCard, CommentBox, and inline editing components for both session and comment data.
+
 - **Video timestamp:**
+  _[To be completed by student]_
+
 - **Relevant files**
-  - path/to/file
-  - path/to/file
+  - client/src/components/SessionCard.jsx
+  - client/src/pages/StudySession/StudySessionDetails/Edit/EditSessionForm.jsx
+  - client/src/pages/StudySession/StudySessionDetails/Comments/CommentItem.jsx
 
 ## (Client) Core: State management (3 marks)
 
 - **One line description:**
+  Local state managed via useState and shared user/auth state via UserContext.
+
 - **Video timestamp:**
+  _[To be completed by student]_
+
 - **Relevant files**
-  - path/to/file
-  - path/to/file
+  - client/src/context/UserContext.jsx
+  - client/src/pages/StudySession/StudySessionDetails/index.jsx
 
 ## (Client) Core: API integration (3 marks)
 
 - **One line description:**
+  Integrated with own Express backend for sessions, authentication, and comments using fetch and dynamic query strings.
+
 - **Video timestamp:**
+  _[To be completed by student]_
+
 - **Relevant files**
-  - path/to/file
-  - path/to/file
+  - client/src/utils/api.js
+  - client/src/pages/HomePage.jsx
+  - client/src/pages/Auth/LoginForm.jsx
 
 ## (Client) Additional: Authentication (3 marks)
 
 - **One line description:**
+  Implemented JWT-based authentication with role-based access and protected routes.
+
 - **Video timestamp:**
+  _[To be completed by student]_
+
 - **Relevant files**
-  - path/to/file
-  - path/to/file
+  - client/src/context/UserContext.jsx
+  - client/src/pages/Auth/LoginForm.jsx
+  - client/src/routes/ProtectedRoute.jsx
 
 ## (Client) Additional: Input validation (3 marks)
 
 - **One line description:**
-- **Video timestamp:**
-- **Relevant files**
-  - path/to/file
-  - path/to/file
+  Implemented frontend form validation with clear error messages using MUI and React state.
 
-## (Client) Additional: Rate limiting (3 marks)
-
-- **One line description:**
 - **Video timestamp:**
+  _[To be completed by student]_
+
 - **Relevant files**
-  - path/to/file
-  - path/to/file
+  - client/src/pages/Auth/RegisterForm.jsx
+  - client/src/pages/StudySession/StudySessionDetails/Comments/CommentForm.jsx
 
 ## (Client) Additional: Search and Sort (3 marks)
 
 - **One line description:**
+  Server-side and client-side filtering and sorting of study sessions by title, course, date, and participant count.
+
 - **Video timestamp:**
+  _[To be completed by student]_
+
 - **Relevant files**
-  - path/to/file
-  - path/to/file
+  - client/src/pages/HomePage.jsx
+  - client/src/components/SearchBar.jsx
 
 ## (Client) Additional: Pagination (3 marks)
 
 - **One line description:**
+  Implemented server-side pagination using query parameters and custom pagination controls in the UI.
+
 - **Video timestamp:**
+  _[To be completed by student]_
+
 - **Relevant files**
-  - path/to/file
-  - path/to/file
-
-## (Client) Additional: Accessibility (3 marks)
-
-- **One line description:**
-- **Video timestamp:**
-- **Relevant files**
-  - path/to/file
-  - path/to/file
-
-## (Client) Additional: Advanced UI design (3 marks)
-
-- **One line description:**
-- **Video timestamp:**
-- **Relevant files**
-  - path/to/file
-  - path/to/file
+  - client/src/pages/HomePage.jsx
+  - client/src/components/PaginationControls.jsx
 
 ## (Client) Additional: Responsive design (3 marks)
 
 - **One line description:**
-- **Video timestamp:**
-- **Relevant files**
-  - path/to/file
-  - path/to/file
+  Mobile-first layout using Material UI’s Grid v2 with breakpoints and responsive font sizing.
 
-## (Client) Additional: Upon request (3 marks)
-
-- **One line description:**
 - **Video timestamp:**
+  _[To be completed by student]_
+
 - **Relevant files**
-  - path/to/file
-  - path/to/file
+  - client/src/pages/Profile/ViewProfile/index.jsx
+  - client/src/pages/HomePage.jsx
+  - client/src/components/SessionCard.jsx
