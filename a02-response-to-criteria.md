@@ -12,7 +12,7 @@
   Implemented a layered architecture with separate folders for routes, controllers, models, and middleware. `server.js` is the entry point.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  04:55
 
 - **Relevant files**
   - server.js
@@ -30,8 +30,7 @@
   REST API built with Express, supporting over 15 endpoints across Users, Study Sessions, and Comments with appropriate HTTP methods and nested routes.
 
 - **Video timestamp:**
-  _[To be completed by student]_
-
+  05:55
 - **Relevant files**
   - src/routes/userRoutes.js
   - src/routes/studySessionRoutes.js
@@ -46,7 +45,7 @@
   Mongoose schemas include Users, Study Sessions, and Comments with one-to-many relationships and references between collections.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  06:25
 
 - **Relevant files**
   - src/models/User.js
@@ -59,7 +58,7 @@
   Used controller functions to connect models to routes with encapsulated business logic for CRUD operations.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  06:50
 
 - **Relevant files**
   - src/controllers/userController.js
@@ -74,7 +73,7 @@
   Deployed API to production using Caddy with subdomain routing configured to https://n11941073.ifn666.com/StudyBuddy/api
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  04:43
 
 - **Relevant files**
   - Caddyfile
@@ -85,7 +84,7 @@
   API endpoints tested with Hoppscotch; collection exported and included in submission.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  09:15
 
 - **Relevant files**
   - API-collection.json
@@ -96,7 +95,7 @@
   Implemented JWT-based authentication for protected endpoints, with register/login/logout routes.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  01:00
 
 - **Relevant files**
   - src/controllers/authController.js
@@ -110,7 +109,7 @@
   Used express-validator and custom middleware to validate incoming user/session/comment data with detailed error handling.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  06:10
 
 - **Relevant files**
   - src/validators/validateUser.js
@@ -124,7 +123,7 @@
   Enabled search and sort functionality on session listings by title, description, and course code, using flexible query parameters.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  00:34
 
 - **Relevant files**
   - src/controllers/studySessionController.js
@@ -137,7 +136,7 @@
   Integrated Mongoose pagination for all list endpoints, including session and comment listings, with standardised query support.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  00:25
 
 - **Relevant files**
   - src/controllers/studySessionController.js
@@ -152,7 +151,7 @@
   Users are assigned roles (user, moderator, admin); access to certain routes is controlled with custom RBAC middleware.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  02:00
 
 - **Relevant files**
   - src/middleware/adminAccess.js
@@ -168,7 +167,7 @@
   Modular React app using vite, react-router, and environment-specific base paths for deployment.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  07:00
 
 - **Relevant files**
   - client/vite.config.js
@@ -181,7 +180,7 @@
   Clean and intuitive interface using Material UI, applying 60/30/10 colour rule, mobile-first layout, and consistent font styling.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  00:00
 
 - **Relevant files**
   - client/src/pages/HomePage.jsx
@@ -193,7 +192,7 @@
   Built reusable components like SessionCard, CommentBox, and inline editing components for both session and comment data.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  01:45
 
 - **Relevant files**
   - client/src/components/SessionCard.jsx
@@ -206,7 +205,7 @@
   Local state managed via useState and shared user/auth state via UserContext.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  01:45
 
 - **Relevant files**
   - client/src/context/UserContext.jsx
@@ -218,7 +217,7 @@
   Integrated with own Express backend for sessions, authentication, and comments using fetch and dynamic query strings.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  00:00
 
 - **Relevant files**
   - client/src/utils/api.js
@@ -231,7 +230,7 @@
   Implemented JWT-based authentication with role-based access and protected routes.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  01:00
 
 - **Relevant files**
   - client/src/context/UserContext.jsx
@@ -244,7 +243,7 @@
   Implemented frontend form validation with clear error messages using MUI and React state.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  01:15
 
 - **Relevant files**
   - client/src/pages/Auth/RegisterForm.jsx
@@ -256,7 +255,7 @@
   Server-side and client-side filtering and sorting of study sessions by title, course, date, and participant count.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  00:34
 
 - **Relevant files**
   - client/src/pages/HomePage.jsx
@@ -268,7 +267,7 @@
   Implemented server-side pagination using query parameters and custom pagination controls in the UI.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  00:25
 
 - **Relevant files**
   - client/src/pages/HomePage.jsx
@@ -280,7 +279,7 @@
   Mobile-first layout using Material UI’s Grid v2 with breakpoints and responsive font sizing.
 
 - **Video timestamp:**
-  _[To be completed by student]_
+  03:45
 
 - **Relevant files**
   - client/src/pages/Profile/ViewProfile/index.jsx
