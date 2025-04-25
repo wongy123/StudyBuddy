@@ -30,9 +30,10 @@ npm install
 Create a `.env` file with the following:
 
 ```ini
-MONGO_URI=mongodb://localhost:27017/studybuddy
 JWT_SECRET=your_jwt_secret
 ```
+
+Change `your_jwt_secret` to your own key
 
 ### Create Admin User
 
