@@ -11,6 +11,8 @@ package-lock.json
 .nyc_output
 coverage
 
+src/uploads/profile-pics/*
+
 # Benchmarking
 benchmarks/graphs
 
