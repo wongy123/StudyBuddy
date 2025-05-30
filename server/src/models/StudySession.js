@@ -53,8 +53,8 @@ const studySessionSchema = new mongoose.Schema({
 studySessionSchema.plugin(paginate);
 
 studySessionSchema.pre(/^find/, function (next) {
-    this.populate("createdBy", "userName displayName profilePic")
-        .populate("participants", "userName displayName profilePic");
+    this.populate("createdBy", "userName displayName profilePic profilePicVersion")
+        .populate("participants", "userName displayName profilePic profilePicVersion");
     next();
 });
 

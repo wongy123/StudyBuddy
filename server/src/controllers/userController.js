@@ -87,6 +87,7 @@ exports.uploadProfilePic = asyncHandler(async (req, res) => {
 
   const relativePath = `/uploads/profile-pics/${user._id}/${req.file.filename}`;
   user.profilePic = relativePath;
+  user.profilePicVersion = (user.profilePicVersion || 0) + 1;
   await user.save();
 
   return res.status(200).json({

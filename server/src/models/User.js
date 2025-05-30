@@ -49,6 +49,10 @@ const userSchema = new mongoose.Schema({
     profilePic: {
         type: String,
         default: null,
+    },
+    profilePicVersion: {
+        type: Number,
+        default: 0
     }
 });
 
