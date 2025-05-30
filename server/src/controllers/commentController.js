@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 
 exports.getAllComments = asyncHandler(async (req, res, next) => {
     const { sessionId } = req.params;
-    const comments = await Comment.find({ session: sessionId });
+    const comments = await Comment.find({ session: sessionId }).sort({ createdAt: -1 });
     res.status(200).json({
         status: 'success',
         results: comments.length,
