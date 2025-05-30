@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose")
 const cors = require("cors");
+const path = require("path");
 const indexRouter = require("./src/routes/index");
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+app.use('/api/uploads', express.static(path.join(__dirname, 'src/uploads')));
 app.use("/api", indexRouter);
 app.use("/", (req, res) => {
     res.send("Welcome to StudyBuddy API!");

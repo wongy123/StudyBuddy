@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const asyncHandler = require('express-async-handler');
+const fs = require("fs");
+const path = require("path");
 
 exports.getAllUsers = asyncHandler(async (req, res, next) => {
     const users = await User.find();
@@ -48,6 +50,48 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 });
 
 exports.deleteUser = asyncHandler(async (req, res, next) => {
-    await req.resource.deleteOne();
-    res.status(204).send();
+  const user = req.resource;
+
+  // Check if profilePicUrl exists
+  if (user.profilePic) {
+    // Derive the absolute path to the user's folder
+    const userPicFolder = path.join(
+      __dirname,
+      '..',
+      'uploads',
+      'profile-pics',
+      user._id.toString()
+    );
+
+    // Delete the folder if it exists
+    fs.rm(userPicFolder, { recursive: true, force: true }, (err) => {
+      if (err) {
+        console.error(`Failed to delete profile pic folder: ${err}`);
+      }
+    });
+  }
+
+  await user.deleteOne();
+  res.status(204).send();
+});
+
+exports.uploadProfilePic = asyncHandler(async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({
+      success: false,
+      message: "No file uploaded",
+    });
+  }
+
+  const user = req.resource; 
+
+  const relativePath = `/uploads/profile-pics/${user._id}/${req.file.filename}`;
+  user.profilePic = relativePath;
+  await user.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "Profile picture uploaded",
+    data: { profilePic: relativePath },
+  });
 });

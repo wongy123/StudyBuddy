@@ -46,6 +46,10 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'moderator', 'admin'],
         default: 'user',
     },
+    profilePic: {
+        type: String,
+        default: null,
+    }
 });
 
 userSchema.pre("save", { document: true, query: false }, async function (next) {
