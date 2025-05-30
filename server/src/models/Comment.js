@@ -22,7 +22,7 @@ const commentSchema = new mongoose.Schema({
 });
 
 commentSchema.pre(/^find/, function (next) {
-    this.populate("user", "userName displayName");
+    this.populate("user", "userName displayName profilePic");
     next();
 });
 
