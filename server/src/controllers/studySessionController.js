@@ -5,42 +5,45 @@ const { generatePaginationLinks } = require('../utils/generatePaginationLinks')
 exports.getAllSessions = asyncHandler(async (req, res, next) => {
     const { search = '', sort: sortQuery } = req.query;
     const sort = sortQuery === 'asc' ? 'asc' : 'desc';
-  
+
     const query = search
-      ? {
-          $or: [
-            { title: { $regex: search, $options: 'i' } },
-            { description: { $regex: search, $options: 'i' } },
-            { courseCode: { $regex: search, $options: 'i' } }
-          ]
+        ? {
+            $or: [
+                { title: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } },
+                { courseCode: { $regex: search, $options: 'i' } }
+            ]
         }
-      : {};
-  
-    const sortOption = { date: sort === 'asc' ? 1 : -1 };
-  
+        : {};
+
+    const sortOption = {
+        date: sort === 'asc' ? 1 : -1,
+        startTime: sort === 'asc' ? 1 : -1
+    };
+
     const result = await StudySession.paginate(query, {
-      ...req.paginate,
-      sort: sortOption
+        ...req.paginate,
+        sort: sortOption
     });
-  
+
     res
-      .status(200)
-      .links(
-        generatePaginationLinks(
-          req.originalUrl,
-          req.paginate.page,
-          result.totalPages,
-          req.paginate.limit
+        .status(200)
+        .links(
+            generatePaginationLinks(
+                req.originalUrl,
+                req.paginate.page,
+                result.totalPages,
+                req.paginate.limit
+            )
         )
-      )
-      .json({
-        success: true,
-        data: result.docs,
-        page: result.page,
-        totalPages: result.totalPages,
-        totalItems: result.totalDocs
-      });
-  });
+        .json({
+            success: true,
+            data: result.docs,
+            page: result.page,
+            totalPages: result.totalPages,
+            totalItems: result.totalDocs
+        });
+});
 
 exports.getSessionById = asyncHandler(async (req, res, next) => {
     const session = await StudySession.findById(req.params.id);
@@ -179,19 +182,18 @@ exports.leaveSession = asyncHandler(async (req, res) => {
 exports.getJoinedSessions = asyncHandler(async (req, res) => {
     const { userId } = req.params;
     const { page, limit } = req.paginate;
-  
+
     const result = await StudySession.paginate(
-      { participants: { $in: [userId] } },
-      { page, limit, sort: { date: 1 } }
+        { participants: { $in: [userId] } },
+        { page, limit, sort: { date: 1 } }
     );
-  
+
     res.status(200).json({
-      success: true,
-      data: result.docs,
-      page: result.page,
-      totalPages: result.totalPages,
-      totalItems: result.totalDocs
+        success: true,
+        data: result.docs,
+        page: result.page,
+        totalPages: result.totalPages,
+        totalItems: result.totalDocs
     });
-  });
-  
-  
+});
+
